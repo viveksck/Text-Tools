@@ -13,7 +13,7 @@ Various tools for working with text and corpora.
 
 
 
-malc-text-grader
+1) malc-text-grader
 ================
 Requires Python. Collocation and readability features require NLTK (http://nltk.org/)
 
@@ -60,14 +60,14 @@ Article describing this tool here:
 http://scholar.google.co.jp/scholar?oi=bibs&hl=en&cluster=13556166500242376745&btnI=Lucky
 
 
-ngramstripper2009.py
+2) ngramstripper2009.py
 =============
 Python script for pulling usable word lists (single tokens, bigrams, trigrams, 4-grams and 5-grams) from Google Books nGram datasets
 
->"A lot of books were scanned for Google Books project. It's not the biggest corpus in the world, but it's close. The English section is about
+A lot of books were scanned for Google Books project. It's not the biggest corpus in the world, but it's close. The English section is about
 300 billion tokens - 20.6 billion "the"s alone. There are various subsets: US English, UK, Fiction and a random sample of a million books.
 However, it's hard to analyse the lists for useful information when even opening files is difficult. The files are 1GB each (up to 800 of
-them), with words dating back to 1520, split across files by capitalisation. "
+them), with words dating back to 1520, split across files by capitalisation.
 
 Run the script in a folder of Google ngram data CSV files from here: http://ngrams.googlelabs.com/datasets 
 
@@ -79,14 +79,12 @@ but is so slow it's pointless. I'm rewriting the script now)
 
 As a teacher, there's no reason you would want to do any of the above. I was just curious. The corpus is full of uncorrected OCR errors and
 has a suspicious number of quote marks, and a number of other issues that mean you should probably stick to the BNC / COCA / GSL or whatever
-you are using now. See here for the limitations
-
-So, unless you desperately want to make your own Fiction / 1890 / 3 gram list for some reason, I recommend you check out Charles Kelly's
+you are using now. See article below for the limitations. Unless you desperately want to make your own Fiction / 1890 / 3 gram list for some reason, I recommend you check out Charles Kelly's
 version of the US lists using v7/v10 - they're all nicely linked to example sentences. http://www.manythings.org/wordfrequency/ 
 
 Article PDF describing this tool available here:
 http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:9yKSN-GCB0IC
 
-ngramstripper2012.py
+3) ngramstripper2012.py
 ====================
 Google recently released new data, alphabetised and with POS. Work ongoing on an update. 
