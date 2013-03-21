@@ -11,7 +11,7 @@ Various tools for working with text and corpora.
 *Some projects have a screencast showing how to use them: http://www.youtube.com/user/malcprentice
 *My normal website here: http://alba-english.com
 
-
+---
 
 1) malc-text-grader
 ================
@@ -35,10 +35,9 @@ ISSUES
 Code released under GNU GPL, but the word Lists embedded in file used are from RANGE (http://www.victoria.ac.nz/lals/about/staff/paul-nation),
 used by permission.
 
-Article describing this tool here:
-http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:Tyk-4Ss8FVUC
+Article describing this tool here: http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:Tyk-4Ss8FVUC
 
-firstfivewords.py
+2) firstfivewords.py
 ===========
 Requires:  Python, NLTK. Run from commandline in a directory containing text files.
 
@@ -56,11 +55,10 @@ If you can get your students essays in TXT format, then for sentence starters yo
 
 If you're using this for serious analysis rather than lesson planning , check your results against a hand-coded example. 
 
-Article describing this tool here: 
-http://scholar.google.co.jp/scholar?oi=bibs&hl=en&cluster=13556166500242376745&btnI=Lucky
+Article describing this tool here:  http://scholar.google.co.jp/scholar?oi=bibs&hl=en&cluster=13556166500242376745&btnI=Lucky
 
 
-2) ngramstripper2009.py
+3) ngramstripper2009.py
 =============
 Python script for pulling usable word lists (single tokens, bigrams, trigrams, 4-grams and 5-grams) from Google Books nGram datasets
 
@@ -79,12 +77,10 @@ but is so slow it's pointless. I'm rewriting the script now)
 
 As a teacher, there's no reason you would want to do any of the above. I was just curious. The corpus is full of uncorrected OCR errors and
 has a suspicious number of quote marks, and a number of other issues that mean you should probably stick to the BNC / COCA / GSL or whatever
-you are using now. See article below for the limitations. Unless you desperately want to make your own Fiction / 1890 / 3 gram list for some reason, I recommend you check out Charles Kelly's
-version of the US lists using v7/v10 - they're all nicely linked to example sentences. http://www.manythings.org/wordfrequency/ 
+you are using now. See article below for the limitations. Unless you desperately want to make your own Fiction / 1890 / 3 gram list for some reason, email me for a list copy.
 
-Article PDF describing this tool available here:
-http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:9yKSN-GCB0IC
+Article PDF describing this tool available here: http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:9yKSN-GCB0IC
 
-3) ngramstripper2012.py
+ngramstripper2012.py
 ====================
 Google recently released new data, alphabetised and with POS. Work ongoing on an update. 
