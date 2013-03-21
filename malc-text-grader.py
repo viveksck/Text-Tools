@@ -5842,7 +5842,7 @@ def ShowReadability():
         if word.isalpha():
             letnumcount=letnumcount + len(word)        
 
-    
+    #adapted from Java at http://www.editcentral.com/gwt1/EditCentral.html
     #Flesch    
     Flesch = 206.835 - (1.015 * numwords) / numsents - (84.6 * numsyllables) / numwords
     
@@ -5883,7 +5883,7 @@ def ShowReadability():
     text.insert(END, smog)
     text.insert(END, "\n\n")
     
-    text.insert(END, "These words were not included in readability stats (syllable count missing from cmudict database")
+    text.insert(END, "These words were not included in readability stats because the syllable count is missing from the cmudict database")
     text.insert(END, "\n")
     for k,y in sorted(wordsnotincmu.items()):
         text.insert(END, k)
