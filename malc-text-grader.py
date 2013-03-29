@@ -6014,7 +6014,7 @@ def ShowInfo():
 	bnc3familylength = len(set(infoBNC3familylist))
 	offlistlength= offcount
 	offlistsetlength=len(set(infoofflist))
-	totalfamilieslength = len(ALLfamilylists)
+	totalfamilieslength = len(set(ALLfamilylists))
 
 	text.insert(END, 'From BNC List 1 (first 1000 word families) there are  '),
 	text.insert(END, str(bnc1length))
