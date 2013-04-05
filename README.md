@@ -6,6 +6,7 @@ Various tools for working with text and corpora.
 1. malc-text-grader - for creating graded readings, and analysing vocabulary
 2. firstfivewords.py - for pulling formulaic sentence starters from a corpus of text
 3. ngramstripper2009.py - for simplifying the Google Books ngram data into a frequency word list
+4. TextFileHashTagger.py - for a folder full of text files containing hash tags, creates an index 
 
 *Some projects have been described in articles. PDFs available here: http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ
 *Some projects have a screencast showing how to use them: http://www.youtube.com/user/malcprentice
@@ -83,4 +84,14 @@ Article PDF describing this tool available here: http://scholar.google.co.jp/cit
 
 ngramstripper2012.py
 ====================
-Google recently released new data, alphabetised and with POS. Work ongoing on an update. 
+Google recently released new data, alphabetised and with POS. Work ongoing on an update. Slowly. 
+
+
+4) TextFileHashTagger.py
+===================
+I was tired of pulling files in and out of Zotero, Mendeley, and other reference management software, so I decided to just use PDF files and TXT notes. Problem is, I liked the ability to tag files so they could appear in different projectså. This program, if you keep all your notes in one folder, will find all hashtags (e.g. #memory or #socialpsych), and also all tildatags which I use for context (e.g. ~canada, ~tertiary), and create an html index with links to the notes and a cloud of tags where size represents number of files with that tag. Quite slow. Will break on unusual characters. Only works on a single folder - does not traverse folders yet.
+
+
+Single use tools
+===================
+Just some scraps I've needed in the past to count and compare things. To be honest, I think someone of them would have been better written in Bash, but I wanted to see if I could do it in Python. Mostly useless - there to be cannibalised in the future. 
