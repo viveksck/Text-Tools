@@ -18,7 +18,6 @@ import re, os
 
 #SET VARIABLES 
 path = os.getcwd()
-notesfolder = os.listdir(path)
 
 #set up lists and dictionaries
 print "Setting up"
@@ -26,12 +25,103 @@ taglist = [""]
 contextlist = [""]
 cloudstring=[""]
 tagdictionary = dict()	
-print "creating dictionary"
 
 #create dictionary
-for note in notesfolder:
-    file = os.path.realpath(path+"/"+note)
-    if note.endswith("txt") and not note.startswith("0-0"):
+print "creating dictionary"
+file_paths = []
+for folder, subs, files in os.walk(path):
+  for filename in files:
+    file_paths.append(os.path.abspath(os.path.join(folder, filename)))
+
+#TODOinsert check for number of files and number of entries
+filecount = 0
+nohashcount = 0
+for filename in file_paths:
+    if filename.endswith(".txt") and not filename.startswith("0-"):
+		filecount +=1
+		note = open(filename, "r")
+		refline = note.readline()
+		hashline = note.readline()
+		numberoflinestotry = 4
+		if not hashline.startswith("#"):
+			hashline = note.readline()
+		if not hashline.startswith("#"):
+			hashline = note.readline()
+		if not hashline.startswith("#"):
+			print "\n"
+			print "THIS FILE NEEDS A HASHTAG"
+			print filename
+			print "\n"
+			nohashcount +=1
+		for word in str.split(hashline):		
+			if not word.startswith("##") and not word.endswith("#") and not word.endswith("~") and not word.startswith("#ref") and word.startswith("#"):
+				if word in tagdictionary:
+					tagdictionary[word] = (int(tagdictionary[word]) + 1)
+				else:
+					tagdictionary[word] = 1
+
+#Print check for files
+print filecount,
+print " reference files processed. Is this correct?"
+print nohashcount, 
+print " file(s) did not have hashtags. Names above."
+
+
+#append cloud
+cloudstring.append(r"<h1>Topic</h1>")	
+for tag in sorted(tagdictionary.keys()):
+	if tag.startswith("#"):
+		cloudstring.append(r" <font size=")
+		cloudstring.append(str(tagdictionary[tag]+1))
+		cloudstring.append(r"><a href='#"+tag+r"'>"+tag+r"</a></font size> ")
+
+cloudstring.append(r"<h1>Context</h1>")	
+
+for tag in sorted(tagdictionary.keys()):
+	if tag.startswith("~"):
+		cloudstring.append(r" <font size=")
+		cloudstring.append(str(tagdictionary[tag]+1))
+		cloudstring.append(r"><a href='#"+tag+r"'>"+tag+r"</a></font size> ")
+
+#append the links
+print "appending links"
+for tag in sorted(tagdictionary.keys()):
+	cloudstring.append("</align=center>		<h1> <A NAME="+tag+">"+tag+"</a></h1>")
+	cloudstring.append("<br>\n")
+	for file in file_paths:
+		if file.endswith(".txt") and not file.startswith("0-0"):		
+			pdfpath = file[:-4] + ".pdf"
+			filename= file
+			note = open(file, "r")
+			ref = note.readline()
+			notetext = note.read()
+			notewords = set([word.lower() for word in notetext.split()])
+			cloudtagfilelist=[""]
+			if tag in notewords and not tag.startswith("##"):
+				cloudstring.append("<a href="+"\"file://")
+				cloudstring.append(""+file+"")
+				cloudstring.append("\">"+ref+"</a>")
+				cloudstring.append(" <a href="+"\"file://")
+				cloudstring.append(""+pdfpath+"")
+				cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
+				cloudstring.append("</p>\n")			
+			
+cloudstring.append(r"</body</html>")
+
+#MAKE THE INDEX
+print "making the index"
+cloudfinalreally = ''.join(cloudstring)
+cloudlisthtmlfile = os.path.realpath(path+"/"+"00index.html")
+cloudlisthtml = open(cloudlisthtmlfile, "w")
+cloudlisthtml.write(cloudfinalreally)
+cloudlisthtml.close()
+
+
+
+'''
+OLD VERSION
+for file in file_paths:
+    if file.endswith("txt") and not file.startswith("0-0"):
         note = open(file, "r")    
         notetext = note.read()
         notetext = set([word.lower() for word in notetext.split()])
@@ -62,19 +152,19 @@ print "appending links"
 for tag in sorted(tagdictionary.keys()):
 	cloudstring.append("</align=center>		<h1> <A NAME="+tag+">"+tag+"</a></h1>")
 	cloudstring.append("<br>\n")
-	for note in notesfolder:
-		if note.endswith("txt") and not note.startswith("0-0"):		
-			fullpath = path+"/"+note
-			pdfpath = fullpath[:-4] + ".pdf"
-			filename=note
-			note = open(fullpath, "r")
+	for file in file_paths:
+		if file.endswith(".txt") and not file.startswith("0-0"):		
+			pdfpath = file[:-4] + ".pdf"
+			filename= file
+			note = open(file, "r")
+			ref = note.readline()
 			notetext = note.read()
 			notewords = set([word.lower() for word in notetext.split()])
 			cloudtagfilelist=[""]
 			if tag in notewords and not tag.startswith("##"):
 				cloudstring.append("<a href="+"\"file://")
-				cloudstring.append(""+fullpath+"")
-				cloudstring.append("\">"+filename[:-4]+"</a>")
+				cloudstring.append(""+file+"")
+				cloudstring.append("\">"+ref+"</a>")
 				cloudstring.append(" <a href="+"\"file://")
 				cloudstring.append(""+pdfpath+"")
 				cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
@@ -89,3 +179,4 @@ cloudlisthtmlfile = os.path.realpath(path+"/"+"00index.html")
 cloudlisthtml = open(cloudlisthtmlfile, "w")
 cloudlisthtml.write(cloudfinalreally)
 cloudlisthtml.close()
+'''
