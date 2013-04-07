@@ -65,6 +65,7 @@ for tag in sorted(tagdictionary.keys()):
 	for note in notesfolder:
 		if note.endswith("txt") and not note.startswith("0-0"):		
 			fullpath = path+"/"+note
+			pdfpath = fullpath[:-4] + ".pdf"
 			filename=note
 			note = open(fullpath, "r")
 			notetext = note.read()
@@ -73,8 +74,11 @@ for tag in sorted(tagdictionary.keys()):
 			if tag in notewords and not tag.startswith("##"):
 				cloudstring.append("<a href="+"\"file://")
 				cloudstring.append(""+fullpath+"")
-				cloudstring.append("\">"+filename[:100]+"</a>")
-				cloudstring.append("<br>\n")				 
+				cloudstring.append("\">"+filename[:-4]+"</a>")
+				cloudstring.append(" <a href="+"\"file://")
+				cloudstring.append(""+pdfpath+"")
+				cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
+				cloudstring.append("</p>\n")			
 			
 cloudstring.append(r"</body</html>")
 
