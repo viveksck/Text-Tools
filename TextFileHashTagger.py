@@ -53,7 +53,8 @@ for filename in file_paths:
 			print filename
 			print "\n"
 			nohashcount +=1
-		for word in str.split(hashline):		
+		for word in str.split(hashline):
+			word=word.lower()		
 			if not word.startswith("##") and not word.endswith("#") and not word.endswith("~") and not word.startswith("#ref") and word.startswith("#"):
 				if word in tagdictionary:
 					tagdictionary[word] = (int(tagdictionary[word]) + 1)
@@ -89,22 +90,25 @@ for tag in sorted(tagdictionary.keys()):
 	cloudstring.append("</align=center>		<h1> <A NAME="+tag+">"+tag+"</a></h1>")
 	cloudstring.append("<br>\n")
 	for file in file_paths:
-		if file.endswith(".txt") and not file.startswith("0-0"):		
+		if file.endswith(".txt") and not file.startswith("0-"):		
 			pdfpath = file[:-4] + ".pdf"
 			filename= file
 			note = open(file, "r")
-			ref = note.readline()
-			notetext = note.read()
-			notewords = set([word.lower() for word in notetext.split()])
-			cloudtagfilelist=[""]
-			if tag in notewords and not tag.startswith("##"):
-				cloudstring.append("<a href="+"\"file://")
-				cloudstring.append(""+file+"")
-				cloudstring.append("\">"+ref+"</a>")
-				cloudstring.append(" <a href="+"\"file://")
-				cloudstring.append(""+pdfpath+"")
-				cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
-				cloudstring.append("</p>\n")			
+			refline = note.readline()
+			hashline = note.readline()
+			if not hashline.startswith("#"):
+				hashline = note.readline()
+			if not hashline.startswith("#"):
+				hashline = note.readline()
+			for word in str.split(hashline):
+				if tag in word:
+					cloudstring.append("<a href="+"\"file://")
+					cloudstring.append(""+file+"")
+					cloudstring.append("\">"+refline+"</a>")
+					cloudstring.append(" <a href="+"\"file://")
+					cloudstring.append(""+pdfpath+"")
+					cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
+					cloudstring.append("</p>\n")			
 			
 cloudstring.append(r"</body</html>")
 
@@ -115,68 +119,3 @@ cloudlisthtmlfile = os.path.realpath(path+"/"+"00index.html")
 cloudlisthtml = open(cloudlisthtmlfile, "w")
 cloudlisthtml.write(cloudfinalreally)
 cloudlisthtml.close()
-
-
-
-'''
-OLD VERSION
-for file in file_paths:
-    if file.endswith("txt") and not file.startswith("0-0"):
-        note = open(file, "r")    
-        notetext = note.read()
-        notetext = set([word.lower() for word in notetext.split()])
-	for word in notetext:
-		if word.startswith("#") or word.startswith("~"):
-			if not word.startswith("##") and not word.endswith("#") and not word.endswith("~") and not word.startswith("#ref"):
-				if word in tagdictionary:
-					tagdictionary[word] = (int(tagdictionary[word]) + 1)
-				else:
-					tagdictionary[word] = 1
-
-#append cloud
-cloudstring.append(r"<h1>Topic</h1>")	
-for tag in sorted(tagdictionary.keys()):
-	if tag.startswith("#"):
-		cloudstring.append(r" <font size=")
-		cloudstring.append(str(tagdictionary[tag]+1))
-		cloudstring.append(r"><a href='#"+tag+r"'>"+tag+r"</a></font size> ")
-cloudstring.append(r"<h1>Context</h1>")	
-for tag in sorted(tagdictionary.keys()):
-	if tag.startswith("~"):
-		cloudstring.append(r" <font size=")
-		cloudstring.append(str(tagdictionary[tag]+1))
-		cloudstring.append(r"><a href='#"+tag+r"'>"+tag+r"</a></font size> ")
-
-#append the links
-print "appending links"
-for tag in sorted(tagdictionary.keys()):
-	cloudstring.append("</align=center>		<h1> <A NAME="+tag+">"+tag+"</a></h1>")
-	cloudstring.append("<br>\n")
-	for file in file_paths:
-		if file.endswith(".txt") and not file.startswith("0-0"):		
-			pdfpath = file[:-4] + ".pdf"
-			filename= file
-			note = open(file, "r")
-			ref = note.readline()
-			notetext = note.read()
-			notewords = set([word.lower() for word in notetext.split()])
-			cloudtagfilelist=[""]
-			if tag in notewords and not tag.startswith("##"):
-				cloudstring.append("<a href="+"\"file://")
-				cloudstring.append(""+file+"")
-				cloudstring.append("\">"+ref+"</a>")
-				cloudstring.append(" <a href="+"\"file://")
-				cloudstring.append(""+pdfpath+"")
-				cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
-				cloudstring.append("</p>\n")			
-			
-cloudstring.append(r"</body</html>")
-
-#MAKE THE INDEX
-print "making the index"
-cloudfinalreally = ''.join(cloudstring)
-cloudlisthtmlfile = os.path.realpath(path+"/"+"00index.html")
-cloudlisthtml = open(cloudlisthtmlfile, "w")
-cloudlisthtml.write(cloudfinalreally)
-cloudlisthtml.close()
-'''
