@@ -17,6 +17,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+'''
+TODO
+Seems to be broken under Python 2.6
+'''
 
 '''
 THANKS TO:
@@ -6195,12 +6199,19 @@ textscrollbar.pack(side=RIGHT, fill=Y)
 BNC_button.pack(side=LEFT)
 GSL_button.pack(side=LEFT)
 info_button.pack(side=LEFT)
+
+
 collocations_button.pack(side=LEFT)
 readability_button.pack(side=LEFT)
 save_button.pack(side=LEFT)
 openfile_button.pack(side=LEFT)
 help_button.pack(side=LEFT)
 resultsbox.pack(side=LEFT,fill=BOTH, expand=1)
+resultsbox.event_delete('<<Copy>>', '<Control-c>')
+resultsbox.event_delete('<<Paste>>', '<Control-x>')
+resultsbox.event_add('<<Paste>>', '<Control-v>') 
+
+
 resultsscrollbar.pack(side=RIGHT, fill=Y)
 buttonframe.pack(fill=X, expand=1)
 textframe.pack(fill=X)
