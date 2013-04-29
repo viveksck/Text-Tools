@@ -30,8 +30,9 @@ Some other bits and pieces such as collocations and readability indices added fo
 (http://nltk.org/)
 
 ISSUES
-*no ctrlx-v-z keyboard shortcuts
 *very slow on long texts
+*Just cannot work out how to add "ctrl-a" select all or get undo/redo working on mac
+*broken under Python 2.6. Fine for 2.7+ - no plans to fix this. 
 
 Code released under GNU GPL, but the word Lists embedded in file used are from RANGE (http://www.victoria.ac.nz/lals/about/staff/paul-nation),
 used by permission.
