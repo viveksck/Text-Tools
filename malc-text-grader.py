@@ -8757,7 +8757,7 @@ def GradeTextBNCCOCA():
     data = data.replace("\n", " ghj789 ")
     resultsbox.delete(1.0, END)
     rawtext = string.split(data)
-    text.insert(END, "Based on the new lists including COCA data - see Paul Nation's website 2012, http://www.victoria.ac.nz/lals/about/staff/paul-nation")
+    text.insert(END, "Based on the new lists including COCA data - see Paul Nation's website 2012, http://www.victoria.ac.nz/lals/about/staff/paul-nation \n")
     text.insert(END, "INDEX: \n")
     text.insert(END, "BNCCOCA1 tokens are this colour\n", "BNC1")
     text.insert(END, "BNCCOCA2 tokens are this colour \n", "BNC2")
@@ -8931,7 +8931,7 @@ def ShowReadability():
         text.insert(END, k)
 
     
-def ShowInfo():
+def ShowInfoBNC():
 	import nltk
 	datalist=[]
 	infoBNC1list=[]
@@ -9184,9 +9184,260 @@ def ShowInfo():
 	text.insert(END, "\n\n")    
 
 
+def ShowInfoBNCCOCA():
+	import nltk
+	datalist=[]
+	infoBNC1list=[]
+	infoBNC2list=[]
+	infoBNC3list=[]
+	infoofflist=[]
+	infoBNC1familylist=[]
+	infoBNC2familylist=[]
+	infoBNC3familylist=[]
+	infoofflistfamily=[]
+	p = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
+	l = re.compile("\n")
+
+	text.delete(1.0, END)    
+	data = resultsbox.get(1.0,END)
+
+
+	#Clean and lower text
+	rawtext= nltk.regexp_tokenize(data.lower(), p)
+	punctuation=re.compile("\W")
+	number=re.compile("\d")
+	websiteaddressremoved = 0
+	punctuationremoved=0 
+	numberremoved=0
+	filterremoved=0
+	for token in rawtext:
+			if token.startswith("http"):
+				token=""
+				websiteaddressremoved = websiteaddressremoved + 1
+			elif punctuation.match(token):
+				token=""    
+				punctuationremoved=punctuationremoved+1        
+			elif number.match(token):
+				token=""
+				numberremoved=numberremoved+1    
+			elif token in filterlist:
+				print token
+				token=""
+				filterremoved = filterremoved+1
+			else:
+				datalist.append(token)                
+	
+
+	text.insert(END, "\n Website addresses cleaned: ")
+	text.insert(END, websiteaddressremoved)
+	text.insert(END, "\n Punctuation marks removed: ")
+	text.insert(END, punctuationremoved)
+	text.insert(END, "\n Digits removed: ")
+	text.insert(END, numberremoved)
+	text.insert(END, "\n Tokens removed using filterlist (see terminal for list): ")
+	text.insert(END, filterremoved)
+	text.insert(END, "\n\n")
+
+
+
+	for line in l.split(bnccoca1unsplit):
+		words = nltk.regexp_tokenize(line, p)
+		for word in words:
+			if word in datalist:
+				infoBNC1list.append(word)
+				infoBNC1familylist.append(words[0])
+			
+	for line in l.split(bnccoca2unsplit):
+		words = nltk.regexp_tokenize(line, p)
+		for word in words:
+			if word in datalist:
+				infoBNC2list.append(word)
+				infoBNC2familylist.append(words[0])
+			
+	for line in l.split(bnccoca3unsplit):
+		words = nltk.regexp_tokenize(line, p)
+		for word in words:
+			if word in datalist:
+				infoBNC3list.append(word)
+				infoBNC3familylist.append(words[0])
+
+	ALLlists = infoBNC1list + infoBNC2list + infoBNC3list
+	ALLfamilylists = infoBNC1familylist + infoBNC2familylist + infoBNC3familylist
+
+	offcount=0
+	for token in datalist:
+		if token not in ALLlists:
+			infoofflist.append(token)
+			offcount=offcount+1
+
+	#Set up counts    
+	BNC1count=0
+	BNC2count=0
+	BNC3count=0
+	for word in datalist:
+		if word in infoBNC1list:
+			BNC1count=BNC1count+1
+		elif word in infoBNC2list:
+			BNC2count=BNC2count+1
+		elif word in infoBNC3list:
+			BNC3count=BNC3count+1
+
+	text.insert(END, "Number of word tokens: ")
+	text.insert(END, str(len(datalist)))
+	text.insert(END, "\n")
+	text.insert(END, 'Number of word types in text: ')
+	text.insert(END, str(len(set(datalist))))
+	text.insert(END, "\n")
+	text.insert(END, 'Number of recognisable word BNCCOCA1-3 families in text: ')
+	text.insert(END, str(len(set(ALLfamilylists))))
+	text.insert(END, "\n")
+	text.insert(END, 'Lexical richness: ')
+	text.insert(END, str((len(datalist) / len(set(datalist)))))
+	text.insert(END, "\n\n")    
+
+	rawlength =  len(datalist)
+	rawsetlength = len(set(datalist))
+	bnc1length = BNC1count
+	bnc1setlength= len(set(infoBNC1list))
+	bnc1familylength = len(set(infoBNC1familylist))
+	bnc2length= BNC2count
+	bnc2setlength=len(set(infoBNC2list))
+	bnc2familylength = len(set(infoBNC2familylist))
+	bnc3length= BNC3count
+	bnc3setlength=len(set(infoBNC3list))
+	bnc3familylength = len(set(infoBNC3familylist))
+	offlistlength= offcount
+	offlistsetlength=len(set(infoofflist))
+	totalfamilieslength = len(set(ALLfamilylists))
+
+	text.insert(END, 'From BNC-COCA List 1 (first 1000 word families) there are  '),
+	text.insert(END, str(bnc1length))
+	text.insert(END, ' tokens (')
+	text.insert(END, str(100 * bnc1length / rawlength))
+	text.insert(END, '%), ')
+	text.insert(END, str(bnc1setlength))
+	text.insert(END, ' types (',)
+	text.insert(END, str(100 * bnc1setlength / rawsetlength))
+	text.insert(END, '%) and ')
+	if totalfamilieslength > 0: 
+		text.insert(END, str(bnc1familylength))
+		text.insert(END, ' of the recognisable families (')
+		text.insert(END, str(100 * bnc1familylength / totalfamilieslength))
+		text.insert(END, '%)')
+		text.insert(END, "\n")
+		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "BNC1")
+		text.insert(END, "\n\n")
+	else: 
+		text.insert(END, ' there are no recognisable families (')
+	
+	text.insert(END, 'From BNC-COCA List 2 (second 1000 word families) there are  '),
+	text.insert(END, str(bnc2length))
+	text.insert(END, ' tokens (')
+	text.insert(END, str(100 * bnc2length / rawlength))
+	text.insert(END, '%),  ')
+	text.insert(END, str(bnc2setlength))
+	text.insert(END, ' types (',)
+	text.insert(END, str(100 * bnc2setlength / rawsetlength))
+	text.insert(END, '%) and ')
+	if totalfamilieslength > 0: 
+		text.insert(END, str(bnc2familylength))
+		text.insert(END, ' of the recognisable families (')
+		text.insert(END, str(100 * bnc2familylength / totalfamilieslength))
+		text.insert(END, '%)')
+		text.insert(END, "\n")
+		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "BNC1")
+		text.insert(END, "\n\n")
+	else: 
+		text.insert(END, ' there are no recognisable families (')
+
+	text.insert(END, 'From BNC-COCA List 3 (third 1000 word families) there are  '),
+	text.insert(END, str(bnc3length))
+	text.insert(END, ' tokens (')
+	text.insert(END, str(100 * bnc3length / rawlength))
+	text.insert(END, '%),  ')
+	text.insert(END, str(bnc3setlength))
+	text.insert(END, ' types (',)
+	text.insert(END, str(100 * bnc3setlength / rawsetlength))
+	text.insert(END, '%) and ')
+	if totalfamilieslength > 0: 
+		text.insert(END, str(bnc3familylength))
+		text.insert(END, ' of the recognisable families (')
+		text.insert(END, str(100 * bnc3familylength / totalfamilieslength))
+		text.insert(END, '%)')
+		text.insert(END, "\n")
+		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "BNC1")
+		text.insert(END, "\n\n")
+	else: 
+		text.insert(END, ' there are no recognisable families (')
+
+	text.insert(END, 'Tokens NOT in the first three BNC-COCA lists account for '),
+	text.insert(END, str(offlistlength))
+	text.insert(END, ' tokens (')
+	text.insert(END, str(100 * offlistlength / rawlength))
+	text.insert(END, '%) and ')
+	text.insert(END, str(offlistsetlength))
+	text.insert(END, ' types (',)
+	text.insert(END, str(100 * offlistsetlength / rawsetlength))
+	text.insert(END, '%):')
+	text.insert(END, "\n")
+	text.insert(END, string.join(sorted(set((infoofflist)))), "offlist")
+	text.insert(END, "\n\n")    
+
+
+	#set up missing lists
+	BNC1missing=[]
+	for line in l.split(bnccoca1unsplit):
+		words = nltk.regexp_tokenize(line, p)
+		familycount=0
+		for word in words:
+			if word in infoBNC1familylist:
+				familycount=familycount+1
+			if familycount < 1:
+				BNC1missing.append(words[0])
+	text.insert(END, 'From BNC-COCA List 1, the following ')
+	text.insert(END, str(len(set(BNC1missing))))
+	text.insert(END, ' families are missing.')
+	text.insert(END, "\n")
+	text.insert(END, string.join(sorted(set((BNC1missing)))), "BNC1")
+	text.insert(END, "\n\n")    
+
+
+	#Commented out unless you need to seed BNC2 and 3  
+	BNC2missing=[]
+	for line in l.split(bnccoca2unsplit):
+		words = nltk.regexp_tokenize(line, p)
+		familycount=0
+		for word in words:
+			if word in infoBNC2familylist:
+				familycount=familycount+1
+			if familycount < 1:
+				BNC2missing.append(words[0])
+	text.insert(END, 'From BNC-COCA List 2, these ')
+	text.insert(END, str(len(set(BNC2missing))))
+	text.insert(END, ' families are missing:')
+	text.insert(END, "\n")
+	text.insert(END, string.join(sorted(set((BNC2missing)))), "BNC2")
+	text.insert(END, "\n\n")    
+
+	BNC3missing=[]
+	for line in l.split(bnccoca3unsplit):
+		words = nltk.regexp_tokenize(line, p)
+		familycount=0
+		for word in words:
+			if word in infoBNC3familylist:
+				familycount=familycount+1
+			if familycount < 1:
+				BNC3missing.append(words[0])
+	text.insert(END, 'From BNC-COCA List 3, these ')
+	text.insert(END, str(len(set(BNC3missing))))
+	text.insert(END, ' families are missing:')
+	text.insert(END, "\n")
+	text.insert(END, string.join(sorted(set((BNC3missing)))), "BNC3")
+	text.insert(END, "\n\n")    
+
 def ShowHelp():
     text.delete(1.0, END)
-    text.insert(END, "If you want to use the collocation or readability functions, you need to install the Natural Language Toolkit (NLTK)\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n 2) Install the Punkt package - http://www.nltk.org/data") 
+    text.insert(END, "If you want to use the word info, collocation, readability functions, you need to install the Natural Language Toolkit (NLTK)\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n 2) Install the Punkt package - http://www.nltk.org/data") 
 
 
 #PACK interface
@@ -9196,16 +9447,15 @@ resultsframe = Frame(root, bd=5, relief=SUNKEN)
 buttonframe = Frame(root, bd=5, relief=SUNKEN)
 
 BNC_button = Button(buttonframe, text="BNC",command = GradeTextBNC)
+BNCinfo_button = Button (buttonframe, text="BNC Word Lists", command = ShowInfoBNC)
+BNCCOCA_button = Button(buttonframe, text="BNC-COCA",command = GradeTextBNCCOCA)
+BNCCOCAinfo_button = Button (buttonframe, text="BNC-COCA Word Lists", command = ShowInfoBNCCOCA)
 GSL_button = Button(buttonframe, text="GSL/AWL",command = GradeTextGSL)
-info_button = Button (buttonframe, text="Word Lists", command = ShowInfo)
 collocations_button = Button(buttonframe, text="Collocations", command = ShowCollocations)
 readability_button = Button(buttonframe, text="Readability", command = ShowReadability)
 openfile_button = Button(buttonframe, text="Open File", command = OpenFile)
 save_button = Button(buttonframe, text="Save to File", command = SaveResults)
 help_button = Button (buttonframe, text="Help", command = ShowHelp)
-
-
-#text = Text(textframe, borderwidth=5)
 
 textscrollbar = Scrollbar(textframe, orient=VERTICAL)
 text = Text(textframe, yscrollcommand=textscrollbar.set, takefocus=0)
@@ -9217,11 +9467,11 @@ resultsbox = Text(resultsframe, yscrollcommand=resultsscrollbar.set, takefocus=0
 resultsscrollbar.configure(command=resultsbox.yview)
 
 resultsbox.tag_configure('BNC1', foreground='black')
-#BNC1 also tag for GSL1
+#BNC1 also tag for GSL1 and BNCCOCA1
 resultsbox.tag_configure('BNC2', foreground='green')
-#BNC2 also tag for GSL2
+#BNC2 also tag for GSL2 and BNCCOCA2
 resultsbox.tag_configure('BNC3', foreground='orange')
-#BNC3 also tag for AWL
+#BNC3 also tag for AWL and BNCCOCA3
 resultsbox.tag_configure('offlist', foreground='red')
 resultsbox.tag_configure('name', foreground='pink')
 
@@ -9234,9 +9484,11 @@ text.tag_configure('name', foreground='pink')
 
 text.pack(side=RIGHT, fill=BOTH, expand=1)
 textscrollbar.pack(side=RIGHT, fill=Y)
-BNC_button.pack(side=LEFT)
 GSL_button.pack(side=LEFT)
-info_button.pack(side=LEFT)
+BNC_button.pack(side=LEFT)
+BNCinfo_button.pack(side=LEFT)
+BNCCOCA_button.pack(side=LEFT)
+BNCCOCAinfo_button.pack(side=LEFT)
 
 
 collocations_button.pack(side=LEFT)
