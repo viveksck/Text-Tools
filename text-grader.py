@@ -18,8 +18,10 @@
 
 '''
 TODO
-Seems to be broken under Python 2.6
-Website cleaning broken (everything after .com is tokenized
+1) Seems to be broken under Python 2.6
+2) Website cleaning broken (everything after .com is tokenized
+3) maybe ponder common OCR characters for Missing. See email. As NLTK ignores
+4) Auto split hyphenated words for Missing, as NLTK doesn't tokenize that way. Or drop NLTK. 
 '''
 
 '''
