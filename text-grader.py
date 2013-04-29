@@ -19,6 +19,7 @@
 '''
 TODO
 Seems to be broken under Python 2.6
+Website cleaning broken (everything after .com is tokenized
 '''
 
 '''
@@ -9039,7 +9040,7 @@ def ShowInfoGSL():
 	offlistsetlength=len(set(infoofflist))
 	totalfamilieslength = len(set(ALLfamilylists))
 
-	text.insert(END, 'From General Service List 1 (first 1000 word families) there are  '),
+	text.insert(END, 'From General Service List 1 (998 word families) there are  '),
 	text.insert(END, str(bnc1length))
 	text.insert(END, ' tokens (')
 	text.insert(END, str(100 * bnc1length / rawlength))
@@ -9059,7 +9060,7 @@ def ShowInfoGSL():
 	else: 
 		text.insert(END, ' there are no recognisable families (')
 	
-	text.insert(END, 'From General Service List 2 (second 1000 word families) there are  '),
+	text.insert(END, 'From General Service List 2 (988 word families) there are  '),
 	text.insert(END, str(bnc2length))
 	text.insert(END, ' tokens (')
 	text.insert(END, str(100 * bnc2length / rawlength))
@@ -9079,7 +9080,7 @@ def ShowInfoGSL():
 	else: 
 		text.insert(END, ' there are no recognisable families (')
 
-	text.insert(END, 'From Academic Word List there are  '),
+	text.insert(END, 'From Academic Word List (570 word families) there are  '),
 	text.insert(END, str(bnc3length))
 	text.insert(END, ' tokens (')
 	text.insert(END, str(100 * bnc3length / rawlength))
