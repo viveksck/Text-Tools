@@ -8913,7 +8913,7 @@ def ShowReadability():
     
 def ShowInfoGSL():
 	import nltk
-	#didn't bother changing the names - BNC1isGSL1, BNC2 is GLS2, BNC3isAWL
+	#didn't bother changing the names - BNC1 is GSL 1, BNC2 is GLS2, BNC3isAWL
 	datalist=[]
 	infoBNC1list=[]
 	infoBNC2list=[]
@@ -9115,7 +9115,7 @@ def ShowInfoGSL():
 
 	#set up missing lists
 	BNC1missing=[]
-	for line in l.split(base1unsplit):
+	for line in l.split(gsl1unsplit):
 		words = nltk.regexp_tokenize(line, p)
 		familycount=0
 		for word in words:
@@ -9123,7 +9123,7 @@ def ShowInfoGSL():
 				familycount=familycount+1
 			if familycount < 1:
 				BNC1missing.append(words[0])
-	text.insert(END, 'From GSL1, the following ')
+	text.insert(END, 'From General Service List 1, the following ')
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
 	text.insert(END, "\n")
@@ -9133,7 +9133,7 @@ def ShowInfoGSL():
 
 	#Commented out unless you need to seed BNC2 and 3  
 	BNC2missing=[]
-	for line in l.split(base2unsplit):
+	for line in l.split(gsl2unsplit):
 		words = nltk.regexp_tokenize(line, p)
 		familycount=0
 		for word in words:
@@ -9141,7 +9141,7 @@ def ShowInfoGSL():
 				familycount=familycount+1
 			if familycount < 1:
 				BNC2missing.append(words[0])
-	text.insert(END, 'From GSL2, these ')
+	text.insert(END, 'From General Service List 2, these ')
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
@@ -9149,7 +9149,7 @@ def ShowInfoGSL():
 	text.insert(END, "\n\n")    
 
 	BNC3missing=[]
-	for line in l.split(base3unsplit):
+	for line in l.split(awlunsplit):
 		words = nltk.regexp_tokenize(line, p)
 		familycount=0
 		for word in words:
@@ -9157,7 +9157,7 @@ def ShowInfoGSL():
 				familycount=familycount+1
 			if familycount < 1:
 				BNC3missing.append(words[0])
-	text.insert(END, 'From GSL3, these ')
+	text.insert(END, 'From the Academic Word List, these ')
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
