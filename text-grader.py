@@ -8641,29 +8641,6 @@ filterlist = string.split(filterlistunsplit.lower())
 
 
 #define
-def OpenFile():
-    import tkFileDialog
-    resultsbox.delete(1.0,END)
-    text.delete(1.0,END)
-    file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file')
-    if file != None:
-        data = file.read()
-        for word in data:
-            if "\r" in word and not "\n" in word:
-                resultsbox.insert(END, word)
-                resultsbox.insert(END, "\n")
-            else:
-                resultsbox.insert(END, word)
-
-def SaveResults():
-    from time import gmtime, strftime
-    reftime = strftime("%b_%d_%Y__%H_%M_%S")
-    f = open("RESULTS_"+reftime+".txt", 'a')    
-    notes = resultsbox.get(1.0, END)
-    notes = notes.encode('utf-8')
-    f.write(notes)
-    f.close()
-
 def GradeTextGSL():
     text.delete(1.0, END)
     data = resultsbox.get(1.0,END)    
@@ -8884,24 +8861,28 @@ def ShowReadability():
             letnumcount=letnumcount + len(word)        
 
     #adapted from Java at http://www.editcentral.com/gwt1/EditCentral.html
-    #Flesch    
-    Flesch = 206.835 - (1.015 * numwords) / numsents - (84.6 * numsyllables) / numwords
-    
-    #Automated readability index
-    ARI = (4.71 * letnumcount) / numwords + (0.5 * numwords) / numsents -21.43;
-    
-    #Flesch-Kincaid grade level
-    FK = (0.39 * numwords) / numsents + (11.8 * numsyllables) / numwords - 15.59;
-    
-    #Coleman-Liau index
-    CL = (5.89 * letnumcount) / numwords - (30.0 * numsents) / numwords - 15.8;
-    
-    #gunning fog
-    GunningFog = 0.4 * ( numwords / numsents + (100.0 * threesyllcount) / numwords );
-    
-    #SMOG
-    smog = squareroot( threesyllcount * 30.0 / numsents ) + 3.0;
-    #
+	#Flesch    
+	Flesch = 206.835 - (1.015 * numwords) / numsents - (84.6 * numsyllables) / numwords
+	Flexch = "%.2f" % Flesch
+	#Automated readability index
+	ARI = (4.71 * letnumcount) / numwords + (0.5 * numwords) / numsents -21.43;
+	ARI = "%.2f" % ARI
+
+	#Flesch-Kincaid grade level
+	FK = (0.39 * numwords) / numsents + (11.8 * numsyllables) / numwords - 15.59;
+	FK = "%.2f" % FK
+
+	#Coleman-Liau index
+	CL = (5.89 * letnumcount) / numwords - (30.0 * numsents) / numwords - 15.8;
+	CL = "%.2f" % CL
+
+	#gunning fog
+	GunningFog = 0.4 * ( numwords / numsents + (100.0 * threesyllcount) / numwords );
+	GunningFog = "%.2f" %GunningFog    
+	#SMOG
+	smog = squareroot( threesyllcount * 30.0 / numsents ) + 3.0;
+	smog = "%.2f" % smog
+	
     text.insert(END, "Flesch: ")
     text.insert(END, Flesch)
     text.insert(END, "\n")
@@ -9691,7 +9672,38 @@ def ShowHelp():
     text.delete(1.0, END)
     text.insert(END, "If you want to use the word info, collocation, readability functions, you need to install the Natural Language Toolkit (NLTK)\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n 2) Install the Punkt package - http://www.nltk.org/data") 
 
+def OpenFile():
+    import tkFileDialog
+    resultsbox.delete(1.0,END)
+    text.delete(1.0,END)
+    file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file')
+    if file != None:
+        data = file.read()
+        for word in data:
+            if "\r" in word and not "\n" in word:
+                resultsbox.insert(END, word)
+                resultsbox.insert(END, "\n")
+            else:
+                resultsbox.insert(END, word)
 
+def SaveText():
+    from time import gmtime, strftime
+    reftime = strftime("%b_%d_%Y__%H_%M_%S")
+    f = open("RESULTS_"+reftime+".txt", 'a')    
+    notes = resultsbox.get(1.0, END)
+    notes = notes.encode('utf-8')
+    f.write(notes)
+    f.close()
+    
+def SaveInfo():
+    from time import gmtime, strftime
+    reftime = strftime("%b_%d_%Y__%H_%M_%S")
+    f = open("RESULTS_"+reftime+".txt", 'a')    
+    notes = textbox.get(1.0, END)
+    notes = notes.encode('utf-8')
+    f.write(notes)
+    f.close()
+    
 #PACK interface
                 
 textframe = Frame(root, bd=5, relief=SUNKEN)
@@ -9705,11 +9717,12 @@ BNCCOCA_button = Button(buttonframe, text="BNC-COCA",command = GradeTextBNCCOCA)
 BNCCOCAinfo_button = Button (buttonframe, text="BNC-COCA Word Lists", command = ShowInfoBNCCOCA)
 GSL_button = Button(buttonframe, text="GSL/AWL",command = GradeTextGSL)
 GSLinfo_button = Button(buttonframe, text="GSL/AWL info",command = ShowInfoGSL)
+collocations_button = Button(buttonframe, text="Collocations", command = ShowCollocations)
+readability_button = Button(buttonframe, text="Readability", command = ShowReadability)
 
-collocations_button = Button(buttonframe2, text="Collocations", command = ShowCollocations)
-readability_button = Button(buttonframe2, text="Readability", command = ShowReadability)
 openfile_button = Button(buttonframe2, text="Open File", command = OpenFile)
-save_button = Button(buttonframe2, text="Save to File", command = SaveResults)
+savetext_button = Button(buttonframe2, text="Save Text (bottom box)", command = SaveText)
+saveinfo_button = Button(buttonframe2, text="Save Info (top box)", command = SaveInfo)
 help_button = Button (buttonframe2, text="Help", command = ShowHelp)
 
 textscrollbar = Scrollbar(textframe, orient=VERTICAL)
@@ -9748,8 +9761,9 @@ BNCCOCAinfo_button.pack(side=LEFT)
 
 collocations_button.pack(side=LEFT)
 readability_button.pack(side=LEFT)
-save_button.pack(side=LEFT)
 openfile_button.pack(side=LEFT)
+savetext_button.pack(side=LEFT)
+saveinfo_button.pack(side=LEFT)
 help_button.pack(side=LEFT)
 resultsbox.pack(side=LEFT,fill=BOTH, expand=1)
 
