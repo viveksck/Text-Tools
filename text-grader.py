@@ -9689,7 +9689,7 @@ def OpenFile():
 def SaveText():
     from time import gmtime, strftime
     reftime = strftime("%b_%d_%Y__%H_%M_%S")
-    f = open("RESULTS_"+reftime+".txt", 'a')    
+    f = open("EDITED TEXT_Version_"+reftime+".txt", 'a')    
     notes = resultsbox.get(1.0, END)
     notes = notes.encode('utf-8')
     f.write(notes)
@@ -9698,8 +9698,8 @@ def SaveText():
 def SaveInfo():
     from time import gmtime, strftime
     reftime = strftime("%b_%d_%Y__%H_%M_%S")
-    f = open("RESULTS_"+reftime+".txt", 'a')    
-    notes = textbox.get(1.0, END)
+    f = open("RESULTS_Version_"+reftime+".txt", 'a')    
+    notes = text.get(1.0, END)
     notes = notes.encode('utf-8')
     f.write(notes)
     f.close()
@@ -9750,8 +9750,6 @@ text.tag_configure('offlist', foreground='red')
 text.tag_configure('name', foreground='pink')
 
 
-text.pack(side=RIGHT, fill=BOTH, expand=1)
-textscrollbar.pack(side=RIGHT, fill=Y)
 GSL_button.pack(side=LEFT)
 GSLinfo_button.pack(side=LEFT)
 BNC_button.pack(side=LEFT)
@@ -9765,15 +9763,19 @@ openfile_button.pack(side=LEFT)
 savetext_button.pack(side=LEFT)
 saveinfo_button.pack(side=LEFT)
 help_button.pack(side=LEFT)
+
+text.pack(side=LEFT, fill=BOTH, expand=1)
+textscrollbar.pack(side=RIGHT, fill=Y)
+
 resultsbox.pack(side=LEFT,fill=BOTH, expand=1)
-
-
 resultsscrollbar.pack(side=RIGHT, fill=Y)
+
 buttonframe.pack(fill=X, expand=1)
 buttonframe2.pack(fill=X, expand=1)
-textframe.pack(fill=X)
+
+textframe.pack(fill=BOTH, expand=1)
 resultsframe.pack(fill=BOTH, expand=1)
-buttonframe.focus()
+
 resultsbox.insert(END, "Open a text (TXT) file using the buttons above, paste text here, or just start typing")
 text.insert(END, "Information will appear here after you run the program")
 root.mainloop()
