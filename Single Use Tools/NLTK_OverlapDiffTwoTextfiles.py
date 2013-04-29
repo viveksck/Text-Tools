@@ -23,10 +23,10 @@ root = Tk()
 
 	
 def OpenProcess():
-	file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file')
+	file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose file 1')
 	if file != None:
 		data1 = file.read()	
-	file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file')
+	file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose file 2')
 	if file != None:
 		data2 = file.read()	
 	loweredtext1=[]

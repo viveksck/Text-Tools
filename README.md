@@ -14,7 +14,7 @@ Various tools for working with text and corpora.
 
 ---
 
-1) malc-text-grader
+1) text-grader.py
 ================
 Requires Python. Collocation and readability features require NLTK (http://nltk.org/)
 
@@ -94,4 +94,12 @@ I was tired of pulling files in and out of Zotero, Mendeley, and other reference
 
 Single use tools
 ===================
-Just some scraps I've needed in the past to count and compare things. To be honest, I think someone of them would have been better written in Bash, but I wanted to see if I could do it in Python. Mostly useless - there to be cannibalised in the future. 
+Just some scraps I've needed in the past to count, compare and preprocess things.
+Filenamecleaner.py - cleans a folder of files from bad characters in their filenames (e.g. for Dropbox syncing, TextFileHashtTagger links)
+NGRAM_linecountskipblankstabdelimited.py - counts the lines in file, without counting blank lines. 
+NGRAM_topXcountY.py - ngramstripper has a built in lower bound on the frequency of words. If this is not used, the file is often to big to do it later by hand. Use this instead
+NLTK_OverlapDiffTwoTextfiles.py - for two files, which are only in 1, which are only in 2, and which are in both. 
+PythonifyNationRangeWordlists.py - Turns a folder of Paul Nation's word lists for RANGE (organised by tab with numbers) into lines, with headword at beginning, so easier to process for families. Used once to prepare lists for text-grader.py
+TextFileHashTaggerPDFINDEXER.py - takes a folder of PDFs and produces one text file for each, ready for notes, with optional default tags. For TextFileHashTagger 
+TextFileHashTagTXTFILEConverter - given a text file with one reference per line, produces one text file for each, ready for notes, with optional default tags. TextFileHashTagger
+
