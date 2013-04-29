@@ -5602,6 +5602,12 @@ yard yards
 yellow yellowish
 zero zeros''')
 
+
+
+
+
+
+
 #Stopword list from NLTK stopwords corpus
 stopwords = (''' i me my myself we our ours ourselves you your yours yourself yourselves he him his himself she her hers herself it its itself they them their theirs themselves what which who whom this that these those am is are was were be been being have has had having do does did doing a an the and but if or because as until while of at by for with about against between into through during before after above below to from up down in out on off over under again further then once here there when where why how all any both each few more most other some such no nor not only own same so than too very s t can will just don should now''')
 
@@ -5621,6 +5627,9 @@ BNC3=string.split(base3unsplit)
 AWL= string.split(awlunsplit)
 GSL1 = string.split(gsl1unsplit)
 GSL2=string.split(gsl2unsplit)
+
+
+
 filterlist = string.split(filterlistunsplit.lower())
 
 #set up allfiles
@@ -5763,26 +5772,6 @@ def ShowCollocations():
 		text.insert(END, second)
 		text.insert(END, "\n")
 
-    
-	text.insert(END, "\nTrigram Collocations: Coming soon\n")
-	'''
-	trigram = TrigramAssocMeasures()
-	trigramfinder = TrigramCollocationFinder.from_words(prepcolloc)
-	trigramfinder.apply_word_filter(filter_stops)
-	trigramfinder.apply_freq_filter (3)
-	trigrams=trigramfinder.nbest(trigram.pmi, 10)
-	print trigrams
-	for item in trigrams:
-		first = item[0]
-		second = item[1]
-		third = item[2]
-		text.insert(END, first)
-		text.insert(END, " ")
-		text.insert(END, second)
-		text.insert(END, " ")
-		text.insert(END, third)
-		text.insert(END, "\n")
-    '''
 def ShowReadability():
     text.insert(END, "If this doesn't work, NLTK and the Punkt Sentence Tokenizer installed. See Help for details \n\n\n")
     import nltk
@@ -6207,9 +6196,6 @@ save_button.pack(side=LEFT)
 openfile_button.pack(side=LEFT)
 help_button.pack(side=LEFT)
 resultsbox.pack(side=LEFT,fill=BOTH, expand=1)
-resultsbox.event_delete('<<Copy>>', '<Control-c>')
-resultsbox.event_delete('<<Paste>>', '<Control-x>')
-resultsbox.event_add('<<Paste>>', '<Control-v>') 
 
 
 resultsscrollbar.pack(side=RIGHT, fill=Y)
