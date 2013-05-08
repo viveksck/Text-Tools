@@ -97,12 +97,11 @@ Simple alternative to Zotero, Mendeley, and other reference management software:
 Single use tools
 ===================
 Just some scraps I've needed in the past to pre= and post- process data.
-Filenamecleaner.py - cleans a folder of files from bad characters in their filenames (e.g. for Dropbox syncing, TextFileHashtTagger links)
-NGRAM_linecountskipblankstabdelimited.py - counts the lines in file, without counting blank lines. 
-NGRAM_topXcountY.py - ngramstripper has a built in lower bound on the frequency of words. If this is not used, the file is often to big to do it later by hand. Use this instead
-NLTK_OverlapDiffTwoTextfiles.py - for two files, which are only in 1, which are only in 2, and which are in both. 
-PythonifyNationRangeWordlists.py - Turns a folder of Paul Nation's word lists for RANGE (organised by tab with numbers) into lines, with headword at beginning, so easier to process for families. Used once to prepare
-lists for text-grader.py
-TextFileHashTaggerPDFINDEXER.py - takes a folder of PDFs and produces one text file for each, ready for notes, with optional default tags. For TextFileHashTagger 
-TextFileHashTagTXTFILEConverter - given a text file with one reference per line, produces one text file for each, ready for notes, with optional default tags. TextFileHashTagger
+* Filenamecleaner.py - cleans a folder of files from bad characters in their filenames (e.g. for Dropbox syncing, TextFileHashtTagger links)
+* NGRAM_linecountskipblankstabdelimited.py - counts the lines in file, without counting blank lines. 
+* NGRAM_topXcountY.py - ngramstripper has a built in lower bound on the frequency of words. If this is not used, the file is often to big to do it later by hand. Use this instead
+* NLTK_OverlapDiffTwoTextfiles.py - for two files, which are only in 1, which are only in 2, and which are in both. 
+* PythonifyNationRangeWordlists.py - Turns a folder of Paul Nation's word lists for RANGE (organised by tab with numbers) into lines, with headword at beginning, so easier to process for families. Used once to prepare lists for text-grader.py
+* TextFileHashTaggerPDFINDEXER.py - takes a folder of PDFs and produces one text file for each, ready for notes, with optional default tags. For TextFileHashTagger 
+* TextFileHashTagTXTFILEConverter - given a text file with one reference per line, produces one text file for each, ready for notes, with optional default tags. TextFileHashTagger
 
