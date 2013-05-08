@@ -19,9 +19,9 @@ Various tools for working with text and corpora.
 Requires Python. Collocation and readability features require NLTK (http://nltk.org/)
 
 For text, pasted in or opened from a txt file, the script will 
-*give basic information on the vocab in the text 
-*highlight the vocabulary by colour using its frequency (British National Corpus lists; General Service List, Academic Word List)
-*list the words which are from each list, andwhich are MISSING from each list
+**give basic information on the vocab in the text 
+**highlight the vocabulary by colour using its frequency (British National Corpus lists; General Service List, Academic Word List)
+**list the words which are from each list, andwhich are MISSING from each list
 
 The initial aim was to allow easy editing of a text to make it graded - to remove low frequency words, or to deliberately suggest words of a
 certain level for inclusion. Existing programs either did not work on mac, or crashed, or analysed the text without allowing editing. 
