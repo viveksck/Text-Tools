@@ -9656,7 +9656,7 @@ BNCinfo_button = Button (buttonframe, text="BNC Word Lists", command = ShowInfoB
 BNCCOCA_button = Button(buttonframe, text="BNC-COCA",command = GradeTextBNCCOCA)
 BNCCOCAinfo_button = Button (buttonframe, text="BNC-COCA Word Lists", command = ShowInfoBNCCOCA)
 GSL_button = Button(buttonframe, text="GSL/AWL",command = GradeTextGSL)
-GSLinfo_button = Button(buttonframe, text="GSL/AWL info",command = ShowInfoGSL)
+GSLinfo_button = Button(buttonframe, text="GSL/AWL Word Lists",command = ShowInfoGSL)
 collocations_button = Button(buttonframe, text="Collocations", command = ShowCollocations)
 readability_button = Button(buttonframe, text="Readability", command = ShowReadability)
 
