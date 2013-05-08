@@ -3,10 +3,11 @@ Text-Tools Overview
 
 Various tools for working with text and corpora.
 
-1. malc-text-grader - for creating graded readings, and analysing vocabulary
+1. text-grader - for creating graded readings, and analysing vocabulary
 2. firstfivewords.py - for pulling formulaic sentence starters from a corpus of text
-3. ngramstripper2009.py - for simplifying the Google Books ngram data into a frequency word list
+3. ngramstripper2009/2012.py - for simplifying the Google Books ngram data (2009/2012 version) into a frequency word list
 4. TextFileHashTagger.py - for a folder full of text files containing hash tags, creates an index 
+5. Single Use Tools - scripts for pre- or post- processing data for tools above
 
 * Some projects have been described in articles. PDFs available here: http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ
 * Some projects have a screencast showing how to use them: http://www.youtube.com/user/malcprentice
@@ -21,7 +22,7 @@ Requires Python. Collocation and readability features require NLTK (http://nltk.
 For text, pasted in or opened from a txt file, the script will 
 * give basic information on the vocab in the text 
 * highlight the vocabulary by colour using its frequency (British National Corpus lists; General Service List, Academic Word List)
-* list the words which are from each list, andwhich are MISSING from each list
+* list the words which are from each list, and which are MISSING from each list
 
 The initial aim was to allow easy editing of a text to make it graded - to remove low frequency words, or to deliberately suggest words of a
 certain level for inclusion. Existing programs either did not work on mac, or crashed, or analysed the text without allowing editing. 
@@ -30,20 +31,17 @@ Some other bits and pieces such as collocations and readability indices added fo
 (http://nltk.org/)
 
 ISSUES
-* very slow on long texts
-* Just cannot work out how to add "ctrl-a" select all or get undo/redo working on mac
-* broken under Python 2.6. Fine for 2.7+ - no plans to fix this. 
+* Slow on long texts
+* Some keyboard shortcuts don't work under TkInter on Mac (Ctrl-a, Ctrl-z, Ctrl-Shift-Z would be handy)
+* Broken under Python 2.6. Fine for 2.7+ - no plans to fix this. 
 
-Code released under GNU GPL, but the word Lists embedded in file used are from RANGE (http://www.victoria.ac.nz/lals/about/staff/paul-nation),
-used by permission.
-
-Article describing this tool here: http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:Tyk-4Ss8FVUC
+Code released under GNU GPL, but word Lists from RANGE (http://www.victoria.ac.nz/lals/about/staff/paul-nation) used by permission. Article describing tool [here](http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:Tyk-4Ss8FVUC)
 
 2) firstfivewords.py
 ===========
-Requires:  Python, NLTK. Run from commandline in a directory containing text files.
+Requires Python, NLTK. Run from commandline in a directory containing text files.
 
-Will process every text file in the folder it's run in, identify every sentence, and create three csv files with 3,4 and 5 words sentence starter (counts punctuation as a token). Initially created to help a
+Will process every text file in the folder it's run in, identify every sentence, and create three csv files with 3, 4 and 5 words sentence starter (counts punctuation as a token). Initially created to help a
 colleague avoid hand-sorting large amounts of data.  
 
 e.g. top five three-word sentence starters used in 90 undergraduate Uni Japanese essays are: "For example , / In addition , / However , I / Of course , / When I was". Note that punctuation is counted as a token in
@@ -60,7 +58,7 @@ If you can get your students essays in TXT format, then for sentence starters yo
 
 If you're using this for serious analysis rather than lesson planning , check your results against a hand-coded example. 
 
-Article describing this tool here:  http://scholar.google.co.jp/scholar?oi=bibs&hl=en&cluster=13556166500242376745&btnI=Lucky
+Article describing this tool [here](http://scholar.google.co.jp/scholar?oi=bibs&hl=en&cluster=13556166500242376745&btnI=Lucky)
 
 
 3) ngramstripper2009.py
@@ -84,7 +82,7 @@ As a teacher, there's no reason you would want to do any of the above. I was jus
 has a suspicious number of quote marks, and a number of other issues that mean you should probably stick to the BNC / COCA / GSL or whatever
 you are using now. See article below for the limitations. Unless you desperately want to make your own Fiction / 1890 / 3 gram list for some reason, email me for a list copy.
 
-Article PDF describing this tool available here: http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:9yKSN-GCB0IC
+Article describing this tool [here](http://scholar.google.co.jp/citations?view_op=view_citation&hl=en&user=-ShxkTcAAAAJ&citation_for_view=-ShxkTcAAAAJ:9yKSN-GCB0IC)
 
 ngramstripper2012.py
 ====================
@@ -93,16 +91,12 @@ Google recently released new data, alphabetised and with POS. Work ongoing on an
 
 4) TextFileHashTagger.py
 ===================
-I was tired of pulling files in and out of Zotero, Mendeley, and other reference management software, so I decided to just use PDF files and TXT notes. Problem is, I liked the ability to tag files so they could
-appear in different projectså. This program, if you keep all your notes in one folder, will find all hashtags (e.g. #memory or #socialpsych), and also all tildatags which I use for context (e.g. ~canada, ~tertiary),
-and create an html index with links to the notes and a cloud of tags where size represents number of files with that tag. Checkes every file one time for every tag - very inefficient and slow for projects with large
-numbers of tags. Only works on a single folder - does not traverse folders yet. Will break on unusual characters, but tools available in "Single USe Tools" folder which can take a folder of PDFs, rename them
-cleanly, and create one TXT file for each ready to be indexed by the HashTagger. Tool also available for making a list of referneces in a TXT file into a bunch of clean filename reference files. 
+Simple alternative to Zotero, Mendeley, and other reference management software: If you have article PDFs and note TXT files with same name, program will traverse folders and find all hashtags in TXT files (e.g. #memory or #socialpsych), creating an html file tagcloud and index with links to the notes/PDFs. Checks every file one time for every tag, so best to break up projects once they get above 30 tags or so. Will break on unusual characters - use related tools in "Single Use" folder to clean filenames. Tools also available for producing TXT note files from PDF filenames, or TXT notes from a TXT file of references. 
 
 
 Single use tools
 ===================
-Just some scraps I've needed in the past to count, compare and preprocess things.
+Just some scraps I've needed in the past to pre= and post- process data.
 Filenamecleaner.py - cleans a folder of files from bad characters in their filenames (e.g. for Dropbox syncing, TextFileHashtTagger links)
 NGRAM_linecountskipblankstabdelimited.py - counts the lines in file, without counting blank lines. 
 NGRAM_topXcountY.py - ngramstripper has a built in lower bound on the frequency of words. If this is not used, the file is often to big to do it later by hand. Use this instead
