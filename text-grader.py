@@ -33,8 +33,7 @@ Various snippets of code came from stackoverflow (http://stackoverflow.com/), th
 filterlistunsplit = ('''Malcolm Prentice ''')
 
 # Define and convert the word lists
-base1unsplit = ('''
-a an
+base1unsplit = ('''a an
 able ability abler ablest ably abilities unable inability
 about
 absolute absolutely absolutist absolutists
@@ -1035,8 +1034,7 @@ yet
 you your yourselves yourself yours ye yer yerself yous
 young younger youngster youngest youngsters youngish''')
 
-base2unsplit = ('''
-above
+base2unsplit = ('''above
 abuse abused abusive abusing abuses abuser abusers
 accent accented unaccented accenting accents
 access accessed accesses accessibility accessible accessing inaccessible
@@ -2038,8 +2036,7 @@ youth youths youthful youthfully
 zero zeros''')
 
 
-base3unsplit = ('''
-abbey abbeys
+base3unsplit = ('''abbey abbeys
 abroad
 absence absences
 accelerate accelerated accelerates accelerating accelerator accelerators acceleration accelerations
@@ -3041,8 +3038,7 @@ vicious viciousness viciously
 warrant warrants warranted unwarranted warranting''')
 
 
-awlunsplit = ('''
-abandon abandoned abandoning abandonment abandons
+awlunsplit = ('''abandon abandoned abandoning abandonment abandons
 abstract abstraction abstractions abstractly abstracts
 academy academia academic academically academics academies
 access accessed accesses accessibility accessible accessing inaccessible
@@ -3613,8 +3609,7 @@ whereas
 whereby
 widespread''')
 
-gsl1unsplit = ('''
-a an
+gsl1unsplit = ('''a an
 able ability abler ablest ably abilities unable inability
 about
 above
@@ -4613,8 +4608,7 @@ you your yourselves yourself yours
 young younger youngster youngest youngsters
 youth youths youthful''')
 
-gsl2unsplit = ('''
-abroad
+gsl2unsplit = ('''abroad
 absence absences
 absent
 absolute
@@ -5603,8 +5597,7 @@ yard yards
 yellow yellowish
 zero zeros''')
 
-bnccoca1unsplit = ('''
-a an
+bnccoca1unsplit = ('''a an
 able abilities ability abler ablest ably inability unable
 about
 above
@@ -6605,8 +6598,7 @@ you ye yer yerself your yours yourself yourselves yous youse
 young younger youngest youngish youngster youngsters
 zero zeroed zeroing zeros''')
 
-bnccoca2unsplit = (''' 
-accent accented accenting accents unaccented
+bnccoca2unsplit = (''' accent accented accenting accents unaccented
 access accessed accesses accessibility accessible accessing inaccessibility inaccessible
 accident accidental accidentally accidently accidents
 according accordingly
@@ -7607,8 +7599,7 @@ wound unwounded wounded wounding wounds
 wrap unwrap unwrapped unwrapping unwraps wrapped wrapper wrappers wrapping wrappings wraps
 yell yelled yelling yells''')
 
-bnccoca3unsplit = ('''
-abandon abandoned abandoning abandonment abandons
+bnccoca3unsplit = ('''abandon abandoned abandoning abandonment abandons
 abort aborted aborting abortion abortions abortive abortively aborts
 abroad
 absence absences
@@ -8975,27 +8966,35 @@ def ShowInfoGSL():
 
 
 
+	BNC1missing=[]
 	for line in l.split(gsl1unsplit):
-		words = re.findall(p, line)
-		for word in words:
-			if word in datalist:
-				infoBNC1list.append(word)
-				infoBNC1familylist.append(words[0])
+		words = re.findall(p,line)
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC1missing.append(words[0])
+		else:
+			infoBNC1list = infoBNC1list + intersect
+			infoBNC1familylist = infoBNC1familylist+ [words[0]]
 			
+	BNC2missing=[]
 	for line in l.split(gsl2unsplit):
-		words = re.findall(p, line)
-		for word in words:
-			if word in datalist:
-				infoBNC2list.append(word)
-				infoBNC2familylist.append(words[0])
-			
+		words = re.findall(p,line)
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC2missing.append(words[0])
+		else:
+			infoBNC2list = infoBNC2list + intersect
+			infoBNC2familylist = infoBNC2familylist+ [words[0]]
+	
+	BNC3missing=[]			
 	for line in l.split(awlunsplit):
-		words = re.findall(p, line)
-		for word in words:
-			if word in datalist:
-				infoBNC3list.append(word)
-				infoBNC3familylist.append(words[0])
-
+		words = re.findall(p,line)
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC3missing.append(words[0])
+		else:
+			infoBNC3list = infoBNC3list + intersect
+			infoBNC3familylist = infoBNC3familylist+ [words[0]]
 
 	ALLlists = infoBNC1list + infoBNC2list + infoBNC3list
 	ALLfamilylists = infoBNC1familylist + infoBNC2familylist + infoBNC3familylist
@@ -9121,15 +9120,7 @@ def ShowInfoGSL():
 
 
 	#set up missing lists
-	BNC1missing=[]
-	for line in l.split(gsl1unsplit):
-		words = re.findall(p, line)
-		familycount=0
-		for word in words:
-			if word in infoBNC1familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC1missing.append(words[0])
+
 	text.insert(END, 'From General Service List 1, the following ')
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
@@ -9138,15 +9129,6 @@ def ShowInfoGSL():
 	text.insert(END, "\n\n")    
 
 
-	BNC2missing=[]
-	for line in l.split(gsl2unsplit):
-		words = re.findall(p, line)
-		familycount=0
-		for word in words:
-			if word in infoBNC2familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC2missing.append(words[0])
 	text.insert(END, 'From General Service List 2, these ')
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
@@ -9154,15 +9136,6 @@ def ShowInfoGSL():
 	text.insert(END, string.join(sorted(set((BNC2missing)))), "BNC2")
 	text.insert(END, "\n\n")    
 
-	BNC3missing=[]
-	for line in l.split(awlunsplit):
-		words = re.findall(p, line)
-		familycount=0
-		for word in words:
-			if word in infoBNC3familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC3missing.append(words[0])
 	text.insert(END, 'From the Academic Word List, these ')
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
@@ -9225,28 +9198,36 @@ def ShowInfoBNC():
 
 
 
+	BNC1missing=[]
 	for line in l.split(base1unsplit):
 		words = re.findall(p,line)
-		for word in words:
-			if word in datalist:
-				infoBNC1list.append(word)
-				infoBNC1familylist.append(words[0])
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC1missing.append(words[0])
+		else:
+			infoBNC1list = infoBNC1list + intersect
+			infoBNC1familylist = infoBNC1familylist+ [words[0]]
 			
+	BNC2missing=[]
 	for line in l.split(base2unsplit):
-		words =  re.findall(p,line)
-		for word in words:
-			if word in datalist:
-				infoBNC2list.append(word)
-				infoBNC2familylist.append(words[0])
-			
+		words = re.findall(p,line)
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC2missing.append(words[0])
+		else:
+			infoBNC2list = infoBNC2list + intersect
+			infoBNC2familylist = infoBNC2familylist+ [words[0]]
+	
+	BNC3missing=[]			
 	for line in l.split(base3unsplit):
 		words = re.findall(p,line)
-		for word in words:
-			if word in datalist:
-				infoBNC3list.append(word)
-				infoBNC3familylist.append(words[0])
-
-
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC3missing.append(words[0])
+		else:
+			infoBNC3list = infoBNC3list + intersect
+			infoBNC3familylist = infoBNC3familylist+ [words[0]]
+	
 	ALLlists = infoBNC1list + infoBNC2list + infoBNC3list
 	ALLfamilylists = infoBNC1familylist + infoBNC2familylist + infoBNC3familylist
 
@@ -9370,16 +9351,8 @@ def ShowInfoBNC():
 	text.insert(END, "\n\n")    
 
 
-	#set up missing lists
-	BNC1missing=[]
-	for line in l.split(base1unsplit):
-		words = re.findall(p,line)
-		familycount=0
-		for word in words:
-			if word in infoBNC1familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC1missing.append(words[0])
+
+
 	text.insert(END, 'From BNC List 1, the following ')
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
@@ -9388,15 +9361,7 @@ def ShowInfoBNC():
 	text.insert(END, "\n\n")    
 
 
-	BNC2missing=[]
-	for line in l.split(base2unsplit):
-		words = re.findall(p,line)
-		familycount=0
-		for word in words:
-			if word in infoBNC2familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC2missing.append(words[0])
+
 	text.insert(END, 'From BNC List 2, these ')
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
@@ -9404,15 +9369,7 @@ def ShowInfoBNC():
 	text.insert(END, string.join(sorted(set((BNC2missing)))), "BNC2")
 	text.insert(END, "\n\n")    
 
-	BNC3missing=[]
-	for line in l.split(base3unsplit):
-		words = re.findall(p,line)
-		familycount=0
-		for word in words:
-			if word in infoBNC3familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC3missing.append(words[0])
+
 	text.insert(END, 'From BNC List 3, these ')
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
@@ -9473,28 +9430,38 @@ def ShowInfoBNCCOCA():
 	text.insert(END, filterremoved)
 	text.insert(END, "\n\n")
 
+	
 
-
+	BNC1missing=[]
 	for line in l.split(bnccoca1unsplit):
-		words = re.findall(p, line)
-		for word in words:
-			if word in datalist:
-				infoBNC1list.append(word)
-				infoBNC1familylist.append(words[0])
+		words = re.findall(p,line)
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC1missing.append(words[0])
+		else:
+			infoBNC1list = infoBNC1list + intersect
+			infoBNC1familylist = infoBNC1familylist+ [words[0]]
 			
+	BNC2missing=[]
 	for line in l.split(bnccoca2unsplit):
-		words = re.findall(p, line)
-		for word in words:
-			if word in datalist:
-				infoBNC2list.append(word)
-				infoBNC2familylist.append(words[0])
-			
+		words = re.findall(p,line)
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC2missing.append(words[0])
+		else:
+			infoBNC2list = infoBNC2list + intersect
+			infoBNC2familylist = infoBNC2familylist+ [words[0]]
+	
+	BNC3missing=[]			
 	for line in l.split(bnccoca3unsplit):
-		words = re.findall(p, line)
-		for word in words:
-			if word in datalist:
-				infoBNC3list.append(word)
-				infoBNC3familylist.append(words[0])
+		words = re.findall(p,line)
+		intersect = [word for word in words if word in datalist]
+		if len(intersect) is 0:
+				BNC3missing.append(words[0])
+		else:
+			infoBNC3list = infoBNC3list + intersect
+			infoBNC3familylist = infoBNC3familylist+ [words[0]]
+
 
 	ALLlists = infoBNC1list + infoBNC2list + infoBNC3list
 	ALLfamilylists = infoBNC1familylist + infoBNC2familylist + infoBNC3familylist
@@ -9620,15 +9587,6 @@ def ShowInfoBNCCOCA():
 
 
 	#set up missing lists
-	BNC1missing=[]
-	for line in l.split(bnccoca1unsplit):
-		words = re.findall(p, line)
-		familycount=0
-		for word in words:
-			if word in infoBNC1familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC1missing.append(words[0])
 	text.insert(END, 'From BNC-COCA List 1, the following ')
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
@@ -9636,15 +9594,6 @@ def ShowInfoBNCCOCA():
 	text.insert(END, string.join(sorted(set((BNC1missing)))), "BNC1")
 	text.insert(END, "\n\n")    
 
-	BNC2missing=[]
-	for line in l.split(bnccoca2unsplit):
-		words = re.findall(p, line)
-		familycount=0
-		for word in words:
-			if word in infoBNC2familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC2missing.append(words[0])
 	text.insert(END, 'From BNC-COCA List 2, these ')
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
@@ -9652,15 +9601,6 @@ def ShowInfoBNCCOCA():
 	text.insert(END, string.join(sorted(set((BNC2missing)))), "BNC2")
 	text.insert(END, "\n\n")    
 
-	BNC3missing=[]
-	for line in l.split(bnccoca3unsplit):
-		words = re.findall(p, line)
-		familycount=0
-		for word in words:
-			if word in infoBNC3familylist:
-				familycount=familycount+1
-			if familycount < 1:
-				BNC3missing.append(words[0])
 	text.insert(END, 'From BNC-COCA List 3, these ')
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
