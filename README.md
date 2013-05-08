@@ -8,9 +8,9 @@ Various tools for working with text and corpora.
 3. ngramstripper2009.py - for simplifying the Google Books ngram data into a frequency word list
 4. TextFileHashTagger.py - for a folder full of text files containing hash tags, creates an index 
 
-*Some projects have been described in articles. PDFs available here: http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ
-*Some projects have a screencast showing how to use them: http://www.youtube.com/user/malcprentice
-*My normal website here: http://alba-english.com
+* Some projects have been described in articles. PDFs available here: http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ
+* Some projects have a screencast showing how to use them: http://www.youtube.com/user/malcprentice
+* My normal website here: http://alba-english.com
 
 ---
 
@@ -19,9 +19,9 @@ Various tools for working with text and corpora.
 Requires Python. Collocation and readability features require NLTK (http://nltk.org/)
 
 For text, pasted in or opened from a txt file, the script will 
-**give basic information on the vocab in the text 
-**highlight the vocabulary by colour using its frequency (British National Corpus lists; General Service List, Academic Word List)
-**list the words which are from each list, andwhich are MISSING from each list
+* give basic information on the vocab in the text 
+* highlight the vocabulary by colour using its frequency (British National Corpus lists; General Service List, Academic Word List)
+* list the words which are from each list, andwhich are MISSING from each list
 
 The initial aim was to allow easy editing of a text to make it graded - to remove low frequency words, or to deliberately suggest words of a
 certain level for inclusion. Existing programs either did not work on mac, or crashed, or analysed the text without allowing editing. 
@@ -30,9 +30,9 @@ Some other bits and pieces such as collocations and readability indices added fo
 (http://nltk.org/)
 
 ISSUES
-*very slow on long texts
-*Just cannot work out how to add "ctrl-a" select all or get undo/redo working on mac
-*broken under Python 2.6. Fine for 2.7+ - no plans to fix this. 
+* very slow on long texts
+* Just cannot work out how to add "ctrl-a" select all or get undo/redo working on mac
+* broken under Python 2.6. Fine for 2.7+ - no plans to fix this. 
 
 Code released under GNU GPL, but the word Lists embedded in file used are from RANGE (http://www.victoria.ac.nz/lals/about/staff/paul-nation),
 used by permission.
