@@ -18,10 +18,9 @@
 
 '''
 TODO
-1) Seems to be broken under Python 2.6
 2) Website cleaning broken (everything after .com is tokenized
 3) maybe ponder common OCR characters for Missing. See email. As NLTK ignores
-4) Auto split hyphenated words for Missing, as NLTK doesn't tokenize that way. Or drop NLTK. 
+5) detect OS and save to Desktop in mac
 '''
 
 '''
@@ -30,7 +29,7 @@ Word lists from Range embedded by permission - originals available from http://w
 Various snippets of code came from stackoverflow (http://stackoverflow.com/), the NLTK manual and website (http://www.nltk.org/)
 '''
 
-# define filter lists - names or any other words you want excluded from analysis
+#Define filter lists - names or any other words you want excluded from analysis
 filterlistunsplit = ('''Malcolm Prentice ''')
 
 # Define and convert the word lists
@@ -8618,12 +8617,19 @@ zone zonal zoned zones zoning''')
 #Stopword list from NLTK stopwords corpus
 stopwords = (''' i me my myself we our ours ourselves you your yours yourself yourselves he him his himself she her hers herself it its itself they them their theirs themselves what which who whom this that these those am is are was were be been being have has had having do does did doing a an the and but if or because as until while of at by for with about against between into through during before after above below to from up down in out on off over under again further then once here there when where why how all any both each few more most other some such no nor not only own same so than too very s t can will just don should now''')
 
+#Check Version - TkInter breaks on 2.6
+import sys
+if not sys.version_info[:2] == (2, 7):
+	print "THIS PROGRAM REQUIRES PYTHON 2.7"
+
 import string, re
 
 from Tkinter import *
 root = Tk()
 root.geometry("1000x600")
 root.title("Text Grader")
+
+
 
 p = re.compile(r'\W+')
 
@@ -8915,7 +8921,6 @@ def ShowReadability():
 
     
 def ShowInfoGSL():
-	import nltk
 	#didn't bother changing the names - BNC1 is GSL 1, BNC2 is GLS2, BNC3isAWL
 	datalist=[]
 	infoBNC1list=[]
@@ -8926,15 +8931,14 @@ def ShowInfoGSL():
 	infoBNC2familylist=[]
 	infoBNC3familylist=[]
 	infoofflistfamily=[]
-	p = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
+	p= r"\w+(?:[-']\w+)*|'|[-.(]+|\S\w*"
 	l = re.compile("\n")
-
 	text.delete(1.0, END)    
 	data = resultsbox.get(1.0,END)
 
 
 	#Clean and lower text
-	rawtext= nltk.regexp_tokenize(data.lower(), p)
+	rawtext= re.findall(p, data)
 	punctuation=re.compile("\W")
 	number=re.compile("\d")
 	websiteaddressremoved = 0
@@ -8956,7 +8960,7 @@ def ShowInfoGSL():
 				token=""
 				filterremoved = filterremoved+1
 			else:
-				datalist.append(token)                
+				datalist.append(token.lower())                
 	
 
 	text.insert(END, "\n Website addresses cleaned: ")
@@ -8972,21 +8976,21 @@ def ShowInfoGSL():
 
 
 	for line in l.split(gsl1unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		for word in words:
 			if word in datalist:
 				infoBNC1list.append(word)
 				infoBNC1familylist.append(words[0])
 			
 	for line in l.split(gsl2unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		for word in words:
 			if word in datalist:
 				infoBNC2list.append(word)
 				infoBNC2familylist.append(words[0])
 			
 	for line in l.split(awlunsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		for word in words:
 			if word in datalist:
 				infoBNC3list.append(word)
@@ -9119,7 +9123,7 @@ def ShowInfoGSL():
 	#set up missing lists
 	BNC1missing=[]
 	for line in l.split(gsl1unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		familycount=0
 		for word in words:
 			if word in infoBNC1familylist:
@@ -9134,10 +9138,9 @@ def ShowInfoGSL():
 	text.insert(END, "\n\n")    
 
 
-	#Commented out unless you need to seed BNC2 and 3  
 	BNC2missing=[]
 	for line in l.split(gsl2unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		familycount=0
 		for word in words:
 			if word in infoBNC2familylist:
@@ -9153,7 +9156,7 @@ def ShowInfoGSL():
 
 	BNC3missing=[]
 	for line in l.split(awlunsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		familycount=0
 		for word in words:
 			if word in infoBNC3familylist:
@@ -9170,7 +9173,6 @@ def ShowInfoGSL():
 
     
 def ShowInfoBNC():
-	import nltk
 	datalist=[]
 	infoBNC1list=[]
 	infoBNC2list=[]
@@ -9180,15 +9182,14 @@ def ShowInfoBNC():
 	infoBNC2familylist=[]
 	infoBNC3familylist=[]
 	infoofflistfamily=[]
-	p = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
-	l = re.compile("\n")
-
+	p= r"\w+(?:[-']\w+)*|'|[-.(]+|\S\w*"
+	l = re.compile("\n") #for 
 	text.delete(1.0, END)    
 	data = resultsbox.get(1.0,END)
 
 
 	#Clean and lower text
-	rawtext= nltk.regexp_tokenize(data.lower(), p)
+	rawtext = re.findall(p, data)
 	punctuation=re.compile("\W")
 	number=re.compile("\d")
 	websiteaddressremoved = 0
@@ -9206,11 +9207,10 @@ def ShowInfoBNC():
 				token=""
 				numberremoved=numberremoved+1    
 			elif token in filterlist:
-				print token
 				token=""
 				filterremoved = filterremoved+1
 			else:
-				datalist.append(token)                
+				datalist.append(token.lower())                
 	
 
 	text.insert(END, "\n Website addresses cleaned: ")
@@ -9226,21 +9226,21 @@ def ShowInfoBNC():
 
 
 	for line in l.split(base1unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p,line)
 		for word in words:
 			if word in datalist:
 				infoBNC1list.append(word)
 				infoBNC1familylist.append(words[0])
 			
 	for line in l.split(base2unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words =  re.findall(p,line)
 		for word in words:
 			if word in datalist:
 				infoBNC2list.append(word)
 				infoBNC2familylist.append(words[0])
 			
 	for line in l.split(base3unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p,line)
 		for word in words:
 			if word in datalist:
 				infoBNC3list.append(word)
@@ -9373,7 +9373,7 @@ def ShowInfoBNC():
 	#set up missing lists
 	BNC1missing=[]
 	for line in l.split(base1unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p,line)
 		familycount=0
 		for word in words:
 			if word in infoBNC1familylist:
@@ -9388,10 +9388,9 @@ def ShowInfoBNC():
 	text.insert(END, "\n\n")    
 
 
-	#Commented out unless you need to seed BNC2 and 3  
 	BNC2missing=[]
 	for line in l.split(base2unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p,line)
 		familycount=0
 		for word in words:
 			if word in infoBNC2familylist:
@@ -9407,7 +9406,7 @@ def ShowInfoBNC():
 
 	BNC3missing=[]
 	for line in l.split(base3unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p,line)
 		familycount=0
 		for word in words:
 			if word in infoBNC3familylist:
@@ -9423,7 +9422,6 @@ def ShowInfoBNC():
 
 
 def ShowInfoBNCCOCA():
-	import nltk
 	datalist=[]
 	infoBNC1list=[]
 	infoBNC2list=[]
@@ -9433,15 +9431,14 @@ def ShowInfoBNCCOCA():
 	infoBNC2familylist=[]
 	infoBNC3familylist=[]
 	infoofflistfamily=[]
-	p = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
+	p= r"\w+(?:[-']\w+)*|'|[-.(]+|\S\w*"
 	l = re.compile("\n")
-
 	text.delete(1.0, END)    
 	data = resultsbox.get(1.0,END)
 
 
 	#Clean and lower text
-	rawtext= nltk.regexp_tokenize(data.lower(), p)
+	rawtext= re.findall(p, data)
 	punctuation=re.compile("\W")
 	number=re.compile("\d")
 	websiteaddressremoved = 0
@@ -9463,7 +9460,7 @@ def ShowInfoBNCCOCA():
 				token=""
 				filterremoved = filterremoved+1
 			else:
-				datalist.append(token)                
+				datalist.append(token.lower())                
 	
 
 	text.insert(END, "\n Website addresses cleaned: ")
@@ -9479,21 +9476,21 @@ def ShowInfoBNCCOCA():
 
 
 	for line in l.split(bnccoca1unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		for word in words:
 			if word in datalist:
 				infoBNC1list.append(word)
 				infoBNC1familylist.append(words[0])
 			
 	for line in l.split(bnccoca2unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		for word in words:
 			if word in datalist:
 				infoBNC2list.append(word)
 				infoBNC2familylist.append(words[0])
 			
 	for line in l.split(bnccoca3unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		for word in words:
 			if word in datalist:
 				infoBNC3list.append(word)
@@ -9625,7 +9622,7 @@ def ShowInfoBNCCOCA():
 	#set up missing lists
 	BNC1missing=[]
 	for line in l.split(bnccoca1unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		familycount=0
 		for word in words:
 			if word in infoBNC1familylist:
@@ -9641,7 +9638,7 @@ def ShowInfoBNCCOCA():
 
 	BNC2missing=[]
 	for line in l.split(bnccoca2unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		familycount=0
 		for word in words:
 			if word in infoBNC2familylist:
@@ -9657,7 +9654,7 @@ def ShowInfoBNCCOCA():
 
 	BNC3missing=[]
 	for line in l.split(bnccoca3unsplit):
-		words = nltk.regexp_tokenize(line, p)
+		words = re.findall(p, line)
 		familycount=0
 		for word in words:
 			if word in infoBNC3familylist:
@@ -9673,7 +9670,7 @@ def ShowInfoBNCCOCA():
 
 def ShowHelp():
     text.delete(1.0, END)
-    text.insert(END, "If you want to use the word info, collocation, readability functions, you need to install the Natural Language Toolkit (NLTK)\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n 2) Install the Punkt package - http://www.nltk.org/data") 
+    text.insert(END, "If you want to use the collocation or readability functions, you need to install the Natural Language Toolkit (NLTK)\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n 2) Install the Punkt package - http://www.nltk.org/data") 
 
 def OpenFile():
     import tkFileDialog
