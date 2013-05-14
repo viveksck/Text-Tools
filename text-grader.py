@@ -8617,7 +8617,7 @@ import string, re
 
 from Tkinter import *
 root = Tk()
-root.geometry("1000x600")
+root.geometry("800x600")
 root.title("Text Grader")
 
 
@@ -8863,7 +8863,7 @@ def ShowReadability():
     #adapted from Java at http://www.editcentral.com/gwt1/EditCentral.html
 	#Flesch    
 	Flesch = 206.835 - (1.015 * numwords) / numsents - (84.6 * numsyllables) / numwords
-	Flexch = "%.2f" % Flesch
+	Flesch = "%.2f" % Flesch
 	#Automated readability index
 	ARI = (4.71 * letnumcount) / numwords + (0.5 * numwords) / numsents -21.43;
 	ARI = "%.2f" % ARI
