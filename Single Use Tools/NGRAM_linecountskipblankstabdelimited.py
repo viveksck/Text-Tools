@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-#Malcolm Prentice - malc@alba-english.com
+# Malcolm Prentice
+# github@alba-english.com
+# http://alba-english.com
 
 import os
 count = 0

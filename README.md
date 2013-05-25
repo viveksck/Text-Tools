@@ -9,9 +9,9 @@ Various tools for working with text and corpora.
 4. TextFileHashTagger.py - for a folder full of text files containing hash tags, creates an index 
 5. Single Use Tools - scripts for pre- or post- processing data for tools above
 
-* Some projects have been described in articles. PDFs available here: http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ
-* Some projects have a screencast showing how to use them: http://www.youtube.com/user/malcprentice
-* My normal website here: http://alba-english.com
+* Some projects have been described in articles. PDFs available [here](http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ)
+* Some projects have a [screencast showing how to use them](http://www.youtube.com/user/malcprentice)
+* My normal website [here](http://alba-english.com)
 
 ---
 

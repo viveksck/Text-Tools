@@ -1,4 +1,8 @@
-#Malc Prentice
+#!/usr/bin/env python
+# Malcolm Prentice
+# github@alba-english.com
+# http://alba-english.com
+
 #takes a text file with a list of references, one perline, and creates a text file for each one prepped for hashtagindexer
 
 from os import rename, listdir

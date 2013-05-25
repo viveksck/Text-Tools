@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-#Malc Prentice, malc@alba-english.com
+# Malcolm Prentice
+# github@alba-english.com
+# http://alba-english.com
 
 
 #Turns a folder of Paul Nation's word lists for RANGE (organised by tab with numbers) into lines, with headword at beginning, so easier to process for families. Used once to prepapre lists for other programs. 

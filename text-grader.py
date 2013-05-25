@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-#Copyright 2011 Malcolm Prentice
-#malc@alba-english.com
+# Malcolm Prentice
+# github@alba-english.com
+# http://alba-english.com
+
+# Copyright 2011 Malcolm Prentice
 '''
    This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

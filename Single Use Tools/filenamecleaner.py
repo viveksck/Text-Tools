@@ -1,4 +1,8 @@
-#Malc Prentice
+#!/usr/bin/env python
+# Malcolm Prentice
+# github@alba-english.com
+# http://alba-english.com
+
 #cleans filenames
 from os import rename, listdir
 import string

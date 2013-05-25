@@ -1,5 +1,10 @@
 #!/usr/bin/env python
-#Malcolm Prentice - malc@alba-english.com
+# Malcolm Prentice
+# github@alba-english.com
+# http://alba-english.com
+
+#pulls formulaic sentence starters from a corpus
+
 '''
   This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
