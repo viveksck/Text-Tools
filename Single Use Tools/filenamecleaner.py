@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Malcolm Prentice
 # github@alba-english.com
-# http://alba-english.com
+# http://alba-english.org
 
 #cleans filenames
 from os import rename, listdir

@@ -11,7 +11,7 @@ Various tools for working with text and corpora.
 
 * Some projects have been described in articles. PDFs available [here](http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ)
 * Some projects have a [screencast showing how to use them](http://www.youtube.com/user/malcprentice)
-* My normal website [here](http://alba-english.com)
+* My normal website [here](http://alba-english.org)
 
 ---
 

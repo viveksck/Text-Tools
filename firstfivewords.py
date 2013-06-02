@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Malcolm Prentice
 # github@alba-english.com
-# http://alba-english.com
+# http://alba-english.org
 
 #pulls formulaic sentence starters from a corpus
 
