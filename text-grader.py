@@ -8643,7 +8643,6 @@ def GradeTextGSL():
     data = data.replace("\n", " ghj789 ")
     resultsbox.delete(1.0, END)
     rawtext = string.split(data)    
-	text.insert(END, "Based on the General Service List and Academic Word List files distributed with Paul Nation's RANGE program - http://www.victoria.ac.nz/lals/about/staff/paul-nation \n")
     text.insert(END, "INDEX: \n")
     text.insert(END, "GSL1 words are this colour\n", "BNC1")
     text.insert(END, "GSL2 words are this colour \n", "BNC2")
@@ -8687,7 +8686,6 @@ def GradeTextBNC():
     data = data.replace("\n", " ghj789 ")
     resultsbox.delete(1.0, END)
     rawtext = string.split(data)
-	text.insert(END, "Based on the British National Corpus files distributed with Paul Nation's RANGE program - http://www.victoria.ac.nz/lals/about/staff/paul-nation \n")
     text.insert(END, "INDEX: \n")
     text.insert(END, "BNC1 tokens are this colour\n", "BNC1")
     text.insert(END, "BNC2 tokens are this colour \n", "BNC2")
@@ -8731,7 +8729,6 @@ def GradeTextBNCCOCA():
     data = data.replace("\n", " ghj789 ")
     resultsbox.delete(1.0, END)
     rawtext = string.split(data)
-	text.insert(END, "Based on the British National Corpus / Corpus of Contemporary American English files distributed with Paul Nation's RANGE program - http://www.victoria.ac.nz/lals/about/staff/paul-nation \n")
     text.insert(END, "INDEX: \n")
     text.insert(END, "BNCCOCA1 tokens are this colour\n", "BNC1")
     text.insert(END, "BNCCOCA2 tokens are this colour \n", "BNC2")
@@ -9613,7 +9610,12 @@ def ShowInfoBNCCOCA():
 
 def ShowHelp():
     text.delete(1.0, END)
-    text.insert(END, "If you want to use the collocation or readability functions, you need to install the Natural Language Toolkit (NLTK)\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n 2) Install the Punkt package - http://www.nltk.org/data") 
+    text.insert(END, "Word lists used are based on the General Service List, Academic Word List, British National Corpus and Corpus of Contemporary American English, adapted from the files distributed with Paul Nation's RANGE program - see http://www.victoria.ac.nz/lals/about/staff/paul-nation for originals. \n\n\n\n")
+    
+    text.insert(END, "If you want to use the collocation or readability functions, you need to install the Natural Language Toolkit (NLTK)\n\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n\n 2) Install the Punkt package - http://www.nltk.org/data\n\n\n\n") 
+    
+    
+    
 
 def OpenFile():
     import tkFileDialog
@@ -9666,7 +9668,7 @@ readability_button = Button(buttonframe2, text="Readability", command = ShowRead
 openfile_button = Button(buttonframe2, text="Open File", command = OpenFile)
 savetext_button = Button(buttonframe2, text="Save Text (bottom box)", command = SaveText)
 saveinfo_button = Button(buttonframe2, text="Save Info (top box)", command = SaveInfo)
-help_button = Button (buttonframe2, text="Help", command = ShowHelp)
+help_button = Button (buttonframe2, text="Help & About", command = ShowHelp)
 
 textscrollbar = Scrollbar(textframe, orient=VERTICAL)
 text = Text(textframe, yscrollcommand=textscrollbar.set, takefocus=0)
