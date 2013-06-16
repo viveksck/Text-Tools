@@ -8794,7 +8794,7 @@ def ShowCollocations():
 		text.insert(END, "\n")
 
 def ShowReadability():
-    text.insert(END, "If this doesn't work, NLTK and the Punkt Sentence Tokenizer installed. See Help for details \n\n\n")
+    text.insert(END, "If this doesn't work, check NLTK is installed. If NLTK is installed, make sure you have downloaded the cmudict syllable length data and the Punkt Sentence Tokenizer using nltk.download(). See Help for details \n\n\n")
     import nltk
     pattern = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
     data = resultsbox.get(1.0,END)
