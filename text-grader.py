@@ -8819,7 +8819,6 @@ def ShowReadability():
     text.insert(END, averagewordspersentence)
     text.insert(END, " words per sentence.\n\n")
 
-    text.insert(END, "READABILITY\n")
 
     #set up syllable dictionary        
     from math import sqrt as squareroot
@@ -8884,7 +8883,7 @@ def ShowReadability():
     text.insert(END, "Automated readability index: ")
     text.insert(END, ARI)
     text.insert(END, "\n")
-    text.insert(END, "Flesch-Kincaid grade level")
+    text.insert(END, "Flesch-Kincaid grade level: ")
     text.insert(END, FK)
     text.insert(END, "\n")
 
@@ -8900,8 +8899,7 @@ def ShowReadability():
     text.insert(END, smog)
     text.insert(END, "\n\n")
     
-    text.insert(END, "These words were not included in readability stats because the syllable count is missing from the cmudict database")
-    text.insert(END, "\n")
+    text.insert(END, "Following words not included in analysis - syllable count is missing from the cmudict database:\n\n")
     for k,y in sorted(wordsnotincmu.items()):
         text.insert(END, k)
 
