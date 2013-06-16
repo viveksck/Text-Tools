@@ -9022,6 +9022,8 @@ def ShowInfoGSL():
 	text.insert(END, str(len(set(ALLfamilylists))))
 	text.insert(END, "\n")
 	text.insert(END, 'Lexical richness: ')
+	if len(datalist) < 1:
+		text.insert(END, '\n\n ERROR: NO DATA IN INPUT BOX')
 	text.insert(END, str((len(datalist) / len(set(datalist)))))
 	text.insert(END, "\n\n")    
 
@@ -9253,6 +9255,9 @@ def ShowInfoBNC():
 	text.insert(END, str(len(set(ALLfamilylists))))
 	text.insert(END, "\n")
 	text.insert(END, 'Lexical richness: ')
+	if len(datalist) < 1:
+		text.insert(END, '\n\n ERROR: NO DATA IN INPUT BOX')
+
 	text.insert(END, str((len(datalist) / len(set(datalist)))))
 	text.insert(END, "\n\n")    
 
@@ -9487,6 +9492,9 @@ def ShowInfoBNCCOCA():
 	text.insert(END, str(len(set(ALLfamilylists))))
 	text.insert(END, "\n")
 	text.insert(END, 'Lexical richness: ')
+	if len(datalist) < 1:
+		text.insert(END, '\n\n ERROR: NO DATA IN INPUT BOX')
+
 	text.insert(END, str((len(datalist) / len(set(datalist)))))
 	text.insert(END, "\n\n")    
 
