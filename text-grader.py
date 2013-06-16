@@ -8794,7 +8794,7 @@ def ShowCollocations():
 		text.insert(END, "\n")
 
 def ShowReadability():
-    text.insert(END, "If this doesn't work, check NLTK is installed. If NLTK is installed, make sure you have downloaded the cmudict syllable length data and the Punkt Sentence Tokenizer using nltk.download(). See Help for details \n\n\n")
+    text.insert(END, "If this doesn't work, check NLTK is installed. If NLTK is installed, use nltk.download() to get cmudict and punkt sentence tokenizer. See Help for details \n\n\n")
     import nltk
     pattern = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
     data = resultsbox.get(1.0,END)
@@ -8859,25 +8859,25 @@ def ShowReadability():
     #adapted from Java at http://www.editcentral.com/gwt1/EditCentral.html
 	#Flesch    
 	Flesch = 206.835 - (1.015 * numwords) / numsents - (84.6 * numsyllables) / numwords
-	Flesch = "%.2f" % Flesch
+	Flesch = "%.1f" % Flesch
 	#Automated readability index
 	ARI = (4.71 * letnumcount) / numwords + (0.5 * numwords) / numsents -21.43;
-	ARI = "%.2f" % ARI
+	ARI = "%.1f" % ARI
 
 	#Flesch-Kincaid grade level
 	FK = (0.39 * numwords) / numsents + (11.8 * numsyllables) / numwords - 15.59;
-	FK = "%.2f" % FK
+	FK = "%.1f" % FK
 
 	#Coleman-Liau index
 	CL = (5.89 * letnumcount) / numwords - (30.0 * numsents) / numwords - 15.8;
-	CL = "%.2f" % CL
+	CL = "%.1f" % CL
 
 	#gunning fog
 	GunningFog = 0.4 * ( numwords / numsents + (100.0 * threesyllcount) / numwords );
-	GunningFog = "%.2f" %GunningFog    
+	GunningFog = "%.1f" %GunningFog    
 	#SMOG
 	smog = squareroot( threesyllcount * 30.0 / numsents ) + 3.0;
-	smog = "%.2f" % smog
+	smog = "%.1f" % smog
 	
     text.insert(END, "Flesch: ")
     text.insert(END, Flesch)
