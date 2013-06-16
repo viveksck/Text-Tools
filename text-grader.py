@@ -8603,11 +8603,6 @@ yield unyielding yielded yielding yields
 youth youthful youthfully youthfulness youths
 zone zonal zoned zones zoning''')
 
-
-
-
-
-
 #Stopword list from NLTK stopwords corpus
 stopwords = (''' i me my myself we our ours ourselves you your yours yourself yourselves he him his himself she her hers herself it its itself they them their theirs themselves what which who whom this that these those am is are was were be been being have has had having do does did doing a an the and but if or because as until while of at by for with about against between into through during before after above below to from up down in out on off over under again further then once here there when where why how all any both each few more most other some such no nor not only own same so than too very s t can will just don should now''')
 
@@ -8622,8 +8617,6 @@ from Tkinter import *
 root = Tk()
 root.geometry("800x600")
 root.title("Text Grader")
-
-
 
 p = re.compile(r'\W+')
 
@@ -8932,18 +8925,17 @@ def ShowInfoGSL():
 
 
 	#Clean and lower text
+	httplist = re.findall(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', data)		
+	websiteaddressremoved = len(httplist)
+	data = re.sub(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', r' ', data) 
 	rawtext= re.findall(p, data)
 	punctuation=re.compile("\W")
 	number=re.compile("\d")
-	websiteaddressremoved = 0
 	punctuationremoved=0 
 	numberremoved=0
 	filterremoved=0
 	for token in rawtext:
-			if token.startswith("http"):
-				token=""
-				websiteaddressremoved = websiteaddressremoved + 1
-			elif punctuation.match(token):
+			if punctuation.match(token):
 				token=""    
 				punctuationremoved=punctuationremoved+1        
 			elif number.match(token):
@@ -9165,18 +9157,17 @@ def ShowInfoBNC():
 
 
 	#Clean and lower text
-	rawtext = re.findall(p, data)
+	httplist = re.findall(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', data)		
+	websiteaddressremoved = len(httplist)
+	data = re.sub(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', r' ', data) 
+	rawtext= re.findall(p, data)
 	punctuation=re.compile("\W")
 	number=re.compile("\d")
-	websiteaddressremoved = 0
 	punctuationremoved=0 
 	numberremoved=0
 	filterremoved=0
 	for token in rawtext:
-			if token.startswith("http"):
-				token=""
-				websiteaddressremoved = websiteaddressremoved + 1
-			elif punctuation.match(token):
+			if punctuation.match(token):
 				token=""    
 				punctuationremoved=punctuationremoved+1        
 			elif number.match(token):
@@ -9398,18 +9389,17 @@ def ShowInfoBNCCOCA():
 
 
 	#Clean and lower text
+	httplist = re.findall(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', data)		
+	websiteaddressremoved = len(httplist)
+	data = re.sub(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', r' ', data) 
 	rawtext= re.findall(p, data)
 	punctuation=re.compile("\W")
 	number=re.compile("\d")
-	websiteaddressremoved = 0
 	punctuationremoved=0 
 	numberremoved=0
 	filterremoved=0
 	for token in rawtext:
-			if token.startswith("http"):
-				token=""
-				websiteaddressremoved = websiteaddressremoved + 1
-			elif punctuation.match(token):
+			if punctuation.match(token):
 				token=""    
 				punctuationremoved=punctuationremoved+1        
 			elif number.match(token):
