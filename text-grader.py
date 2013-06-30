@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+ #!/usr/bin/env python
 # Malcolm Prentice
 # github@alba-english.com
 # http://alba-english.org
@@ -8765,144 +8765,7 @@ def GradeTextBNCCOCA():
             else:
                     resultsbox.insert(END, token, "offlist")
                     resultsbox.insert(END, " ")
-                    
-def ShowCollocations():
-	text.insert(END, "If this doesn't work, please check you have NLTK, PyYAML and the stopword list from the NLTK loaded. See Help for details \n\n\n")
-	import nltk
-	from nltk.collocations import BigramCollocationFinder
-	from nltk.collocations import TrigramCollocationFinder
-	from nltk.metrics import BigramAssocMeasures
-	from nltk.metrics import TrigramAssocMeasures
-	pattern = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
-	data = resultsbox.get(1.0,END)
-	rawtext=nltk.regexp_tokenize(data, pattern)
-	prepcolloc = [word.lower() for word in rawtext if not word in stopwords and word.isalpha()]
-	text.delete(1.0, END)
-	text.insert(END, "Collocations (occurring at least 3 times with a PMI of 10)\n")
-	text.insert(END, "\nBigram Collocations:\n")
-	bigram = BigramAssocMeasures()
-	bigramfinder = BigramCollocationFinder.from_words(prepcolloc)
-	bigramfinder.apply_freq_filter (3)
-	bigrams=bigramfinder.nbest(bigram.pmi, 10)
-	for item in bigrams:
-		first = item[0]
-		second = item[1]
-		text.insert(END, first)
-		text.insert(END, " ")
-		text.insert(END, second)
-		text.insert(END, "\n")
-
-def ShowReadability():
-    text.insert(END, "If this doesn't work, check NLTK is installed. If NLTK is installed, use nltk.download() to get cmudict and punkt sentence tokenizer. See Help for details \n\n\n")
-    import nltk
-    pattern = r'''(?x)([A-Z]\.)+|\w+([-']\w+)*|\$?\d+(\.\d+)?%?|\.\.\.|[][.,;"'?():-_']'''
-    data = resultsbox.get(1.0,END)
-    rawtext=nltk.regexp_tokenize(data, pattern)
-    prepcolloc = (w.lower() for w in rawtext)
-    text.delete(1.0, END)
-    #sentences
-    sentcountshort = 0
-    sent_tokenizer=nltk.data.load('tokenizers/punkt/english.pickle')
-    sents = sent_tokenizer.tokenize(data)    
-    for sent in sents:
-        if len(sent) < 2:
-            sentcountshort = sentcountshort+1
-    
-    numsents = len(sents) - sentcountshort
-    numwords = len(p.split(data))-1
-    sentcountshort = 0
-    
-    text.insert(END, "\nIgnoring one word sentences (like numbering), there are ")
-    text.insert(END, numsents)
-    text.insert(END, " sentences with an average of ")
-    averagewordspersentence = numwords/numsents
-    text.insert(END, averagewordspersentence)
-    text.insert(END, " words per sentence.\n\n")
-
-
-    #set up syllable dictionary        
-    from math import sqrt as squareroot
-    from nltk.corpus import cmudict
-    syllables = dict()
-    numeral = re.compile(r'\d')
-    for (word, phonemes) in cmudict.entries():
-        word = word.lower()
-        count = len([x for x in list(''.join(phonemes)) if x >= '0' and x <= '9'])
-        if syllables.has_key(word):
-            count = min(count, syllables[word])
-        syllables[word] = count        
-
-    #count syllables    
-    numsyllables=0
-    wordsnotincmu=dict()
-    for word in prepcolloc:
-        if word in syllables:
-            numsyllables = numsyllables + syllables[word]
-    else:
-        wordsnotincmu[word] = 1
-        
-    #count three syllable words
-    threesyllcount=0
-    for word in prepcolloc:
-        if word in syllables and syllables[word] > 2:
-            threesyllcount = threesyllcount + syllables[word]
-        
-
-    #calculate number of letters and numbers
-    letnumcount=0
-    for word in rawtext:
-        if word.isalpha():
-            letnumcount=letnumcount + len(word)        
-
-    #adapted from Java at http://www.editcentral.com/gwt1/EditCentral.html
-	#Flesch    
-	Flesch = 206.835 - (1.015 * numwords) / numsents - (84.6 * numsyllables) / numwords
-	Flesch = "%.1f" % Flesch
-	#Automated readability index
-	ARI = (4.71 * letnumcount) / numwords + (0.5 * numwords) / numsents -21.43;
-	ARI = "%.1f" % ARI
-
-	#Flesch-Kincaid grade level
-	FK = (0.39 * numwords) / numsents + (11.8 * numsyllables) / numwords - 15.59;
-	FK = "%.1f" % FK
-
-	#Coleman-Liau index
-	CL = (5.89 * letnumcount) / numwords - (30.0 * numsents) / numwords - 15.8;
-	CL = "%.1f" % CL
-
-	#gunning fog
-	GunningFog = 0.4 * ( numwords / numsents + (100.0 * threesyllcount) / numwords );
-	GunningFog = "%.1f" %GunningFog    
-	#SMOG
-	smog = squareroot( threesyllcount * 30.0 / numsents ) + 3.0;
-	smog = "%.1f" % smog
-	
-    text.insert(END, "Flesch: ")
-    text.insert(END, Flesch)
-    text.insert(END, "\n")
-    text.insert(END, "Automated readability index: ")
-    text.insert(END, ARI)
-    text.insert(END, "\n")
-    text.insert(END, "Flesch-Kincaid grade level: ")
-    text.insert(END, FK)
-    text.insert(END, "\n")
-
-    text.insert(END, "Coleman-Liau index: ")
-    text.insert(END, CL)
-    text.insert(END, "\n")
-
-    text.insert(END, "Gunning fog index: ")
-    text.insert(END, GunningFog)
-    text.insert(END, "\n")
-
-    text.insert(END, "Smog: ")
-    text.insert(END, smog)
-    text.insert(END, "\n\n")
-    
-    text.insert(END, "Following words not included in analysis - syllable count is missing from the cmudict database:\n\n")
-    for k,y in sorted(wordsnotincmu.items()):
-        text.insert(END, k)
-
+            
     
 def ShowInfoGSL():
 	#didn't bother changing the names - BNC1 is GSL 1, BNC2 is GLS2, BNC3isAWL
@@ -9610,7 +9473,7 @@ def ShowHelp():
     text.delete(1.0, END)
     text.insert(END, "Word lists used are based on the General Service List, Academic Word List, British National Corpus and Corpus of Contemporary American English, adapted from the files distributed with Paul Nation's RANGE program - see http://www.victoria.ac.nz/lals/about/staff/paul-nation for originals. \n\n\n\n")
     
-    text.insert(END, "If you want to use the collocation or readability functions, you need to install the Natural Language Toolkit (NLTK)\n\n 1) Install the Natural Language ToolkitNLTK, along with the other programs it needs - instructions at http://www.nltk.org/download.\n\n 2) Install the Punkt package - http://www.nltk.org/data\n\n\n\n") 
+    text.insert(END, "Collocation/readability functions removed in this version to allow packaging. Please download earlier version of program to get these back, although note that they require NLTK packages. A standalone version will be released soon with these two functions. \n\n\n\n") 
     
     
     
@@ -9629,16 +9492,42 @@ def OpenFile():
             else:
                 resultsbox.insert(END, word)
 
+                
+def SaveInfo():
+	import tkFileDialog
+	notes = resultsbox.get(1.0, END)
+	notes = notes.encode('utf-8')
+	f = tkFileDialog.asksaveasfilename(parent=root,initialfile="results.txt",title='Save File')
+	f=str(f)
+	filename = open(f,'w')    
+	filename.write(notes)
+	filename.close()
+    
+    
+                
 def SaveText():
+	import tkFileDialog
+	notes = text.get(1.0, END)
+	notes = notes.encode('utf-8')
+	f = tkFileDialog.asksaveasfilename(parent=root,initialfile="editedtext.txt",title='Save File')
+	f=str(f)
+	filename = open(f,'w')    
+	filename.write(notes)
+	filename.close()
+	
+'''
+#uncomment for old "versioned in folder" save
+                
+def SaveTextOLD():
     from time import gmtime, strftime
     reftime = strftime("%b_%d_%Y__%H_%M_%S")
-    f = open("EDITED TEXT_Version_"+reftime+".txt", 'a')    
+    f = open("EDITED TEXT_Version_"+reftime+".txt", 'w')    
     notes = resultsbox.get(1.0, END)
     notes = notes.encode('utf-8')
     f.write(notes)
     f.close()
     
-def SaveInfo():
+def SaveInfoOLD():
     from time import gmtime, strftime
     reftime = strftime("%b_%d_%Y__%H_%M_%S")
     f = open("RESULTS_Version_"+reftime+".txt", 'a')    
@@ -9646,7 +9535,7 @@ def SaveInfo():
     notes = notes.encode('utf-8')
     f.write(notes)
     f.close()
-    
+'''
 #PACK interface
                 
 textframe = Frame(root, bd=5, relief=SUNKEN)
@@ -9660,8 +9549,6 @@ BNCCOCA_button = Button(buttonframe, text="BNC-COCA",command = GradeTextBNCCOCA)
 BNCCOCAinfo_button = Button (buttonframe, text="BNC-COCA Word Lists", command = ShowInfoBNCCOCA)
 GSL_button = Button(buttonframe, text="GSL/AWL",command = GradeTextGSL)
 GSLinfo_button = Button(buttonframe, text="GSL/AWL Word Lists",command = ShowInfoGSL)
-collocations_button = Button(buttonframe2, text="Collocations", command = ShowCollocations)
-readability_button = Button(buttonframe2, text="Readability", command = ShowReadability)
 
 openfile_button = Button(buttonframe2, text="Open File", command = OpenFile)
 savetext_button = Button(buttonframe2, text="Save Text (bottom box)", command = SaveText)
@@ -9700,8 +9587,6 @@ BNCinfo_button.pack(side=LEFT)
 BNCCOCA_button.pack(side=LEFT)
 BNCCOCAinfo_button.pack(side=LEFT)
 
-collocations_button.pack(side=LEFT)
-readability_button.pack(side=LEFT)
 openfile_button.pack(side=LEFT)
 savetext_button.pack(side=LEFT)
 saveinfo_button.pack(side=LEFT)
