@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Text-tools : Various tools for working with text and corpora" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Text-tools</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/malcprentice/Text-Tools">View on GitHub</a>
+
+          <h1 id="project_title">Text-tools</h1>
+          <h2 id="project_tagline">Various tools for working with text and corpora</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/malcprentice/Text-Tools/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/malcprentice/Text-Tools/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="text-tools-overview" class="anchor" href="#text-tools-overview"><span class="octicon octicon-link"></span></a>Text-Tools Overview</h1>
+
+<p>Various tools for working with text and corpora.</p>
+
+<ol>
+<li>text-grader - for creating graded readings, and analysing vocabulary</li>
+<li>firstfivewords.py - for pulling formulaic sentence starters from a corpus of text</li>
+<li>ngramstripper2009/2012.py - for simplifying the Google Books ngram data (2009/2012 version) into a frequency word list</li>
+<li>TextFileHashTagger.py - for a folder full of text files containing hash tags, creates an index </li>
+<li>Single Use Tools - scripts for pre- or post- processing data for tools above</li>
+</ol><ul>
+<li>Some projects have been described in articles. PDFs available <a href="http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ">here</a>
+</li>
+<li>Some projects have a <a href="http://www.youtube.com/user/malcprentice">screencast showing how to use them</a>
+</li>
+<li>My normal website <a href="http://alba-english.org">here</a>
+</li>
+</ul><hr><h1>
+<a name="1-text-graderpy" class="anchor" href="#1-text-graderpy"><span class="octicon octicon-link"></span></a>1) text-grader.py</h1>
+
+<p>Requires Python. Collocation and readability features require NLTK (<a href="http://nltk.org/">http://nltk.org/</a>)</p>
+
+<p>For text, pasted in or opened from a txt file, the script will </p>
+
+<ul>
+<li>give basic information on the vocab in the text </li>
+<li>highlight the vocabulary by colour using its frequency (British National Corpus lists; General Service List, Academic Word List)</li>
+<li>list the words which are from each list, and which are MISSING from each list</li>
+</ul><p>The initial aim was to allow easy editing of a text to make it graded - to remove low frequency words, or to deliberately suggest words of a
+certain level for inclusion. Existing programs either did not work on mac, or crashed, or analysed the text without allowing editing. </p>
+
+<p>Some other bits and pieces such as collocations and readability indices added for fun, but these require NLTK to be installed
+(<a href="http://nltk.org/">http://nltk.org/</a>)</p>
+
+<p>ISSUES</p>
+
+<ul>
+<li>Slow on long texts</li>
+<li>Some keyboard shortcuts don't work under TkInter on Mac (Ctrl-a, Ctrl-z, Ctrl-Shift-Z would be handy)</li>
+<li>Broken under Python 2.6. Fine for 2.7+ - no plans to fix this. </li>
+</ul><p>Code released under GNU GPL, but word Lists from RANGE (<a href="http://www.victoria.ac.nz/lals/about/staff/paul-nation">http://www.victoria.ac.nz/lals/about/staff/paul-nation</a>) used by permission. Article describing tool <a href="http://scholar.google.co.jp/citations?view_op=view_citation&amp;hl=en&amp;user=-ShxkTcAAAAJ&amp;citation_for_view=-ShxkTcAAAAJ:Tyk-4Ss8FVUC">here</a></p>
+
+<h1>
+<a name="2-firstfivewordspy" class="anchor" href="#2-firstfivewordspy"><span class="octicon octicon-link"></span></a>2) firstfivewords.py</h1>
+
+<p>Requires Python, NLTK. Run from commandline in a directory containing text files.</p>
+
+<p>Will process every text file in the folder it's run in, identify every sentence, and create three csv files with 3, 4 and 5 words sentence starter (counts punctuation as a token). Initially created to help a
+colleague avoid hand-sorting large amounts of data.  </p>
+
+<p>e.g. top five three-word sentence starters used in 90 undergraduate Uni Japanese essays are: "For example , / In addition , / However , I / Of course , / When I was". Note that punctuation is counted as a token in
+this version.</p>
+
+<p>Aim is to identify formulaic language used to start sentences in a corpus of essays - either a student corpus or a target advanced learner / native speaker corpus Formulaic language adds fluency, accuracy and
+appropriateness to student writing. </p>
+
+<p>If you can get your students essays in TXT format, then for sentence starters you can:
+*measure uptake (are they using what you teach) 
+*measure progress (from beginning of term to end) 
+*identify lacks, compared to a native corpus or more advanced learners </p>
+
+<p>If you're using this for serious analysis rather than lesson planning , check your results against a hand-coded example. </p>
+
+<p>Article describing this tool <a href="http://scholar.google.co.jp/scholar?oi=bibs&amp;hl=en&amp;cluster=13556166500242376745&amp;btnI=Lucky">here</a></p>
+
+<h1>
+<a name="3-ngramstripper2009py" class="anchor" href="#3-ngramstripper2009py"><span class="octicon octicon-link"></span></a>3) ngramstripper2009.py</h1>
+
+<p>Python script for pulling usable word lists (single tokens, bigrams, trigrams, 4-grams and 5-grams) from Google Books nGram datasets</p>
+
+<p>A lot of books were scanned for Google Books project. It's not the biggest corpus in the world, but it's close. The English section is about
+300 billion tokens - 20.6 billion "the"s alone. There are various subsets: US English, UK, Fiction and a random sample of a million books.
+However, it's hard to analyse the lists for useful information when even opening files is difficult. The files are 1GB each (up to 800 of
+them), with words dating back to 1520, split across files by capitalisation.</p>
+
+<p>Run the script in a folder of Google ngram data CSV files from here: <a href="http://ngrams.googlelabs.com/datasets">http://ngrams.googlelabs.com/datasets</a> </p>
+
+<p>It will go line by line through the files, sorts some split-across-files-by-capitalisation errors, and output the list you tell it to ( e.g.
+"words before 1994 occurring 10000+ times". It takes about 10 mins to do this for the 1-grams.</p>
+
+<p>In theory, the script also works with 2,3,4 and 5grams. In practice, 5-grams require a 3TB hard disk and 20GB+ of memory (swap memory works
+but is so slow it's pointless. I'm rewriting the script now)</p>
+
+<p>As a teacher, there's no reason you would want to do any of the above. I was just curious. The corpus is full of uncorrected OCR errors and
+has a suspicious number of quote marks, and a number of other issues that mean you should probably stick to the BNC / COCA / GSL or whatever
+you are using now. See article below for the limitations. Unless you desperately want to make your own Fiction / 1890 / 3 gram list for some reason, email me for a list copy.</p>
+
+<p>Article describing this tool <a href="http://scholar.google.co.jp/citations?view_op=view_citation&amp;hl=en&amp;user=-ShxkTcAAAAJ&amp;citation_for_view=-ShxkTcAAAAJ:9yKSN-GCB0IC">here</a></p>
+
+<h1>
+<a name="ngramstripper2012py" class="anchor" href="#ngramstripper2012py"><span class="octicon octicon-link"></span></a>ngramstripper2012.py</h1>
+
+<p>Google recently released new data, alphabetised and with POS. Work ongoing on an update. Slowly. </p>
+
+<h1>
+<a name="4-textfilehashtaggerpy" class="anchor" href="#4-textfilehashtaggerpy"><span class="octicon octicon-link"></span></a>4) TextFileHashTagger.py</h1>
+
+<p>Simple alternative to Zotero, Mendeley, and other reference management software: If you have article PDFs and note TXT files with same name, program will traverse folders and find all hashtags in TXT files (e.g. #memory or #socialpsych), creating an html file tagcloud and index with links to the notes/PDFs. Checks every file one time for every tag, so best to break up projects once they get above 30 tags or so. Will break on unusual characters - use related tools in "Single Use" folder to clean filenames. Tools also available for producing TXT note files from PDF filenames, or TXT notes from a TXT file of references. </p>
+
+<h1>
+<a name="single-use-tools" class="anchor" href="#single-use-tools"><span class="octicon octicon-link"></span></a>Single use tools</h1>
+
+<p>Just some scraps I've needed in the past to pre= and post- process data.</p>
+
+<ul>
+<li>Filenamecleaner.py - cleans a folder of files from bad characters in their filenames (e.g. for Dropbox syncing, TextFileHashtTagger links)</li>
+<li>NGRAM_linecountskipblankstabdelimited.py - counts the lines in file, without counting blank lines. </li>
+<li>NGRAM_topXcountY.py - ngramstripper has a built in lower bound on the frequency of words. If this is not used, the file is often to big to do it later by hand. Use this instead</li>
+<li>NLTK_OverlapDiffTwoTextfiles.py - for two files, which are only in 1, which are only in 2, and which are in both. </li>
+<li>PythonifyNationRangeWordlists.py - Turns a folder of Paul Nation's word lists for RANGE (organised by tab with numbers) into lines, with headword at beginning, so easier to process for families. Used once to prepare lists for text-grader.py</li>
+<li>TextFileHashTaggerPDFINDEXER.py - takes a folder of PDFs and produces one text file for each, ready for notes, with optional default tags. For TextFileHashTagger </li>
+<li>TextFileHashTagTXTFILEConverter - given a text file with one reference per line, produces one text file for each, ready for notes, with optional default tags. TextFileHashTagger</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Text-tools maintained by <a href="https://github.com/malcprentice">malcprentice</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
