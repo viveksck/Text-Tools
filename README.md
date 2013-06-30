@@ -7,7 +7,9 @@ Various tools for working with text and corpora.
 2. firstfivewords.py - for pulling formulaic sentence starters from a corpus of text
 3. ngramstripper2009/2012.py - for simplifying the Google Books ngram data (2009/2012 version) into a frequency word list
 4. TextFileHashTagger.py - for a folder full of text files containing hash tags, creates an index 
-5. Single Use Tools - scripts for pre- or post- processing data for tools above
+5. collocationreadability.py - collocation and readabilty tools (used to be part of textgrader)
+6. Single Use Tools - scripts for pre- or post- processing data for tools above
+
 
 * Some projects have been described in articles. PDFs available [here](http://scholar.google.co.jp/citations?user=-ShxkTcAAAAJ)
 * Some projects have a [screencast showing how to use them](http://www.youtube.com/user/malcprentice)
@@ -26,9 +28,6 @@ For text, pasted in or opened from a txt file, the script will
 
 The initial aim was to allow easy editing of a text to make it graded - to remove low frequency words, or to deliberately suggest words of a
 certain level for inclusion. Existing programs either did not work on mac, or crashed, or analysed the text without allowing editing. 
-
-Some other bits and pieces such as collocations and readability indices added for fun, but these require NLTK to be installed
-(http://nltk.org/)
 
 ISSUES
 * Slow on long texts
@@ -93,8 +92,10 @@ Google recently released new data, alphabetised and with POS. Work ongoing on an
 ===================
 Simple alternative to Zotero, Mendeley, and other reference management software: If you have article PDFs and note TXT files with same name, program will traverse folders and find all hashtags in TXT files (e.g. #memory or #socialpsych), creating an html file tagcloud and index with links to the notes/PDFs. Checks every file one time for every tag, so best to break up projects once they get above 30 tags or so. Will break on unusual characters - use related tools in "Single Use" folder to clean filenames. Tools also available for producing TXT note files from PDF filenames, or TXT notes from a TXT file of references. 
 
+5) collocationreadability.py
+The old collocation and reability toosl from textGrader, moved out because they require NLTK and were making it hard to package the app for distribution. 
 
-Single use tools
+6) Single use tools
 ===================
 Just some scraps I've needed in the past to pre= and post- process data.
 * Filenamecleaner.py - cleans a folder of files from bad characters in their filenames (e.g. for Dropbox syncing, TextFileHashtTagger links)
