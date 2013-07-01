@@ -9494,22 +9494,24 @@ def OpenFile():
 
                 
 def SaveInfo():
-	import tkFileDialog
+	import Tkinter,tkFileDialog
 	notes = resultsbox.get(1.0, END)
 	notes = notes.encode('utf-8')
-	f = tkFileDialog.asksaveasfile(parent=root,initialfile="results.txt",title='Save File')
-	f.write(notes)
-	f.close()
+	f = tkFileDialog.asksaveasfile(parent=root,initialfile="results.txt",mode='w',title='Save File')
+	if f != None:
+		f.write(notes)
+		f.close()
     
     
                 
 def SaveText():
-	import tkFileDialog
+	import Tkinter,tkFileDialog
 	notes = text.get(1.0, END)
 	notes = notes.encode('utf-8')
-	f = tkFileDialog.asksaveasfile(parent=root,initialfile="editedtext.txt",title='Save File')
-	f.write(notes)
-	f.close()
+	f = tkFileDialog.asksaveasfile(parent=root,initialfile="editedtext.txt",mode='w',title='Save File')
+	if f != None:
+		f.write(notes)
+		f.close()
 	
 '''
 #uncomment for old "versioned in folder" save
