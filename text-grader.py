@@ -9497,11 +9497,9 @@ def SaveInfo():
 	import tkFileDialog
 	notes = resultsbox.get(1.0, END)
 	notes = notes.encode('utf-8')
-	f = tkFileDialog.asksaveasfilename(parent=root,initialfile="results.txt",title='Save File')
-	f=str(f)
-	filename = open(f,'w')    
-	filename.write(notes)
-	filename.close()
+	f = tkFileDialog.asksaveasfile(parent=root,initialfile="results.txt",title='Save File')
+	f.write(notes)
+	f.close()
     
     
                 
@@ -9509,11 +9507,9 @@ def SaveText():
 	import tkFileDialog
 	notes = text.get(1.0, END)
 	notes = notes.encode('utf-8')
-	f = tkFileDialog.asksaveasfilename(parent=root,initialfile="editedtext.txt",title='Save File')
-	f=str(f)
-	filename = open(f,'w')    
-	filename.write(notes)
-	filename.close()
+	f = tkFileDialog.asksaveasfile(parent=root,initialfile="editedtext.txt",title='Save File')
+	f.write(notes)
+	f.close()
 	
 '''
 #uncomment for old "versioned in folder" save
