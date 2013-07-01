@@ -9494,9 +9494,9 @@ def OpenFile():
 
                 
 def SaveInfo():
-	import Tkinter,tkFileDialog
+	import tkFileDialog
 	notes = resultsbox.get(1.0, END)
-	notes = notes.encode('utf-8')
+	#notes = notes.encode('utf-8')
 	f = tkFileDialog.asksaveasfile(parent=root,initialfile="results.txt",mode='w',title='Save File')
 	if f != None:
 		f.write(notes)
@@ -9507,7 +9507,7 @@ def SaveInfo():
 def SaveText():
 	import Tkinter,tkFileDialog
 	notes = text.get(1.0, END)
-	notes = notes.encode('utf-8')
+	#notes = notes.encode('utf-8')
 	f = tkFileDialog.asksaveasfile(parent=root,initialfile="editedtext.txt",mode='w',title='Save File')
 	if f != None:
 		f.write(notes)
@@ -9534,6 +9534,7 @@ def SaveInfoOLD():
     f.write(notes)
     f.close()
 '''
+
 #PACK interface
                 
 textframe = Frame(root, bd=5, relief=SUNKEN)
