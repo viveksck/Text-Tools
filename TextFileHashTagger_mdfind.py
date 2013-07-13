@@ -3,6 +3,9 @@
 # github@alba-english.com
 # http://alba-english.org
 
+
+#Uses weighted tag canvas from http://www.goat1000.com/tagcanvas-weighted.php
+
 import commands
 cloudstring=[""]
 tagdictionary = dict()	
@@ -45,18 +48,64 @@ print nohashcount,
 print " file(s) have misplaced hashtags. See above."
 
 
-#append cloud
-cloudstring.append(r"<h1>Topic</h1>")	
+
+#setup header
+cloudstring.append("<html><head><title>Index</title></head><body>")
+cloudstring.append("<script src=\"tagcanvas.js\" type=\"text/javascript\"></script>")
+cloudstring.append("\n")
+cloudstring.append("<h1>Topic</h1>")
+cloudstring.append("\n")
+cloudstring.append("<div id=\"myCanvasContainer\"><canvas width=\"1200\" height=\"1200\" id=\"myCanvas\"><ul>")
+
+
+
 for tag in sorted(tagdictionary.keys()):
 	if tag.startswith("#"):
-		cloudstring.append(r" <font size=")
+		cloudstring.append("<font size=")
 		cloudstring.append(str(tagdictionary[tag]+1))
-		cloudstring.append(r"><a href='#"+tag+r"'>"+tag+r"</a></font size> ")
+		cloudstring.append("<li><a href=\'#")
+		cloudstring.append(tag)
+		cloudstring.append("\'>")
+		cloudstring.append(tag)
+		cloudstring.append("</a></font size></li>")
+		cloudstring.append("\n")
 
-cloudstring.append(r"<h1>Context</h1>")	
+cloudstring.append("</ul></canvas></div>")
+cloudstring.append("\n")
 
+script='''<script type="text/javascript">
+ window.onload = function() {
+    try {
+      TagCanvas.textColour = '#000000';
+      TagCanvas.outlineColour = '#d21838';
+      TagCanvas.outlineMethod = "colour"
+      TagCanvas.textHeight = "15"
+      TagCanvas.weight = "true"
+      TagCanvas.weightSizeMin = "5"
+      TagCanvas.weightSizeMax = "16"
+      TagCanvas.freezeActive = "true"
+      TagCanvas.freezeDecel = "true"
+      TagCanvas.clickToFront = "1000"
+      TagCanvas.shape = "hcylinder"
+      TagCanvas.zoomMax = "1"
+      TagCanvas.zoomMin = "1"
+      TagCanvas.Start('myCanvas');
+    } catch(e) {
+      // something went wrong, hide the canvas container
+      document.getElementById('myCanvasContainer').style.display = 'none';
+    }
+  };
+ </script>'''
+ 
+cloudstring.append(script)
+
+
+
+
+
+#append tags
 for tag in sorted(tagdictionary.keys()):
-	if tag.startswith("~"):
+	if tag.startswith("#"):
 		cloudstring.append(r" <font size=")
 		cloudstring.append(str(tagdictionary[tag]+1))
 		cloudstring.append(r"><a href='#"+tag+r"'>"+tag+r"</a></font size> ")
