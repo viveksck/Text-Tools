@@ -5,6 +5,7 @@
 
 
 #Uses weighted tag canvas from http://www.goat1000.com/tagcanvas-weighted.php
+#requires tagcanvas.min.js
 
 import commands
 cloudstring=[""]
@@ -13,7 +14,7 @@ filecount = 0
 nohashcount = 0
 cloudlisthtmlfile = ("/Users/malc/Desktop/Dropbox/CODE/00index.html")  #output location for index file
 
-filelist = commands.getoutput('mdfind -onlyin ~/Desktop/Dropbox/CODE/ "#ref"')
+filelist = commands.getoutput('mdfind "#ref"')
 filelist = sorted(filelist.split("\n"))
 
 fileindex = 0
@@ -45,17 +46,16 @@ for file in filelist:
 print filecount,
 print " reference files processed. Is this correct?"
 print nohashcount, 
-print " file(s) have misplaced hashtags. See above."
+print " file(s) have misplaced hashtags.  "
 
 
 
 #setup header
 cloudstring.append("<html><head><title>Index</title></head><body>")
-cloudstring.append("<script src=\"tagcanvas.js\" type=\"text/javascript\"></script>")
+cloudstring.append("<script src=\"tagcanvas.min.js\" type=\"text/javascript\"></script>")
 cloudstring.append("\n")
-cloudstring.append("<h1>Topic</h1>")
 cloudstring.append("\n")
-cloudstring.append("<div id=\"myCanvasContainer\"><canvas width=\"1200\" height=\"1200\" id=\"myCanvas\"><ul>")
+cloudstring.append("<div align=\"center\" id=\"myCanvasContainer\"><canvas width=\"1500\" height=\"1200\" id=\"myCanvas\"><ul>")
 
 
 
@@ -83,10 +83,10 @@ script='''<script type="text/javascript">
       TagCanvas.weight = "true"
       TagCanvas.weightSizeMin = "5"
       TagCanvas.weightSizeMax = "16"
-      TagCanvas.freezeActive = "true"
-      TagCanvas.freezeDecel = "true"
+      TagCanvas.freezeActive = "false"
+      TagCanvas.freezeDecel = "false"
       TagCanvas.clickToFront = "1000"
-      TagCanvas.shape = "hcylinder"
+      TagCanvas.shape = "sphere"
       TagCanvas.zoomMax = "1"
       TagCanvas.zoomMin = "1"
       TagCanvas.Start('myCanvas');
@@ -98,9 +98,6 @@ script='''<script type="text/javascript">
  </script>'''
  
 cloudstring.append(script)
-
-
-
 
 
 #append tags
@@ -117,7 +114,6 @@ for tag in sorted(tagdictionary.keys()):
 	for file in filelist:
 		if file.endswith(".txt") and not file.startswith("0-"):		
 			pdfpath = file[:-4] + ".pdf"
-			filename= file
 			note = open(file, "r")
 			refline = note.readline()
 			hashline = note.readline()
@@ -134,7 +130,7 @@ for tag in sorted(tagdictionary.keys()):
 					cloudstring.append(""+pdfpath+"")
 					cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
 					cloudstring.append("</p>\n")		
-		
+					
 cloudstring.append(r"</body</html>")
 
 #MAKE THE INDEX
