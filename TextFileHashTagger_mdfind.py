@@ -14,7 +14,7 @@ filecount = 0
 nohashcount = 0
 cloudlisthtmlfile = ("/Users/malc/Desktop/Dropbox/CODE/00index.html")  #output location for index file
 
-filelist = commands.getoutput('mdfind "#ref"')
+filelist = commands.getoutput('mdfind -onlyin \"/Users/malc/Desktop/Dropbox/\"  "#ref"')
 filelist = sorted(filelist.split("\n"))
 
 fileindex = 0
@@ -55,7 +55,7 @@ cloudstring.append("<html><head><title>Index</title></head><body>")
 cloudstring.append("<script src=\"tagcanvas.min.js\" type=\"text/javascript\"></script>")
 cloudstring.append("\n")
 cloudstring.append("\n")
-cloudstring.append("<div align=\"center\" id=\"myCanvasContainer\"><canvas width=\"1500\" height=\"1200\" id=\"myCanvas\"><ul>")
+cloudstring.append("<div align=\"center\" id=\"myCanvasContainer\"><canvas width=\"1200\" height=\"1200\" id=\"myCanvas\"><ul>")
 
 
 
@@ -122,7 +122,7 @@ for tag in sorted(tagdictionary.keys()):
 			if not hashline.startswith("#"):
 				hashline = note.readline()
 			for word in str.split(hashline):
-				if tag in word:
+				if tag in word.lower():
 					cloudstring.append("<a href="+"\"file://")
 					cloudstring.append(""+file+"")
 					cloudstring.append("\">"+refline+"</a>")
