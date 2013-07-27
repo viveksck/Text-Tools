@@ -2,6 +2,7 @@
 # Malcolm Prentice
 # github@alba-english.com
 # http://alba-english.org
+#coding=UTF8
 
 #pulls formulaic sentence starters from a corpus
 
@@ -43,33 +44,36 @@ filedictionary3 = dict()
 filedictionary4 = dict()
 filedictionary5 = dict()
 
+
+
+
 for filename in filelist:
-﻿  if filename.endswith("txt"):
-﻿  ﻿  ﻿  filepath=path+"/"+filename
-﻿  ﻿  ﻿  file = open(filepath, 'r')﻿  
-﻿  ﻿  ﻿  data=file.read()
-﻿  ﻿  ﻿  sents = sent_tokenizer.tokenize(data)
-﻿  ﻿  ﻿  for sentence in sents:
-﻿  ﻿  ﻿  ﻿  if not "<" in sentence:
-﻿  ﻿  ﻿  ﻿  ﻿  words=nltk.regexp_tokenize(sentence, pattern)
-﻿  ﻿  ﻿  ﻿  ﻿  keyprep5 = ' '.join(words[0:5])
-﻿  ﻿  ﻿  ﻿  ﻿  keyprep4 = ' '.join(words[0:4])
-﻿  ﻿  ﻿  ﻿  ﻿  keyprep3 = ' '.join(words[0:3])
-﻿  ﻿  ﻿  ﻿  ﻿  key5 = str(keyprep5)
-﻿  ﻿  ﻿  ﻿  ﻿  key4 = str(keyprep4)
-﻿  ﻿  ﻿  ﻿  ﻿  key3 = str(keyprep3)
-﻿  ﻿  ﻿  ﻿  ﻿  if key5 not in filedictionary5:
-﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  filedictionary5[key5] = 1
-﻿  ﻿  ﻿  ﻿  ﻿  else:
-﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  filedictionary5[key5] = (int(filedictionary5[key5]) + 1)
-﻿  ﻿  ﻿  ﻿  ﻿  if key4 not in filedictionary4:
-﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  filedictionary4[key4] = 1
-﻿  ﻿  ﻿  ﻿  ﻿  else:
-﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  filedictionary4[key4] = (int(filedictionary4[key4]) + 1)
-﻿  ﻿  ﻿  ﻿  ﻿  if key3 not in filedictionary3:
-﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  filedictionary3[key3] = 1
-﻿  ﻿  ﻿  ﻿  ﻿  else:
-﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  filedictionary3[key3] = (int(filedictionary3[key3]) + 1)﻿  
+	if filename.endswith("txt"):
+         filepath=path+"/"+filename
+         file = open(filepath, 'r')   
+         data=file.read()
+         sents = sent_tokenizer.tokenize(data)
+         for sentence in sents:
+            if not "<" in sentence:
+               words=nltk.regexp_tokenize(sentence, pattern)
+               keyprep5 = ' '.join(words[0:5])
+               keyprep4 = ' '.join(words[0:4])
+               keyprep3 = ' '.join(words[0:3])
+               key5 = str(keyprep5)
+               key4 = str(keyprep4)
+               key3 = str(keyprep3)
+               if key5 not in filedictionary5:
+                     filedictionary5[key5] = 1
+               else:
+                     filedictionary5[key5] = (int(filedictionary5[key5]) + 1)
+               if key4 not in filedictionary4:
+                     filedictionary4[key4] = 1
+               else:
+                     filedictionary4[key4] = (int(filedictionary4[key4]) + 1)
+               if key3 not in filedictionary3:
+                     filedictionary3[key3] = 1
+               else:
+                     filedictionary3[key3] = (int(filedictionary3[key3]) + 1)   
 
 results5filepath=path+"/"+"results5.csv"
 results4filepath=path+"/"+"results4.csv"
@@ -77,8 +81,8 @@ results3filepath=path+"/"+"results3.csv"
 myfile = open(results5filepath, 'w')
 mywriter = csv.writer(myfile, dialect='excel')
 for k,y in sorted(filedictionary5.items()):
-﻿  if filedictionary5[k] > threshhold:
-﻿  ﻿  mywriter.writerow([k,y])
+   if filedictionary5[k] > threshhold:
+      mywriter.writerow([k,y])
 print "Here are the sentence counts for this corpus: "
 print (sum(filedictionary5.values()))
 print (sum(filedictionary4.values()))
@@ -96,16 +100,16 @@ myfile.close()
 myfile = open(results4filepath, 'w')
 mywriter = csv.writer(myfile, dialect='excel')
 for k,y in sorted(filedictionary4.items()):
-﻿  if filedictionary4[k] > threshhold:
-﻿  ﻿  mywriter.writerow([k,y])
+   if filedictionary4[k] > threshhold:
+      mywriter.writerow([k,y])
 myfile.close()            
 
 
 myfile = open(results3filepath, 'w')
 mywriter = csv.writer(myfile, dialect='excel')
 for k,y in sorted(filedictionary3.items()):
-﻿  if filedictionary3[k] > threshhold:
-﻿  ﻿  mywriter.writerow([k,y])
+   if filedictionary3[k] > threshhold:
+      mywriter.writerow([k,y])
 myfile.close()            
 
 
