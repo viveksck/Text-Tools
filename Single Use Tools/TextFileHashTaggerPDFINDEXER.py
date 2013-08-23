@@ -3,8 +3,8 @@
 # github@alba-english.com
 # http://alba-english.org
 
-#takes a text file with a list of references, one perline, and creates a text file for each one prepped for hashtagindexer
-
+#takes a folder full of PDF, and creates a text file for each prepped for hashtagindexer
+#cleans filenames while its at it
 from os import rename, listdir
 import string
 filenames = listdir('.')
@@ -20,5 +20,5 @@ for filename in filenames:
 		newfile=open(textfilename+".txt", "w")
 		newfile.write(textfilename)
 		newfile.write("\n")
-		newfile.write("#ref #stereothreat")
+		newfile.write("#ref #pending")
 		newfile.close()
