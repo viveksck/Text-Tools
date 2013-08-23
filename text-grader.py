@@ -8651,9 +8651,9 @@ def GradeTextGSL():
 	data = data.encode('utf-8')
 	f.write(data)
 	text.insert(END, "INDEX: \n")
-	text.insert(END, "GSL1 words are this colour\n", "BNC1")
-	text.insert(END, "GSL2 words are this colour \n", "BNC2")
-	text.insert(END, "AWL words are this colour\n", "BNC3")
+	text.insert(END, "GSL1 words are this colour\n", "CLR1")
+	text.insert(END, "GSL2 words are this colour \n", "CLR2")
+	text.insert(END, "AWL words are this colour\n", "CLR3")
 	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are marked this colour \n", "name")
 	text.insert(END, "Anything offlist - not in the above lists - is this colour \n", "offlist")
 	f = open("tempfile.txt", 'r')  
@@ -8667,12 +8667,11 @@ def GradeTextGSL():
 		data = string.split(data)
 		for token in data:
 			checktokensplit = p.split(token)
+			checknum = token[0]
 			checktoken = checktokensplit[0]    
-			if checktoken.startswith("ghj789"):
-				token = "\n"
 			if not checktoken.isalpha() and not len(checktokensplit) < 2:
 				checktoken=checktokensplit[1]
-			if checktoken.isdigit():
+			if checknum.isdigit():
 				resultsbox.insert(END, token, "name")
 				resultsbox.insert(END, " ")
 			elif checktoken.startswith("http"):
