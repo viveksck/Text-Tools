@@ -8603,15 +8603,14 @@ yield unyielding yielded yielding yields
 youth youthful youthfully youthfulness youths
 zone zonal zoned zones zoning''')
 
-#Stopword list from NLTK stopwords corpus
-stopwords = (''' i me my myself we our ours ourselves you your yours yourself yourselves he him his himself she her hers herself it its itself they them their theirs themselves what which who whom this that these those am is are was were be been being have has had having do does did doing a an the and but if or because as until while of at by for with about against between into through during before after above below to from up down in out on off over under again further then once here there when where why how all any both each few more most other some such no nor not only own same so than too very s t can will just don should now''')
+
 
 #Check Version - TkInter breaks on 2.6
-import sys
+import sys, os, string, re
 if not sys.version_info[:2] == (2, 7):
 	print "THIS PROGRAM REQUIRES PYTHON 2.7"
 
-import string, re
+import tkFileDialog
 
 from Tkinter import *
 root = Tk()
@@ -8636,48 +8635,65 @@ BNCCOCA3=string.split(bnccoca3unsplit)
 filterlist = string.split(filterlistunsplit.lower())
 
 
+'''
+TODO
+find out how to autoidentify the temp folder and put the file there
+'''
+
+
+
 #define
 def GradeTextGSL():
-    text.delete(1.0, END)
-    data = resultsbox.get(1.0,END)    
-    data = data.replace("\n", " ghj789 ")
-    resultsbox.delete(1.0, END)
-    rawtext = string.split(data)    
-    text.insert(END, "INDEX: \n")
-    text.insert(END, "GSL1 words are this colour\n", "BNC1")
-    text.insert(END, "GSL2 words are this colour \n", "BNC2")
-    text.insert(END, "AWL words are this colour\n", "BNC3")
-    text.insert(END, "Numbers, web addresses and anything in your filterlist including names are marked this colour \n", "name")
-    text.insert(END, "Anything offlist - not in the above lists - is this colour \n", "offlist")
-    for token in rawtext:
-            checktokensplit = p.split(token)
-            checktoken = checktokensplit[0]    
-            if checktoken.startswith("ghj789"):
-                token = "\n"
-            if not checktoken.isalpha() and not len(checktokensplit) < 2:
-                checktoken=checktokensplit[1]
-            if checktoken.isdigit():
-                resultsbox.insert(END, token, "name")
-                resultsbox.insert(END, " ")
-            elif checktoken.startswith("http"):
-                resultsbox.insert(END, token, "name")
-                resultsbox.insert(END, " ")    
-            elif checktoken.lower() in AWL:  
-                    resultsbox.insert(END, token, "BNC3")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in GSL2:   
-                    resultsbox.insert(END, token, "BNC2")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in GSL1:   
-                    resultsbox.insert(END, token, "BNC1")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in filterlist:   
-                    resultsbox.insert(END, token, "name")
-                    resultsbox.insert(END, " ")
-            else:
-                    resultsbox.insert(END, token, "offlist")
-                    resultsbox.insert(END, " ")    
-    
+	text.delete(1.0, END)
+	data = resultsbox.get(1.0,END)    
+	resultsbox.delete(1.0, END)
+	f = open("tempfile.txt", 'w')    
+	data = data.encode('utf-8')
+	f.write(data)
+	text.insert(END, "INDEX: \n")
+	text.insert(END, "GSL1 words are this colour\n", "BNC1")
+	text.insert(END, "GSL2 words are this colour \n", "BNC2")
+	text.insert(END, "AWL words are this colour\n", "BNC3")
+	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are marked this colour \n", "name")
+	text.insert(END, "Anything offlist - not in the above lists - is this colour \n", "offlist")
+	f = open("tempfile.txt", 'r')  
+	count = 0
+	for line in f:
+	    count += 1
+	f.close()
+	f = open("tempfile.txt", 'r')  
+	for i in range(0,count):
+		data = f.readline()
+		data = string.split(data)
+		for token in data:
+			checktokensplit = p.split(token)
+			checktoken = checktokensplit[0]    
+			if checktoken.startswith("ghj789"):
+				token = "\n"
+			if not checktoken.isalpha() and not len(checktokensplit) < 2:
+				checktoken=checktokensplit[1]
+			if checktoken.isdigit():
+				resultsbox.insert(END, token, "name")
+				resultsbox.insert(END, " ")
+			elif checktoken.startswith("http"):
+				resultsbox.insert(END, token, "name")
+				resultsbox.insert(END, " ")    
+			elif checktoken.lower() in AWL:  
+					resultsbox.insert(END, token, "CLR3")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in GSL2:   
+					resultsbox.insert(END, token, "CLR2")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in GSL1:   
+					resultsbox.insert(END, token, "CLR1")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in filterlist:   
+					resultsbox.insert(END, token, "name")
+					resultsbox.insert(END, " ")
+			else:
+					resultsbox.insert(END, token, "offlist")
+					resultsbox.insert(END, " ")  
+		resultsbox.insert(END, "\n")  
 
 
 def GradeTextBNC():
@@ -8687,13 +8703,11 @@ def GradeTextBNC():
     resultsbox.delete(1.0, END)
     rawtext = string.split(data)
     text.insert(END, "INDEX: \n")
-    text.insert(END, "BNC1 tokens are this colour\n", "BNC1")
-    text.insert(END, "BNC2 tokens are this colour \n", "BNC2")
-    text.insert(END, "BNC3 tokens are this colour\n", "BNC3")
+    text.insert(END, "BNC1 tokens are this colour\n", "CLR1")
+    text.insert(END, "BNC2 tokens are this colour \n", "CLR2")
+    text.insert(END, "BNC3 tokens are this colour\n", "CLR3")
     text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
     text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-    
-    
     for token in rawtext:
             checktokensplit = p.split(token)
             checktoken = checktokensplit[0]
@@ -8708,13 +8722,13 @@ def GradeTextBNC():
                 resultsbox.insert(END, token, "name")
                 resultsbox.insert(END, " ")
             elif checktoken.lower() in BNC3:  
-                    resultsbox.insert(END, token, "BNC3")
+                    resultsbox.insert(END, token, "CLR3")
                     resultsbox.insert(END, " ")
             elif checktoken.lower() in BNC2:   
-                    resultsbox.insert(END, token, "BNC2")
+                    resultsbox.insert(END, token, "CLR2")
                     resultsbox.insert(END, " ")
             elif checktoken.lower() in BNC1:   
-                    resultsbox.insert(END, token, "BNC1")
+                    resultsbox.insert(END, token, "CLR1")
                     resultsbox.insert(END, " ")
             elif checktoken.lower() in filterlist:   
                     resultsbox.insert(END, token, "name")
@@ -8730,9 +8744,9 @@ def GradeTextBNCCOCA():
     resultsbox.delete(1.0, END)
     rawtext = string.split(data)
     text.insert(END, "INDEX: \n")
-    text.insert(END, "BNCCOCA1 tokens are this colour\n", "BNC1")
-    text.insert(END, "BNCCOCA2 tokens are this colour \n", "BNC2")
-    text.insert(END, "BNCCOCA3 tokens are this colour\n", "BNC3")
+    text.insert(END, "BNCCOCA1 tokens are this colour\n", "CLR1")
+    text.insert(END, "BNCCOCA2 tokens are this colour \n", "CLR2")
+    text.insert(END, "BNCCOCA3 tokens are this colour\n", "CLR3")
     text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
     text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
     
@@ -8751,13 +8765,13 @@ def GradeTextBNCCOCA():
                 resultsbox.insert(END, token, "name")
                 resultsbox.insert(END, " ")
             elif checktoken.lower() in BNC3:  
-                    resultsbox.insert(END, token, "BNC3")
+                    resultsbox.insert(END, token, "CLR3")
                     resultsbox.insert(END, " ")
             elif checktoken.lower() in BNC2:   
-                    resultsbox.insert(END, token, "BNC2")
+                    resultsbox.insert(END, token, "CLR2")
                     resultsbox.insert(END, " ")
             elif checktoken.lower() in BNC1:   
-                    resultsbox.insert(END, token, "BNC1")
+                    resultsbox.insert(END, token, "CLR1")
                     resultsbox.insert(END, " ")
             elif checktoken.lower() in filterlist:   
                     resultsbox.insert(END, token, "name")
@@ -8917,7 +8931,7 @@ def ShowInfoGSL():
 		text.insert(END, str(100 * bnc1familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "CLR1")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -8937,7 +8951,7 @@ def ShowInfoGSL():
 		text.insert(END, str(100 * bnc2familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "CLR2")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -8957,7 +8971,7 @@ def ShowInfoGSL():
 		text.insert(END, str(100 * bnc3familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "CLR3")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -8982,7 +8996,7 @@ def ShowInfoGSL():
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC1missing)))), "BNC1")
+	text.insert(END, string.join(sorted(set((BNC1missing)))), "CLR1")
 	text.insert(END, "\n\n")    
 
 
@@ -8990,14 +9004,14 @@ def ShowInfoGSL():
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC2missing)))), "BNC2")
+	text.insert(END, string.join(sorted(set((BNC2missing)))), "CLR2")
 	text.insert(END, "\n\n")    
 
 	text.insert(END, 'From the Academic Word List, these ')
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC3missing)))), "BNC3")
+	text.insert(END, string.join(sorted(set((BNC3missing)))), "CLR3")
 	text.insert(END, "\n\n")    
 
 
@@ -9016,7 +9030,6 @@ def ShowInfoBNC():
 	l = re.compile("\n") #for 
 	text.delete(1.0, END)    
 	data = resultsbox.get(1.0,END)
-
 
 	#Clean and lower text
 	httplist = re.findall(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', data)		
@@ -9151,7 +9164,7 @@ def ShowInfoBNC():
 		text.insert(END, str(100 * bnc1familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "CLR1")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -9171,7 +9184,7 @@ def ShowInfoBNC():
 		text.insert(END, str(100 * bnc2familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "CLR2")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -9191,7 +9204,7 @@ def ShowInfoBNC():
 		text.insert(END, str(100 * bnc3familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "CLR3")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -9216,7 +9229,7 @@ def ShowInfoBNC():
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC1missing)))), "BNC1")
+	text.insert(END, string.join(sorted(set((BNC1missing)))), "CLR1")
 	text.insert(END, "\n\n")    
 
 
@@ -9225,7 +9238,7 @@ def ShowInfoBNC():
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC2missing)))), "BNC2")
+	text.insert(END, string.join(sorted(set((BNC2missing)))), "CLR2")
 	text.insert(END, "\n\n")    
 
 
@@ -9233,7 +9246,7 @@ def ShowInfoBNC():
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC3missing)))), "BNC3")
+	text.insert(END, string.join(sorted(set((BNC3missing)))), "CLR3")
 	text.insert(END, "\n\n")    
 
 
@@ -9388,7 +9401,7 @@ def ShowInfoBNCCOCA():
 		text.insert(END, str(100 * bnc1familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "CLR1")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -9408,7 +9421,7 @@ def ShowInfoBNCCOCA():
 		text.insert(END, str(100 * bnc2familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "CLR2")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -9428,7 +9441,7 @@ def ShowInfoBNCCOCA():
 		text.insert(END, str(100 * bnc3familylength / totalfamilieslength))
 		text.insert(END, '%)')
 		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "BNC1")
+		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "CLR3")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
@@ -9452,21 +9465,21 @@ def ShowInfoBNCCOCA():
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC1missing)))), "BNC1")
+	text.insert(END, string.join(sorted(set((BNC1missing)))), "CLR1")
 	text.insert(END, "\n\n")    
 
 	text.insert(END, 'From BNC-COCA List 2, these ')
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC2missing)))), "BNC2")
+	text.insert(END, string.join(sorted(set((BNC2missing)))), "CLR2")
 	text.insert(END, "\n\n")    
 
 	text.insert(END, 'From BNC-COCA List 3, these ')
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC3missing)))), "BNC3")
+	text.insert(END, string.join(sorted(set((BNC3missing)))), "CLR3")
 	text.insert(END, "\n\n")    
 
 def ShowHelp():
@@ -9479,7 +9492,6 @@ def ShowHelp():
     
 
 def OpenFile():
-    import tkFileDialog
     resultsbox.delete(1.0,END)
     text.delete(1.0,END)
     file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file')
@@ -9494,7 +9506,6 @@ def OpenFile():
 
                 
 def SaveInfo():
-	import tkFileDialog
 	notes = resultsbox.get(1.0, END)
 	#notes = notes.encode('utf-8')
 	f = tkFileDialog.asksaveasfile(parent=root,initialfile="results.txt",mode='w',title='Save File')
@@ -9505,7 +9516,6 @@ def SaveInfo():
     
                 
 def SaveText():
-	import Tkinter,tkFileDialog
 	notes = text.get(1.0, END)
 	#notes = notes.encode('utf-8')
 	f = tkFileDialog.asksaveasfile(parent=root,initialfile="editedtext.txt",mode='w',title='Save File')
@@ -9519,7 +9529,7 @@ def SaveText():
 def SaveTextOLD():
     from time import gmtime, strftime
     reftime = strftime("%b_%d_%Y__%H_%M_%S")
-    f = open("EDITED TEXT_Version_"+reftime+".txt", 'w')    
+    f = open("TEMP_RESULTSEDITED TEXT_Version_"+reftime+".txt", 'w')    
     notes = resultsbox.get(1.0, END)
     notes = notes.encode('utf-8')
     f.write(notes)
@@ -9563,18 +9573,18 @@ resultsscrollbar = Scrollbar(resultsframe, orient=VERTICAL)
 resultsbox = Text(resultsframe, yscrollcommand=resultsscrollbar.set, takefocus=0)
 resultsscrollbar.configure(command=resultsbox.yview)
 
-resultsbox.tag_configure('BNC1', foreground='black')
+resultsbox.tag_configure('CLR1', foreground='black')
 #BNC1 also tag for GSL1 and BNCCOCA1
-resultsbox.tag_configure('BNC2', foreground='green')
+resultsbox.tag_configure('CLR2', foreground='green')
 #BNC2 also tag for GSL2 and BNCCOCA2
-resultsbox.tag_configure('BNC3', foreground='orange')
+resultsbox.tag_configure('CLR3', foreground='orange')
 #BNC3 also tag for AWL and BNCCOCA3
 resultsbox.tag_configure('offlist', foreground='red')
 resultsbox.tag_configure('name', foreground='pink')
 
-text.tag_configure('BNC1', foreground='black')
-text.tag_configure('BNC2', foreground='green')
-text.tag_configure('BNC3', foreground='orange')
+text.tag_configure('CLR1', foreground='black')
+text.tag_configure('CLR2', foreground='green')
+text.tag_configure('CLR3', foreground='orange')
 text.tag_configure('offlist', foreground='red')
 text.tag_configure('name', foreground='pink')
 
