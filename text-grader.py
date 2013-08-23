@@ -8615,7 +8615,7 @@ import string, re
 
 from Tkinter import *
 root = Tk()
-root.geometry("800x600")
+root.geometry("700x600")
 root.title("Text Grader")
 
 p = re.compile(r'\W+')
@@ -9594,7 +9594,7 @@ help_button.pack(side=LEFT)
 text.pack(side=LEFT, fill=BOTH, expand=1)
 textscrollbar.pack(side=RIGHT, fill=Y)
 
-resultsbox.pack(side=LEFT,fill=BOTH, expand=1)
+resultsbox.pack(side=LEFT, fill=BOTH, expand=1)
 resultsscrollbar.pack(side=RIGHT, fill=Y)
 
 buttonframe.pack(fill=X, expand=1)
@@ -9606,6 +9606,3 @@ resultsframe.pack(fill=BOTH, expand=1)
 resultsbox.insert(END, "Open a text (TXT) file using the buttons above, paste text here, or just start typing")
 text.insert(END, "Information will appear here after you run the program")
 root.mainloop()
-    
-
-
