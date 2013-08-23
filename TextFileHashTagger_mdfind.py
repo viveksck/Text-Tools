@@ -12,7 +12,7 @@ cloudstring=[""]
 tagdictionary = dict()	
 filecount = 0
 nohashcount = 0
-cloudlisthtmlfile = ("/Users/malc/Desktop/Dropbox/CODE/00index.html")  #output location for index file
+cloudlisthtmlfile = ("/Users/malc/00index.html")  #output location for index file
 
 filelist = commands.getoutput('mdfind -onlyin \"/Users/malc/Desktop/Dropbox/\"  "#ref"')
 filelist = sorted(filelist.split("\n"))
