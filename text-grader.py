@@ -8707,34 +8707,43 @@ def GradeTextBNC():
     text.insert(END, "BNC3 tokens are this colour\n", "CLR3")
     text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
     text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-    for token in rawtext:
-            checktokensplit = p.split(token)
-            checktoken = checktokensplit[0]
-            if checktoken.startswith("ghj789"):
-                token = "\n"
-            if not checktoken.isalpha() and not len(checktokensplit) < 2:
-                checktoken=checktokensplit[1]
-            if checktoken.isdigit():
-                resultsbox.insert(END, token, "name")
-                resultsbox.insert(END, " ")
-            elif checktoken.startswith("http"):
-                resultsbox.insert(END, token, "name")
-                resultsbox.insert(END, " ")
-            elif checktoken.lower() in BNC3:  
-                    resultsbox.insert(END, token, "CLR3")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in BNC2:   
-                    resultsbox.insert(END, token, "CLR2")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in BNC1:   
-                    resultsbox.insert(END, token, "CLR1")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in filterlist:   
-                    resultsbox.insert(END, token, "name")
-                    resultsbox.insert(END, " ")
-            else:
-                    resultsbox.insert(END, token, "offlist")
-                    resultsbox.insert(END, " ")
+    f = open("tempfile.txt", 'r')  
+    count = 0
+    for line in f:
+    	count += 1
+	f.close()
+	f = open("tempfile.txt", 'r')  
+	for i in range(0,count):
+		data = f.readline()
+		data = string.split(data)
+		for token in data:
+			checktokensplit = p.split(token)
+			checknum = token[0]
+			checktoken = checktokensplit[0]    
+			if not checktoken.isalpha() and not len(checktokensplit) < 2:
+				checktoken=checktokensplit[1]
+			if checknum.isdigit():
+				resultsbox.insert(END, token, "name")
+				resultsbox.insert(END, " ")
+			elif checktoken.startswith("http"):
+				resultsbox.insert(END, token, "name")
+				resultsbox.insert(END, " ")    
+			elif checktoken.lower() in BNC3:  
+					resultsbox.insert(END, token, "CLR3")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in BNC2:   
+					resultsbox.insert(END, token, "CLR2")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in BNC1:   
+					resultsbox.insert(END, token, "CLR1")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in filterlist:   
+					resultsbox.insert(END, token, "name")
+					resultsbox.insert(END, " ")
+			else:
+					resultsbox.insert(END, token, "offlist")
+					resultsbox.insert(END, " ")  
+		resultsbox.insert(END, "\n")  
 
 def GradeTextBNCCOCA():
     text.delete(1.0, END)
@@ -8748,36 +8757,43 @@ def GradeTextBNCCOCA():
     text.insert(END, "BNCCOCA3 tokens are this colour\n", "CLR3")
     text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
     text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-    
-    
-    for token in rawtext:
-            checktokensplit = p.split(token)
-            checktoken = checktokensplit[0]
-            if checktoken.startswith("ghj789"):
-                token = "\n"
-            if not checktoken.isalpha() and not len(checktokensplit) < 2:
-                checktoken=checktokensplit[1]
-            if checktoken.isdigit():
-                resultsbox.insert(END, token, "name")
-                resultsbox.insert(END, " ")
-            elif checktoken.startswith("http"):
-                resultsbox.insert(END, token, "name")
-                resultsbox.insert(END, " ")
-            elif checktoken.lower() in BNC3:  
-                    resultsbox.insert(END, token, "CLR3")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in BNC2:   
-                    resultsbox.insert(END, token, "CLR2")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in BNC1:   
-                    resultsbox.insert(END, token, "CLR1")
-                    resultsbox.insert(END, " ")
-            elif checktoken.lower() in filterlist:   
-                    resultsbox.insert(END, token, "name")
-                    resultsbox.insert(END, " ")
-            else:
-                    resultsbox.insert(END, token, "offlist")
-                    resultsbox.insert(END, " ")
+    f = open("tempfile.txt", 'r')  
+    count = 0
+    for line in f:
+    	count += 1
+	f.close()
+	f = open("tempfile.txt", 'r')  
+	for i in range(0,count):
+		data = f.readline()
+		data = string.split(data)
+		for token in data:
+			checktokensplit = p.split(token)
+			checknum = token[0]
+			checktoken = checktokensplit[0]    
+			if not checktoken.isalpha() and not len(checktokensplit) < 2:
+				checktoken=checktokensplit[1]
+			if checknum.isdigit():
+				resultsbox.insert(END, token, "name")
+				resultsbox.insert(END, " ")
+			elif checktoken.startswith("http"):
+				resultsbox.insert(END, token, "name")
+				resultsbox.insert(END, " ")    
+			elif checktoken.lower() in BNCCOCA3:  
+					resultsbox.insert(END, token, "CLR3")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in BNCCOCA2:   
+					resultsbox.insert(END, token, "CLR2")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in BNCCOCA1:   
+					resultsbox.insert(END, token, "CLR1")
+					resultsbox.insert(END, " ")
+			elif checktoken.lower() in filterlist:   
+					resultsbox.insert(END, token, "name")
+					resultsbox.insert(END, " ")
+			else:
+					resultsbox.insert(END, token, "offlist")
+					resultsbox.insert(END, " ")  
+		resultsbox.insert(END, "\n")  
             
     
 def ShowInfoGSL():
