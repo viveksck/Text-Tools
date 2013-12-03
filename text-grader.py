@@ -20,13 +20,6 @@
 '''
 
 '''
-TODO
-2) Website cleaning broken (everything after .com is tokenized
-3) maybe ponder common OCR characters for Missing. See email. As NLTK ignores
-5) detect OS and save to Desktop in mac
-'''
-
-'''
 THANKS TO:
 Word lists from Range embedded by permission - originals available from http://www.victoria.ac.nz/lals/staff/paul-nation.aspx
 Various snippets of code came from stackoverflow (http://stackoverflow.com/), the NLTK manual and website (http://www.nltk.org/)
