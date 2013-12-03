@@ -9540,27 +9540,7 @@ def SaveText():
 		f.write(notes)
 		f.close()
 	
-'''
-#uncomment for old "versioned in folder" save
-                
-def SaveTextOLD():
-    from time import gmtime, strftime
-    reftime = strftime("%b_%d_%Y__%H_%M_%S")
-    f = open("TEMP_RESULTSEDITED TEXT_Version_"+reftime+".txt", 'w')    
-    notes = resultsbox.get(1.0, END)
-    notes = notes.encode('utf-8')
-    f.write(notes)
-    f.close()
-    
-def SaveInfoOLD():
-    from time import gmtime, strftime
-    reftime = strftime("%b_%d_%Y__%H_%M_%S")
-    f = open("RESULTS_Version_"+reftime+".txt", 'a')    
-    notes = text.get(1.0, END)
-    notes = notes.encode('utf-8')
-    f.write(notes)
-    f.close()
-'''
+
 
 #PACK interface
                 
