@@ -8696,21 +8696,22 @@ def GradeTextGSL():
 
 
 def GradeTextBNC():
-    text.delete(1.0, END)
-    data = resultsbox.get(1.0,END)
-    data = data.replace("\n", " ghj789 ")
-    resultsbox.delete(1.0, END)
-    rawtext = string.split(data)
-    text.insert(END, "INDEX: \n")
-    text.insert(END, "BNC1 tokens are this colour\n", "CLR1")
-    text.insert(END, "BNC2 tokens are this colour \n", "CLR2")
-    text.insert(END, "BNC3 tokens are this colour\n", "CLR3")
-    text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
-    text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-    f = open("tempfile.txt", 'r')  
-    count = 0
-    for line in f:
-    	count += 1
+	text.delete(1.0, END)
+	data = resultsbox.get(1.0,END)    
+	resultsbox.delete(1.0, END)
+	f = open("tempfile.txt", 'w')    
+	data = data.encode('utf-8')
+	f.write(data)
+	text.insert(END, "INDEX: \n")
+	text.insert(END, "BNC1 tokens are this colour\n", "CLR1")
+	text.insert(END, "BNC2 tokens are this colour \n", "CLR2")
+	text.insert(END, "BNC3 tokens are this colour\n", "CLR3")
+	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
+	text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
+	f = open("tempfile.txt", 'r')  
+	count = 0
+	for line in f:
+		count += 1
 	f.close()
 	f = open("tempfile.txt", 'r')  
 	for i in range(0,count):
@@ -8746,21 +8747,22 @@ def GradeTextBNC():
 		resultsbox.insert(END, "\n")  
 
 def GradeTextBNCCOCA():
-    text.delete(1.0, END)
-    data = resultsbox.get(1.0,END)
-    data = data.replace("\n", " ghj789 ")
-    resultsbox.delete(1.0, END)
-    rawtext = string.split(data)
-    text.insert(END, "INDEX: \n")
-    text.insert(END, "BNCCOCA1 tokens are this colour\n", "CLR1")
-    text.insert(END, "BNCCOCA2 tokens are this colour \n", "CLR2")
-    text.insert(END, "BNCCOCA3 tokens are this colour\n", "CLR3")
-    text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
-    text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-    f = open("tempfile.txt", 'r')  
-    count = 0
-    for line in f:
-    	count += 1
+	text.delete(1.0, END)
+	data = resultsbox.get(1.0,END)    
+	resultsbox.delete(1.0, END)
+	f = open("tempfile.txt", 'w')    
+	data = data.encode('utf-8')
+	f.write(data)
+	text.insert(END, "INDEX: \n")
+	text.insert(END, "BNCCOCA1 tokens are this colour\n", "CLR1")
+	text.insert(END, "BNCCOCA2 tokens are this colour \n", "CLR2")
+	text.insert(END, "BNCCOCA3 tokens are this colour\n", "CLR3")
+	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
+	text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
+	f = open("tempfile.txt", 'r')  
+	count = 0
+	for line in f:
+		count += 1
 	f.close()
 	f = open("tempfile.txt", 'r')  
 	for i in range(0,count):
