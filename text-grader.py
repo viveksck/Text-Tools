@@ -8628,19 +8628,14 @@ BNCCOCA3=string.split(bnccoca3unsplit)
 filterlist = string.split(filterlistunsplit.lower())
 
 
-'''
-TODO
-find out how to autoidentify the temp folder and put the file there
-'''
-
-
-
+import tempfile
 #define
 def GradeTextGSL():
 	text.delete(1.0, END)
 	data = resultsbox.get(1.0,END)    
 	resultsbox.delete(1.0, END)
-	f = open("tempfile.txt", 'w')    
+	tempfilename = tempfile.mkstemp()[1]
+	f = open(tempfilename, 'w')    
 	data = data.encode('utf-8')
 	f.write(data)
 	text.insert(END, "INDEX: \n")
@@ -8649,12 +8644,12 @@ def GradeTextGSL():
 	text.insert(END, "AWL words are this colour\n", "CLR3")
 	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are marked this colour \n", "name")
 	text.insert(END, "Anything offlist - not in the above lists - is this colour \n", "offlist")
-	f = open("tempfile.txt", 'r')  
+	f = open(tempfilename, 'r')  
 	count = 0
 	for line in f:
 	    count += 1
 	f.close()
-	f = open("tempfile.txt", 'r')  
+	f = open(tempfilename, 'r')  
 	for i in range(0,count):
 		data = f.readline()
 		data = string.split(data)
@@ -8692,7 +8687,8 @@ def GradeTextBNC():
 	text.delete(1.0, END)
 	data = resultsbox.get(1.0,END)    
 	resultsbox.delete(1.0, END)
-	f = open("tempfile.txt", 'w')    
+	tempfilename = tempfile.mkstemp()[1]
+	f = open(tempfilename, 'w')    
 	data = data.encode('utf-8')
 	f.write(data)
 	text.insert(END, "INDEX: \n")
@@ -8701,12 +8697,12 @@ def GradeTextBNC():
 	text.insert(END, "BNC3 tokens are this colour\n", "CLR3")
 	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
 	text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-	f = open("tempfile.txt", 'r')  
+	f = open(tempfilename, 'r')  
 	count = 0
 	for line in f:
-		count += 1
+	    count += 1
 	f.close()
-	f = open("tempfile.txt", 'r')  
+	f = open(tempfilename, 'r')  
 	for i in range(0,count):
 		data = f.readline()
 		data = string.split(data)
@@ -8743,7 +8739,8 @@ def GradeTextBNCCOCA():
 	text.delete(1.0, END)
 	data = resultsbox.get(1.0,END)    
 	resultsbox.delete(1.0, END)
-	f = open("tempfile.txt", 'w')    
+	tempfilename = tempfile.mkstemp()[1]
+	f = open(tempfilename, 'w')    
 	data = data.encode('utf-8')
 	f.write(data)
 	text.insert(END, "INDEX: \n")
@@ -8752,12 +8749,12 @@ def GradeTextBNCCOCA():
 	text.insert(END, "BNCCOCA3 tokens are this colour\n", "CLR3")
 	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
 	text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-	f = open("tempfile.txt", 'r')  
+	f = open(tempfilename, 'r')  
 	count = 0
 	for line in f:
-		count += 1
+	    count += 1
 	f.close()
-	f = open("tempfile.txt", 'r')  
+	f = open(tempfilename, 'r')  
 	for i in range(0,count):
 		data = f.readline()
 		data = string.split(data)
