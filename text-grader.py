@@ -8803,8 +8803,7 @@ def ShowInfoGSL():
 	l = re.compile("\n")
 	text.delete(1.0, END)    
 	data = resultsbox.get(1.0,END)
-
-
+	
 	#Clean and lower text
 	httplist = re.findall(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', data)		
 	websiteaddressremoved = len(httplist)
@@ -8828,8 +8827,6 @@ def ShowInfoGSL():
 				filterremoved = filterremoved+1
 			else:
 				datalist.append(token.lower())                
-	
-
 	text.insert(END, "\n Website addresses cleaned: ")
 	text.insert(END, websiteaddressremoved)
 	text.insert(END, "\n Punctuation marks removed: ")
@@ -8839,8 +8836,6 @@ def ShowInfoGSL():
 	text.insert(END, "\n Tokens removed using filterlist (see terminal for list): ")
 	text.insert(END, filterremoved)
 	text.insert(END, "\n\n")
-
-
 
 	BNC1missing=[]
 	for line in l.split(gsl1unsplit):
@@ -9495,13 +9490,10 @@ def ShowHelp():
     
     text.insert(END, "Collocation/readability functions removed in this version to allow packaging. Please download earlier version of program to get these back, although note that they require NLTK packages. A standalone version will be released soon with these two functions. \n\n\n\n") 
     
-    
-    
-
 def OpenFile():
     resultsbox.delete(1.0,END)
     text.delete(1.0,END)
-    file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file')
+    file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file',filetypes=[("Text Files", "*.txt")])
     if file != None:
         data = file.read()
         for word in data:
