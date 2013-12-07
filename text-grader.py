@@ -8683,7 +8683,7 @@ def GradeTextGSL():
 			else:
 					resultsbox.insert(END, token, "offlist")
 					resultsbox.insert(END, " ")  
-
+		resultsbox.insert(END, "\n")  
 
 def GradeTextBNC():
 	text.delete(1.0, END)
@@ -8738,6 +8738,7 @@ def GradeTextBNC():
 			else:
 					resultsbox.insert(END, token, "offlist")
 					resultsbox.insert(END, " ")  
+		resultsbox.insert(END, "\n")  
 
 def GradeTextBNCCOCA():
 	text.delete(1.0, END)
@@ -8792,7 +8793,7 @@ def GradeTextBNCCOCA():
 			else:
 					resultsbox.insert(END, token, "offlist")
 					resultsbox.insert(END, " ")  
-            
+		resultsbox.insert(END, "\n")  
     
 def ShowInfoGSL():
 	#didn't bother changing the names - BNC1 is GSL 1, BNC2 is GLS2, BNC3isAWL
