@@ -28,7 +28,6 @@ Various snippets of code came from stackoverflow (http://stackoverflow.com/), th
 
 '''
 TO DO
-fix ANSI encoding
 Add a progress bar
 '''
 
@@ -8842,13 +8841,16 @@ def ShowInfoGSL():
 				filterremoved = filterremoved+1
 			else:
 				datalist.append(token.lower())                
-	text.insert(END, "\n Website addresses cleaned: ")
+	text.insert(END, "Website addresses cleaned: ")
 	text.insert(END, websiteaddressremoved)
-	text.insert(END, "\n Punctuation marks removed: ")
+	text.insert(END, "\n")
+	text.insert(END, "Punctuation marks removed: ")
 	text.insert(END, punctuationremoved)
-	text.insert(END, "\n Digits removed: ")
+	text.insert(END, "\n")
+	text.insert(END, "Digits removed: ")
 	text.insert(END, numberremoved)
-	text.insert(END, "\n Tokens removed using filterlist (see terminal for list): ")
+	text.insert(END, "\n")
+	text.insert(END, "Tokens removed using filterlist (see terminal for list): ")
 	text.insert(END, filterremoved)
 	text.insert(END, "\n\n")
 
@@ -9072,13 +9074,16 @@ def ShowInfoBNC():
 				datalist.append(token.lower())                
 	
 
-	text.insert(END, "\n Website addresses cleaned: ")
+	text.insert(END, "Website addresses cleaned: ")
 	text.insert(END, websiteaddressremoved)
-	text.insert(END, "\n Punctuation marks removed: ")
+	text.insert(END, "\n")
+	text.insert(END, "Punctuation marks removed: ")
 	text.insert(END, punctuationremoved)
-	text.insert(END, "\n Digits removed: ")
+	text.insert(END, "\n")
+	text.insert(END, "Digits removed: ")
 	text.insert(END, numberremoved)
-	text.insert(END, "\n Tokens removed using filterlist (see terminal for list): ")
+	text.insert(END, "\n")
+	text.insert(END, "Tokens removed using filterlist (see terminal for list): ")
 	text.insert(END, filterremoved)
 	text.insert(END, "\n\n")
 
@@ -9308,13 +9313,16 @@ def ShowInfoBNCCOCA():
 				datalist.append(token.lower())                
 	
 
-	text.insert(END, "\n Website addresses cleaned: ")
+	text.insert(END, "Website addresses cleaned: ")
 	text.insert(END, websiteaddressremoved)
-	text.insert(END, "\n Punctuation marks removed: ")
+	text.insert(END, "\n")
+	text.insert(END, "Punctuation marks removed: ")
 	text.insert(END, punctuationremoved)
-	text.insert(END, "\n Digits removed: ")
+	text.insert(END, "\n")
+	text.insert(END, "Digits removed: ")
 	text.insert(END, numberremoved)
-	text.insert(END, "\n Tokens removed using filterlist (see terminal for list): ")
+	text.insert(END, "\n")
+	text.insert(END, "Tokens removed using filterlist (see terminal for list): ")
 	text.insert(END, filterremoved)
 	text.insert(END, "\n\n")
 
@@ -9514,10 +9522,7 @@ def OpenFile():
         for line in file:
         	line = line.decode('utf-8', 'ignore')
         	resultsbox.insert(END, line)
-     
-
-
-                
+             
 def SaveInfo():
 	notes = resultsbox.get(1.0, END)
 	notes = notes.encode('utf-8')
@@ -9525,9 +9530,7 @@ def SaveInfo():
 	if f != None:
 		f.write(notes)
 		f.close()
-    
-    
-                
+             
 def SaveText():
 	notes = text.get(1.0, END)
 	notes = notes.encode('utf-8')
@@ -9535,7 +9538,6 @@ def SaveText():
 	if f != None:
 		f.write(notes)
 		f.close()
-	
 
 
 #PACK interface
