@@ -9546,8 +9546,8 @@ GSL_button = Button(buttonframe, text="GSL/AWL",command = GradeTextGSL)
 GSLinfo_button = Button(buttonframe, text="GSL/AWL Word Lists",command = ShowInfoGSL)
 
 openfile_button = Button(buttonframe2, text="Open File", command = OpenFile)
-savetext_button = Button(buttonframe2, text="Save Text (bottom box)", command = SaveText)
-saveinfo_button = Button(buttonframe2, text="Save Info (top box)", command = SaveInfo)
+savetext_button = Button(buttonframe2, text="Save Info (Top box)", command = SaveText)
+saveinfo_button = Button(buttonframe2, text="Save Text (Bottom box)", command = SaveInfo)
 help_button = Button (buttonframe2, text="Help & About", command = ShowHelp)
 
 textscrollbar = Scrollbar(textframe, orient=VERTICAL)
