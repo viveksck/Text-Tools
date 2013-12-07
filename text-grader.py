@@ -25,6 +25,14 @@ Word lists from Range embedded by permission - originals available from http://w
 Various snippets of code came from stackoverflow (http://stackoverflow.com/), the NLTK manual and website (http://www.nltk.org/)
 '''
 
+
+'''
+TO DO
+fix ANSI encoding
+Add a progress bar
+'''
+
+
 #Define filter lists - names or any other words you want excluded from analysis
 filterlistunsplit = ('''Malcolm Prentice ''')
 
@@ -9497,19 +9505,22 @@ def ShowHelp():
     
     text.insert(END, "Collocation/readability functions removed in this version to allow packaging. Please download earlier version of program to get these back, although note that they require NLTK packages. A standalone version will be released soon with these two functions. \n\n\n\n") 
     
+
 def OpenFile():
     resultsbox.delete(1.0,END)
     text.delete(1.0,END)
     file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file',filetypes=[("Text Files", "*.txt")])
     if file != None:
         for line in file:
+        	line = line.decode('utf-8', 'ignore')
         	resultsbox.insert(END, line)
-        
+     
+
 
                 
 def SaveInfo():
 	notes = resultsbox.get(1.0, END)
-	#notes = notes.encode('utf-8')
+	notes = notes.encode('utf-8')
 	f = tkFileDialog.asksaveasfile(parent=root,initialfile="results.txt",mode='w',title='Save File')
 	if f != None:
 		f.write(notes)
@@ -9519,7 +9530,7 @@ def SaveInfo():
                 
 def SaveText():
 	notes = text.get(1.0, END)
-	#notes = notes.encode('utf-8')
+	notes = notes.encode('utf-8')
 	f = tkFileDialog.asksaveasfile(parent=root,initialfile="editedtext.txt",mode='w',title='Save File')
 	if f != None:
 		f.write(notes)
@@ -9596,5 +9607,5 @@ textframe.pack(fill=BOTH, expand=1)
 resultsframe.pack(fill=BOTH, expand=1)
 
 resultsbox.insert(END, "Open a text (TXT) file using the buttons above, paste text here, or just start typing")
-text.insert(END, "Information will appear here after you run the program. Large text files might take a while - so don't worry if it seems nothing is happening. The program only uses 100MB of memory and will never crash, but it will use 100% of your processing power for as long as it takes, so everything might slow down.")
+text.insert(END, "Information will appear here after you run the program. \n\nLarge text files might take a while - so don't worry if it seems nothing is happening. The program only uses 100MB of memory and will never crash, but it will use 100% of your processing power for as long as it takes, so everything might slow down.")
 root.mainloop()
