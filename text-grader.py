@@ -8629,13 +8629,13 @@ filterlist = string.split(filterlistunsplit.lower())
 
 
 import tempfile
-#define
+
 def GradeTextGSL():
 	text.delete(1.0, END)
 	data = resultsbox.get(1.0,END)    
 	resultsbox.delete(1.0, END)
 	tempfilename = tempfile.mkstemp()[1]
-	f = open(tempfilename, 'w')    
+	f = open(tempfilename, 'w')
 	data = data.encode('utf-8')
 	f.write(data)
 	text.insert(END, "INDEX: \n")
@@ -8649,6 +8649,9 @@ def GradeTextGSL():
 	for line in f:
 	    count += 1
 	f.close()
+	text.insert(END, "Processed ")
+	text.insert(END, count)
+	text.insert(END, " lines.")	
 	f = open(tempfilename, 'r')  
 	for i in range(0,count):
 		data = f.readline()
@@ -8668,6 +8671,7 @@ def GradeTextGSL():
 			elif checktoken.lower() in AWL:  
 					resultsbox.insert(END, token, "CLR3")
 					resultsbox.insert(END, " ")
+					text.insert(END, ".")
 			elif checktoken.lower() in GSL2:   
 					resultsbox.insert(END, token, "CLR2")
 					resultsbox.insert(END, " ")
@@ -8680,7 +8684,6 @@ def GradeTextGSL():
 			else:
 					resultsbox.insert(END, token, "offlist")
 					resultsbox.insert(END, " ")  
-		resultsbox.insert(END, "\n")  
 
 
 def GradeTextBNC():
@@ -8702,6 +8705,9 @@ def GradeTextBNC():
 	for line in f:
 	    count += 1
 	f.close()
+	text.insert(END, "Processed ")
+	text.insert(END, count)
+	text.insert(END, " lines.")	
 	f = open(tempfilename, 'r')  
 	for i in range(0,count):
 		data = f.readline()
@@ -8733,7 +8739,6 @@ def GradeTextBNC():
 			else:
 					resultsbox.insert(END, token, "offlist")
 					resultsbox.insert(END, " ")  
-		resultsbox.insert(END, "\n")  
 
 def GradeTextBNCCOCA():
 	text.delete(1.0, END)
@@ -8754,6 +8759,10 @@ def GradeTextBNCCOCA():
 	for line in f:
 	    count += 1
 	f.close()
+	text.insert(END, "Processed ")
+	text.insert(END, count)
+	text.insert(END, " lines.")	
+
 	f = open(tempfilename, 'r')  
 	for i in range(0,count):
 		data = f.readline()
@@ -8785,7 +8794,6 @@ def GradeTextBNCCOCA():
 			else:
 					resultsbox.insert(END, token, "offlist")
 					resultsbox.insert(END, " ")  
-		resultsbox.insert(END, "\n")  
             
     
 def ShowInfoGSL():
