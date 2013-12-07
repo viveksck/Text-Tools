@@ -9596,5 +9596,5 @@ textframe.pack(fill=BOTH, expand=1)
 resultsframe.pack(fill=BOTH, expand=1)
 
 resultsbox.insert(END, "Open a text (TXT) file using the buttons above, paste text here, or just start typing")
-text.insert(END, "Information will appear here after you run the program. Please don't worry if it takes a while - the program only uses 100MB of memory and will never crash. What it will do is use 100% of your processing power for as long as it takes - if your text file is gigantic ")
+text.insert(END, "Information will appear here after you run the program. Large text files might take a while - so don't worry if it seems nothing is happening. The program only uses 100MB of memory and will never crash, but it will use 100% of your processing power for as long as it takes, so everything might slow down.")
 root.mainloop()
