@@ -8671,7 +8671,6 @@ def GradeTextGSL():
 			elif checktoken.lower() in AWL:  
 					resultsbox.insert(END, token, "CLR3")
 					resultsbox.insert(END, " ")
-					text.insert(END, ".")
 			elif checktoken.lower() in GSL2:   
 					resultsbox.insert(END, token, "CLR2")
 					resultsbox.insert(END, " ")
@@ -8762,7 +8761,6 @@ def GradeTextBNCCOCA():
 	text.insert(END, "Processed ")
 	text.insert(END, count)
 	text.insert(END, " lines.")	
-
 	f = open(tempfilename, 'r')  
 	for i in range(0,count):
 		data = f.readline()
