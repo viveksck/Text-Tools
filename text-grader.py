@@ -9502,13 +9502,9 @@ def OpenFile():
     text.delete(1.0,END)
     file = tkFileDialog.askopenfile(parent=root,mode='rb',title='Choose a file',filetypes=[("Text Files", "*.txt")])
     if file != None:
-        data = file.read()
-        for word in data:
-            if "\r" in word and not "\n" in word:
-                resultsbox.insert(END, word)
-                resultsbox.insert(END, "\n")
-            else:
-                resultsbox.insert(END, word)
+        for line in file:
+        	resultsbox.insert(END, line)
+        
 
                 
 def SaveInfo():
@@ -9600,5 +9596,5 @@ textframe.pack(fill=BOTH, expand=1)
 resultsframe.pack(fill=BOTH, expand=1)
 
 resultsbox.insert(END, "Open a text (TXT) file using the buttons above, paste text here, or just start typing")
-text.insert(END, "Information will appear here after you run the program")
+text.insert(END, "Information will appear here after you run the program. Please don't worry if it takes a while - the program only uses 100MB of memory and will never crash. What it will do is use 100% of your processing power for as long as it takes - if your text file is gigantic ")
 root.mainloop()
