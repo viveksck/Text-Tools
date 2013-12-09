@@ -8638,6 +8638,21 @@ filterlist = string.split(filterlistunsplit.lower())
 import tempfile
 
 def GradeTextGSL():
+	global listnum
+	listnum = 1
+	GradeTextGeneric()
+	
+def GradeTextBNC():
+	global listnum
+	listnum = 2
+	GradeTextGeneric()
+
+def GradeTextBNCCOCA():
+	global listnum
+	listnum = 3
+	GradeTextGeneric()
+
+def GradeTextGeneric():
 	text.delete(1.0, END)
 	data = resultsbox.get(1.0,END)    
 	resultsbox.delete(1.0, END)
@@ -8645,17 +8660,41 @@ def GradeTextGSL():
 	f = open(tempfilename, 'w')
 	data = data.encode('utf-8')
 	f.write(data)
+	f = open(tempfilename, 'r')  
+	count = 0
+	for line in f:
+	    count += 1
+	f.close()
+	if listnum == 1:
+		chosenlist1=GSL1
+		chosenlist2=GSL2	 
+		chosenlist3=AWL
+		listname1 = "GSL1"
+		listname2 = "GSL2"
+		listname3 = "GSL3"
+	if listnum == 2:
+		chosenlist1=BNC1
+		chosenlist2=BNC2	 
+		chosenlist3=BNC3
+		listname1 = "BNC1"
+		listname2 = "BNC2"
+		listname3 = "BNC3"
+	if listnum == 3:
+		chosenlist1=BNCCOCA1
+		chosenlist2=BNCCOCA2	 
+		chosenlist3=BNC3
+		listname1 = "BNCCOCA1"
+		listname2 = "BNCCOCA2"
+		listname3 = "BNCCOCA3"
 	text.insert(END, "INDEX: \n")
-	text.insert(END, "GSL1 words are this colour\n", "CLR1")
-	text.insert(END, "GSL2 words are this colour \n", "CLR2")
-	text.insert(END, "AWL words are this colour\n", "CLR3")
+	text.insert(END, listname1, "CLR1")
+	text.insert(END, " words are this colour\n", "CLR1")
+	text.insert(END, listname2, "CLR2")
+	text.insert(END, " words are this colour \n", "CLR2")
+	text.insert(END, listname3, "CLR3")	
+	text.insert(END, " words are this colour\n", "CLR3")
 	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are marked this colour \n", "name")
 	text.insert(END, "Anything offlist - not in the above lists - is this colour \n", "offlist")
-	f = open(tempfilename, 'r')  
-	count = 0
-	for line in f:
-	    count += 1
-	f.close()
 	text.insert(END, "Processed ")
 	text.insert(END, count)
 	text.insert(END, " lines.")	
@@ -8675,13 +8714,13 @@ def GradeTextGSL():
 			elif checktoken.startswith("http"):
 				resultsbox.insert(END, token, "name")
 				resultsbox.insert(END, " ")    
-			elif checktoken.lower() in AWL:  
+			elif checktoken.lower() in chosenlist3:  
 					resultsbox.insert(END, token, "CLR3")
 					resultsbox.insert(END, " ")
-			elif checktoken.lower() in GSL2:   
+			elif checktoken.lower() in chosenlist2:   
 					resultsbox.insert(END, token, "CLR2")
 					resultsbox.insert(END, " ")
-			elif checktoken.lower() in GSL1:   
+			elif checktoken.lower() in chosenlist1:   
 					resultsbox.insert(END, token, "CLR1")
 					resultsbox.insert(END, " ")
 			elif checktoken.lower() in filterlist:   
@@ -8692,115 +8731,7 @@ def GradeTextGSL():
 					resultsbox.insert(END, " ")  
 		resultsbox.insert(END, "\n")  
 
-def GradeTextBNC():
-	text.delete(1.0, END)
-	data = resultsbox.get(1.0,END)    
-	resultsbox.delete(1.0, END)
-	tempfilename = tempfile.mkstemp()[1]
-	f = open(tempfilename, 'w')    
-	data = data.encode('utf-8')
-	f.write(data)
-	text.insert(END, "INDEX: \n")
-	text.insert(END, "BNC1 tokens are this colour\n", "CLR1")
-	text.insert(END, "BNC2 tokens are this colour \n", "CLR2")
-	text.insert(END, "BNC3 tokens are this colour\n", "CLR3")
-	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
-	text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-	f = open(tempfilename, 'r')  
-	count = 0
-	for line in f:
-	    count += 1
-	f.close()
-	text.insert(END, "Processed ")
-	text.insert(END, count)
-	text.insert(END, " lines.")	
-	f = open(tempfilename, 'r')  
-	for i in range(0,count):
-		data = f.readline()
-		data = string.split(data)
-		for token in data:
-			checktokensplit = p.split(token)
-			checknum = token[0]
-			checktoken = checktokensplit[0]    
-			if not checktoken.isalpha() and not len(checktokensplit) < 2:
-				checktoken=checktokensplit[1]
-			if checknum.isdigit():
-				resultsbox.insert(END, token, "name")
-				resultsbox.insert(END, " ")
-			elif checktoken.startswith("http"):
-				resultsbox.insert(END, token, "name")
-				resultsbox.insert(END, " ")    
-			elif checktoken.lower() in BNC3:  
-					resultsbox.insert(END, token, "CLR3")
-					resultsbox.insert(END, " ")
-			elif checktoken.lower() in BNC2:   
-					resultsbox.insert(END, token, "CLR2")
-					resultsbox.insert(END, " ")
-			elif checktoken.lower() in BNC1:   
-					resultsbox.insert(END, token, "CLR1")
-					resultsbox.insert(END, " ")
-			elif checktoken.lower() in filterlist:   
-					resultsbox.insert(END, token, "name")
-					resultsbox.insert(END, " ")
-			else:
-					resultsbox.insert(END, token, "offlist")
-					resultsbox.insert(END, " ")  
-		resultsbox.insert(END, "\n")  
 
-def GradeTextBNCCOCA():
-	text.delete(1.0, END)
-	data = resultsbox.get(1.0,END)    
-	resultsbox.delete(1.0, END)
-	tempfilename = tempfile.mkstemp()[1]
-	f = open(tempfilename, 'w')    
-	data = data.encode('utf-8')
-	f.write(data)
-	text.insert(END, "INDEX: \n")
-	text.insert(END, "BNCCOCA1 tokens are this colour\n", "CLR1")
-	text.insert(END, "BNCCOCA2 tokens are this colour \n", "CLR2")
-	text.insert(END, "BNCCOCA3 tokens are this colour\n", "CLR3")
-	text.insert(END, "Numbers, web addresses and anything in your filterlist including names are this colour \n", "name")
-	text.insert(END, "Anything offlist -  not in the above lists - are this colour \n", "offlist")    
-	f = open(tempfilename, 'r')  
-	count = 0
-	for line in f:
-	    count += 1
-	f.close()
-	text.insert(END, "Processed ")
-	text.insert(END, count)
-	text.insert(END, " lines.")	
-	f = open(tempfilename, 'r')  
-	for i in range(0,count):
-		data = f.readline()
-		data = string.split(data)
-		for token in data:
-			checktokensplit = p.split(token)
-			checknum = token[0]
-			checktoken = checktokensplit[0]    
-			if not checktoken.isalpha() and not len(checktokensplit) < 2:
-				checktoken=checktokensplit[1]
-			if checknum.isdigit():
-				resultsbox.insert(END, token, "name")
-				resultsbox.insert(END, " ")
-			elif checktoken.startswith("http"):
-				resultsbox.insert(END, token, "name")
-				resultsbox.insert(END, " ")    
-			elif checktoken.lower() in BNCCOCA3:  
-					resultsbox.insert(END, token, "CLR3")
-					resultsbox.insert(END, " ")
-			elif checktoken.lower() in BNCCOCA2:   
-					resultsbox.insert(END, token, "CLR2")
-					resultsbox.insert(END, " ")
-			elif checktoken.lower() in BNCCOCA1:   
-					resultsbox.insert(END, token, "CLR1")
-					resultsbox.insert(END, " ")
-			elif checktoken.lower() in filterlist:   
-					resultsbox.insert(END, token, "name")
-					resultsbox.insert(END, " ")
-			else:
-					resultsbox.insert(END, token, "offlist")
-					resultsbox.insert(END, " ")  
-		resultsbox.insert(END, "\n")  
     
 def ShowInfoGSL():
 	#didn't bother changing the names - BNC1 is GSL 1, BNC2 is GLS2, BNC3isAWL
@@ -9609,5 +9540,5 @@ textframe.pack(fill=BOTH, expand=1)
 resultsframe.pack(fill=BOTH, expand=1)
 
 resultsbox.insert(END, "Open a text (TXT) file using the buttons above, paste text here, or just start typing")
-text.insert(END, "Information will appear here after you run the program. \n\nLarge text files might take a while - so don't worry if it seems nothing is happening. The program only uses 100MB of memory and will never crash, but it will use 100% of your processing power for as long as it takes, so everything might slow down.")
+text.insert(END, "Information will appear here after you run the program. Large text files might take a while - so don't worry if it seems nothing is happening. The program hasn't crashed, but your system will be slow until it's finished.")
 root.mainloop()
