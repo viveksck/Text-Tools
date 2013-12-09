@@ -8682,7 +8682,7 @@ def GradeTextGeneric():
 	if listnum == 3:
 		chosenlist1=BNCCOCA1
 		chosenlist2=BNCCOCA2	 
-		chosenlist3=BNC3
+		chosenlist3=BNCCOCA3
 		listname1 = "BNCCOCA1"
 		listname2 = "BNCCOCA2"
 		listname3 = "BNCCOCA3"
@@ -8732,8 +8732,55 @@ def GradeTextGeneric():
 		resultsbox.insert(END, "\n")  
 
 
-    
+
 def ShowInfoGSL():
+	global listnum
+	listnum = 1
+	ShowInfoGeneric()
+	
+def ShowInfoBNC():
+	global listnum
+	listnum = 2
+	ShowInfoGeneric()
+
+def ShowInfoBNCCOCA():
+	global listnum
+	listnum = 3
+	ShowInfoGeneric()
+	
+	
+def ShowInfoGeneric():
+	if listnum == 1:
+		chosenlist1=GSL1
+		chosenlist2=GSL2	 
+		chosenlist3=AWL
+		chosenunsplitlist1=gsl1unsplit
+		chosenunsplitlist2=gsl2unsplit
+		chosenunsplitlist3=awlunsplit
+		listname1 = "GSL1"
+		listname2 = "GSL2"
+		listname3 = "GSL3"
+	if listnum == 2:
+		chosenlist1=BNC1
+		chosenlist2=BNC2	 
+		chosenlist3=BNC3
+		chosenunsplitlist1=base1unsplit
+		chosenunsplitlist2=base2unsplit
+		chosenunsplitlist3=base3unsplit
+		listname1 = "BNC1"
+		listname2 = "BNC2"
+		listname3 = "BNC3"
+	if listnum == 3:
+		chosenlist1=BNCCOCA1
+		chosenlist2=BNCCOCA2	 
+		chosenlist3=BNCCOCA3
+		chosenunsplitlist1=bnccoca1unsplit
+		chosenunsplitlist2=bnccoca2unsplit
+		chosenunsplitlist3=bnccoca3unsplit
+		listname1 = "BNCCOCA1"
+		listname2 = "BNCCOCA2"
+		listname3 = "BNCCOCA3"
+		
 	#didn't bother changing the names - BNC1 is GSL 1, BNC2 is GLS2, BNC3isAWL
 	datalist=[]
 	infoBNC1list=[]
@@ -8786,7 +8833,7 @@ def ShowInfoGSL():
 	text.insert(END, "\n\n")
 
 	BNC1missing=[]
-	for line in l.split(gsl1unsplit):
+	for line in l.split(chosenunsplitlist1):
 		words = re.findall(p,line)
 		intersect = [word for word in words if word in datalist]
 		if len(intersect) is 0:
@@ -8796,7 +8843,7 @@ def ShowInfoGSL():
 			infoBNC1familylist = infoBNC1familylist+ [words[0]]
 			
 	BNC2missing=[]
-	for line in l.split(gsl2unsplit):
+	for line in l.split(chosenunsplitlist2):
 		words = re.findall(p,line)
 		intersect = [word for word in words if word in datalist]
 		if len(intersect) is 0:
@@ -8806,7 +8853,7 @@ def ShowInfoGSL():
 			infoBNC2familylist = infoBNC2familylist+ [words[0]]
 	
 	BNC3missing=[]			
-	for line in l.split(awlunsplit):
+	for line in l.split(chosenunsplitlist3):
 		words = re.findall(p,line)
 		intersect = [word for word in words if word in datalist]
 		if len(intersect) is 0:
@@ -8835,21 +8882,21 @@ def ShowInfoGSL():
 			BNC2count=BNC2count+1
 		elif word in infoBNC3list:
 			BNC3count=BNC3count+1
-
+	text.insert(END, '________________________________________________\n'),
 	text.insert(END, "Number of word tokens: ")
 	text.insert(END, str(len(datalist)))
 	text.insert(END, "\n")
 	text.insert(END, 'Number of word types in text: ')
 	text.insert(END, str(len(set(datalist))))
 	text.insert(END, "\n")
-	text.insert(END, 'Number of recognisable word GSL/AWL families in text: ')
+	text.insert(END, 'Number of recognisable word families in text: ')
 	text.insert(END, str(len(set(ALLfamilylists))))
 	text.insert(END, "\n")
 	text.insert(END, 'Lexical richness: ')
 	if len(datalist) < 1:
 		text.insert(END, '\n\n ERROR: NO DATA IN INPUT BOX')
 	text.insert(END, str((len(datalist) / len(set(datalist)))))
-	text.insert(END, "\n\n")    
+	text.insert(END, "\n")    
 
 	rawlength =  len(datalist)
 	rawsetlength = len(set(datalist))
@@ -8866,7 +8913,28 @@ def ShowInfoGSL():
 	offlistsetlength=len(set(infoofflist))
 	totalfamilieslength = len(set(ALLfamilylists))
 
-	text.insert(END, 'From General Service List 1 (998 word families) there are  '),
+	text.insert(END, '________________________________________________\n'),
+
+	if listnum == 1:
+		text.insert(END, 'The three lists you are using are:\n'),
+		text.insert(END, 'List 1: General Service List 1 (998 word families)\n', "CLR1"),
+		text.insert(END, 'List 2: General Service List 2 (988 word families)\n', "CLR2"),
+		text.insert(END, 'List 3: Academic Word List (570 word families)\n', "CLR3"), 
+
+	if listnum == 2:
+		text.insert(END, 'The three lists you are using are:\n'),
+		text.insert(END, 'List 1: BNC List 1 (first 1000 word families)\n', "CLR1"),
+		text.insert(END, 'List 2: BNC List 2 (second 1000 word families)\n', "CLR2"),
+		text.insert(END, 'List 3: BNC List 3 (third 1000 word families)\n', "CLR3"), 
+
+	if listnum == 3:
+		text.insert(END, 'The three lists you are using are:\n'),
+		text.insert(END, 'List 1: BNC-COCA List 1 (first 1000 word families)\n', "CLR1"),
+		text.insert(END, 'List 2: BNC-COCA List 2 (second 1000 word families)\n', "CLR2"),
+		text.insert(END, 'List 3: BNC-COCA List 3 (third 1000 word families)\n', "CLR3"), 
+
+	text.insert(END, '________________________________________________\n'),
+	text.insert(END, 'From List 1, there are '),
 	text.insert(END, str(bnc1length))
 	text.insert(END, ' tokens (')
 	text.insert(END, str(100 * bnc1length / rawlength))
@@ -8880,13 +8948,14 @@ def ShowInfoGSL():
 		text.insert(END, ' recognisable families (')
 		text.insert(END, str(100 * bnc1familylength / totalfamilieslength))
 		text.insert(END, '%)')
-		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "CLR1")
 		text.insert(END, "\n\n")
+		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "CLR1")
+		text.insert(END, "\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
-	
-	text.insert(END, 'From General Service List 2 (988 word families) there are  '),
+
+	text.insert(END, '________________________________________________\n'),
+	text.insert(END, 'From List 2, there are '),
 	text.insert(END, str(bnc2length))
 	text.insert(END, ' tokens (')
 	text.insert(END, str(100 * bnc2length / rawlength))
@@ -8900,13 +8969,14 @@ def ShowInfoGSL():
 		text.insert(END, ' recognisable families (')
 		text.insert(END, str(100 * bnc2familylength / totalfamilieslength))
 		text.insert(END, '%)')
-		text.insert(END, "\n")
+		text.insert(END, "\n\n")
 		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "CLR2")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
 
-	text.insert(END, 'From Academic Word List (570 word families) there are  '),
+	text.insert(END, '________________________________________________\n'),
+	text.insert(END, 'From List 3, there are '),
 	text.insert(END, str(bnc3length))
 	text.insert(END, ' tokens (')
 	text.insert(END, str(100 * bnc3length / rawlength))
@@ -8920,13 +8990,14 @@ def ShowInfoGSL():
 		text.insert(END, ' recognisable families (')
 		text.insert(END, str(100 * bnc3familylength / totalfamilieslength))
 		text.insert(END, '%)')
-		text.insert(END, "\n")
+		text.insert(END, "\n\n")
 		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "CLR3")
 		text.insert(END, "\n\n")
 	else: 
 		text.insert(END, ' there are no recognisable families (')
 
-	text.insert(END, 'Tokens NOT in GSL1, GSL2 or AWL account for '),
+	text.insert(END, '________________________________________________\n'),
+	text.insert(END, 'Tokens NOT in List1, 2 or 3 account for '),
 	text.insert(END, str(offlistlength))
 	text.insert(END, ' tokens (')
 	text.insert(END, str(100 * offlistlength / rawlength))
@@ -8935,29 +9006,30 @@ def ShowInfoGSL():
 	text.insert(END, ' types (',)
 	text.insert(END, str(100 * offlistsetlength / rawsetlength))
 	text.insert(END, '%):')
-	text.insert(END, "\n")
+	text.insert(END, "\n\n")
 	text.insert(END, string.join(sorted(set((infoofflist)))), "offlist")
 	text.insert(END, "\n\n")    
 
 
 	#set up missing lists
-
-	text.insert(END, 'From General Service List 1, the following ')
+	text.insert(END, '________________________________________________\n'),
+	text.insert(END, 'From List 1, the following ')
 	text.insert(END, str(len(set(BNC1missing))))
 	text.insert(END, ' families are missing.')
 	text.insert(END, "\n")
 	text.insert(END, string.join(sorted(set((BNC1missing)))), "CLR1")
 	text.insert(END, "\n\n")    
 
-
-	text.insert(END, 'From General Service List 2, these ')
+	text.insert(END, '________________________________________________\n'),
+	text.insert(END, 'From List 2, these ')
 	text.insert(END, str(len(set(BNC2missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
 	text.insert(END, string.join(sorted(set((BNC2missing)))), "CLR2")
 	text.insert(END, "\n\n")    
 
-	text.insert(END, 'From the Academic Word List, these ')
+	text.insert(END, '________________________________________________\n'),
+	text.insert(END, 'From the List 3, these ')
 	text.insert(END, str(len(set(BNC3missing))))
 	text.insert(END, ' families are missing:')
 	text.insert(END, "\n")
@@ -8965,478 +9037,6 @@ def ShowInfoGSL():
 	text.insert(END, "\n\n")    
 
 
-    
-def ShowInfoBNC():
-	datalist=[]
-	infoBNC1list=[]
-	infoBNC2list=[]
-	infoBNC3list=[]
-	infoofflist=[]
-	infoBNC1familylist=[]
-	infoBNC2familylist=[]
-	infoBNC3familylist=[]
-	infoofflistfamily=[]
-	p= r"\w+(?:[-']\w+)*|'|[-.(]+|\S\w*"
-	l = re.compile("\n") #for 
-	text.delete(1.0, END)    
-	data = resultsbox.get(1.0,END)
-
-	#Clean and lower text
-	httplist = re.findall(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', data)		
-	websiteaddressremoved = len(httplist)
-	data = re.sub(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', r' ', data) 
-	rawtext= re.findall(p, data)
-	punctuation=re.compile("\W")
-	number=re.compile("\d")
-	punctuationremoved=0 
-	numberremoved=0
-	filterremoved=0
-	for token in rawtext:
-			if punctuation.match(token):
-				token=""    
-				punctuationremoved=punctuationremoved+1        
-			elif number.match(token):
-				token=""
-				numberremoved=numberremoved+1    
-			elif token in filterlist:
-				token=""
-				filterremoved = filterremoved+1
-			else:
-				datalist.append(token.lower())                
-	
-
-	text.insert(END, "Website addresses cleaned: ")
-	text.insert(END, websiteaddressremoved)
-	text.insert(END, "\n")
-	text.insert(END, "Punctuation marks removed: ")
-	text.insert(END, punctuationremoved)
-	text.insert(END, "\n")
-	text.insert(END, "Digits removed: ")
-	text.insert(END, numberremoved)
-	text.insert(END, "\n")
-	text.insert(END, "Tokens removed using filterlist (see terminal for list): ")
-	text.insert(END, filterremoved)
-	text.insert(END, "\n\n")
-
-
-
-	BNC1missing=[]
-	for line in l.split(base1unsplit):
-		words = re.findall(p,line)
-		intersect = [word for word in words if word in datalist]
-		if len(intersect) is 0:
-				BNC1missing.append(words[0])
-		else:
-			infoBNC1list = infoBNC1list + intersect
-			infoBNC1familylist = infoBNC1familylist+ [words[0]]
-			
-	BNC2missing=[]
-	for line in l.split(base2unsplit):
-		words = re.findall(p,line)
-		intersect = [word for word in words if word in datalist]
-		if len(intersect) is 0:
-				BNC2missing.append(words[0])
-		else:
-			infoBNC2list = infoBNC2list + intersect
-			infoBNC2familylist = infoBNC2familylist+ [words[0]]
-	
-	BNC3missing=[]			
-	for line in l.split(base3unsplit):
-		words = re.findall(p,line)
-		intersect = [word for word in words if word in datalist]
-		if len(intersect) is 0:
-				BNC3missing.append(words[0])
-		else:
-			infoBNC3list = infoBNC3list + intersect
-			infoBNC3familylist = infoBNC3familylist+ [words[0]]
-	
-	ALLlists = infoBNC1list + infoBNC2list + infoBNC3list
-	ALLfamilylists = infoBNC1familylist + infoBNC2familylist + infoBNC3familylist
-
-	offcount=0
-	for token in datalist:
-		if token not in ALLlists:
-			infoofflist.append(token)
-			offcount=offcount+1
-
-	#Set up counts    
-	BNC1count=0
-	BNC2count=0
-	BNC3count=0
-	for word in datalist:
-		if word in infoBNC1list:
-			BNC1count=BNC1count+1
-		elif word in infoBNC2list:
-			BNC2count=BNC2count+1
-		elif word in infoBNC3list:
-			BNC3count=BNC3count+1
-
-	text.insert(END, "Number of word tokens: ")
-	text.insert(END, str(len(datalist)))
-	text.insert(END, "\n")
-	text.insert(END, 'Number of word types in text: ')
-	text.insert(END, str(len(set(datalist))))
-	text.insert(END, "\n")
-	text.insert(END, 'Number of recognisable word BNC1-3 families in text: ')
-	text.insert(END, str(len(set(ALLfamilylists))))
-	text.insert(END, "\n")
-	text.insert(END, 'Lexical richness: ')
-	if len(datalist) < 1:
-		text.insert(END, '\n\n ERROR: NO DATA IN INPUT BOX')
-
-	text.insert(END, str((len(datalist) / len(set(datalist)))))
-	text.insert(END, "\n\n")    
-
-	rawlength =  len(datalist)
-	rawsetlength = len(set(datalist))
-	bnc1length = BNC1count
-	bnc1setlength= len(set(infoBNC1list))
-	bnc1familylength = len(set(infoBNC1familylist))
-	bnc2length= BNC2count
-	bnc2setlength=len(set(infoBNC2list))
-	bnc2familylength = len(set(infoBNC2familylist))
-	bnc3length= BNC3count
-	bnc3setlength=len(set(infoBNC3list))
-	bnc3familylength = len(set(infoBNC3familylist))
-	offlistlength= offcount
-	offlistsetlength=len(set(infoofflist))
-	totalfamilieslength = len(set(ALLfamilylists))
-
-	text.insert(END, 'From BNC List 1 (first 1000 word families) there are  '),
-	text.insert(END, str(bnc1length))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * bnc1length / rawlength))
-	text.insert(END, '%), ')
-	text.insert(END, str(bnc1setlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * bnc1setlength / rawsetlength))
-	text.insert(END, '%) and ')
-	if totalfamilieslength > 0: 
-		text.insert(END, str(bnc1familylength))
-		text.insert(END, ' recognisable families (')
-		text.insert(END, str(100 * bnc1familylength / totalfamilieslength))
-		text.insert(END, '%)')
-		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "CLR1")
-		text.insert(END, "\n\n")
-	else: 
-		text.insert(END, ' there are no recognisable families (')
-	
-	text.insert(END, 'From BNC List 2 (second 1000 word families) there are  '),
-	text.insert(END, str(bnc2length))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * bnc2length / rawlength))
-	text.insert(END, '%),  ')
-	text.insert(END, str(bnc2setlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * bnc2setlength / rawsetlength))
-	text.insert(END, '%) and ')
-	if totalfamilieslength > 0: 
-		text.insert(END, str(bnc2familylength))
-		text.insert(END, ' recognisable families (')
-		text.insert(END, str(100 * bnc2familylength / totalfamilieslength))
-		text.insert(END, '%)')
-		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "CLR2")
-		text.insert(END, "\n\n")
-	else: 
-		text.insert(END, ' there are no recognisable families (')
-
-	text.insert(END, 'From BNC List 3 (third 1000 word families) there are  '),
-	text.insert(END, str(bnc3length))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * bnc3length / rawlength))
-	text.insert(END, '%),  ')
-	text.insert(END, str(bnc3setlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * bnc3setlength / rawsetlength))
-	text.insert(END, '%) and ')
-	if totalfamilieslength > 0: 
-		text.insert(END, str(bnc3familylength))
-		text.insert(END, ' recognisable families (')
-		text.insert(END, str(100 * bnc3familylength / totalfamilieslength))
-		text.insert(END, '%)')
-		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "CLR3")
-		text.insert(END, "\n\n")
-	else: 
-		text.insert(END, ' there are no recognisable families (')
-
-	text.insert(END, 'Tokens NOT in any BNC list account for '),
-	text.insert(END, str(offlistlength))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * offlistlength / rawlength))
-	text.insert(END, '%) and ')
-	text.insert(END, str(offlistsetlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * offlistsetlength / rawsetlength))
-	text.insert(END, '%):')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((infoofflist)))), "offlist")
-	text.insert(END, "\n\n")    
-
-
-
-
-	text.insert(END, 'From BNC List 1, the following ')
-	text.insert(END, str(len(set(BNC1missing))))
-	text.insert(END, ' families are missing.')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC1missing)))), "CLR1")
-	text.insert(END, "\n\n")    
-
-
-
-	text.insert(END, 'From BNC List 2, these ')
-	text.insert(END, str(len(set(BNC2missing))))
-	text.insert(END, ' families are missing:')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC2missing)))), "CLR2")
-	text.insert(END, "\n\n")    
-
-
-	text.insert(END, 'From BNC List 3, these ')
-	text.insert(END, str(len(set(BNC3missing))))
-	text.insert(END, ' families are missing:')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC3missing)))), "CLR3")
-	text.insert(END, "\n\n")    
-
-
-def ShowInfoBNCCOCA():
-	datalist=[]
-	infoBNC1list=[]
-	infoBNC2list=[]
-	infoBNC3list=[]
-	infoofflist=[]
-	infoBNC1familylist=[]
-	infoBNC2familylist=[]
-	infoBNC3familylist=[]
-	infoofflistfamily=[]
-	p= r"\w+(?:[-']\w+)*|'|[-.(]+|\S\w*"
-	l = re.compile("\n")
-	text.delete(1.0, END)    
-	data = resultsbox.get(1.0,END)
-
-
-	#Clean and lower text
-	httplist = re.findall(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', data)		
-	websiteaddressremoved = len(httplist)
-	data = re.sub(r'(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?', r' ', data) 
-	rawtext= re.findall(p, data)
-	punctuation=re.compile("\W")
-	number=re.compile("\d")
-	punctuationremoved=0 
-	numberremoved=0
-	filterremoved=0
-	for token in rawtext:
-			if punctuation.match(token):
-				token=""    
-				punctuationremoved=punctuationremoved+1        
-			elif number.match(token):
-				token=""
-				numberremoved=numberremoved+1    
-			elif token in filterlist:
-				print token
-				token=""
-				filterremoved = filterremoved+1
-			else:
-				datalist.append(token.lower())                
-	
-
-	text.insert(END, "Website addresses cleaned: ")
-	text.insert(END, websiteaddressremoved)
-	text.insert(END, "\n")
-	text.insert(END, "Punctuation marks removed: ")
-	text.insert(END, punctuationremoved)
-	text.insert(END, "\n")
-	text.insert(END, "Digits removed: ")
-	text.insert(END, numberremoved)
-	text.insert(END, "\n")
-	text.insert(END, "Tokens removed using filterlist (see terminal for list): ")
-	text.insert(END, filterremoved)
-	text.insert(END, "\n\n")
-
-	
-
-	BNC1missing=[]
-	for line in l.split(bnccoca1unsplit):
-		words = re.findall(p,line)
-		intersect = [word for word in words if word in datalist]
-		if len(intersect) is 0:
-				BNC1missing.append(words[0])
-		else:
-			infoBNC1list = infoBNC1list + intersect
-			infoBNC1familylist = infoBNC1familylist+ [words[0]]
-			
-	BNC2missing=[]
-	for line in l.split(bnccoca2unsplit):
-		words = re.findall(p,line)
-		intersect = [word for word in words if word in datalist]
-		if len(intersect) is 0:
-				BNC2missing.append(words[0])
-		else:
-			infoBNC2list = infoBNC2list + intersect
-			infoBNC2familylist = infoBNC2familylist+ [words[0]]
-	
-	BNC3missing=[]			
-	for line in l.split(bnccoca3unsplit):
-		words = re.findall(p,line)
-		intersect = [word for word in words if word in datalist]
-		if len(intersect) is 0:
-				BNC3missing.append(words[0])
-		else:
-			infoBNC3list = infoBNC3list + intersect
-			infoBNC3familylist = infoBNC3familylist+ [words[0]]
-
-
-	ALLlists = infoBNC1list + infoBNC2list + infoBNC3list
-	ALLfamilylists = infoBNC1familylist + infoBNC2familylist + infoBNC3familylist
-
-	offcount=0
-	for token in datalist:
-		if token not in ALLlists:
-			infoofflist.append(token)
-			offcount=offcount+1
-
-	#Set up counts    
-	BNC1count=0
-	BNC2count=0
-	BNC3count=0
-	for word in datalist:
-		if word in infoBNC1list:
-			BNC1count=BNC1count+1
-		elif word in infoBNC2list:
-			BNC2count=BNC2count+1
-		elif word in infoBNC3list:
-			BNC3count=BNC3count+1
-
-	text.insert(END, "Number of word tokens: ")
-	text.insert(END, str(len(datalist)))
-	text.insert(END, "\n")
-	text.insert(END, 'Number of word types in text: ')
-	text.insert(END, str(len(set(datalist))))
-	text.insert(END, "\n")
-	text.insert(END, 'Number of recognisable word BNCCOCA1-3 families in text: ')
-	text.insert(END, str(len(set(ALLfamilylists))))
-	text.insert(END, "\n")
-	text.insert(END, 'Lexical richness: ')
-	if len(datalist) < 1:
-		text.insert(END, '\n\n ERROR: NO DATA IN INPUT BOX')
-
-	text.insert(END, str((len(datalist) / len(set(datalist)))))
-	text.insert(END, "\n\n")    
-
-	rawlength =  len(datalist)
-	rawsetlength = len(set(datalist))
-	bnc1length = BNC1count
-	bnc1setlength= len(set(infoBNC1list))
-	bnc1familylength = len(set(infoBNC1familylist))
-	bnc2length= BNC2count
-	bnc2setlength=len(set(infoBNC2list))
-	bnc2familylength = len(set(infoBNC2familylist))
-	bnc3length= BNC3count
-	bnc3setlength=len(set(infoBNC3list))
-	bnc3familylength = len(set(infoBNC3familylist))
-	offlistlength= offcount
-	offlistsetlength=len(set(infoofflist))
-	totalfamilieslength = len(set(ALLfamilylists))
-
-	text.insert(END, 'From BNC-COCA List 1 (first 1000 word families) there are  '),
-	text.insert(END, str(bnc1length))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * bnc1length / rawlength))
-	text.insert(END, '%), ')
-	text.insert(END, str(bnc1setlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * bnc1setlength / rawsetlength))
-	text.insert(END, '%) and ')
-	if totalfamilieslength > 0: 
-		text.insert(END, str(bnc1familylength))
-		text.insert(END, ' recognisable families (')
-		text.insert(END, str(100 * bnc1familylength / totalfamilieslength))
-		text.insert(END, '%)')
-		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC1familylist)))), "CLR1")
-		text.insert(END, "\n\n")
-	else: 
-		text.insert(END, ' there are no recognisable families (')
-	
-	text.insert(END, 'From BNC-COCA List 2 (second 1000 word families) there are  '),
-	text.insert(END, str(bnc2length))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * bnc2length / rawlength))
-	text.insert(END, '%),  ')
-	text.insert(END, str(bnc2setlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * bnc2setlength / rawsetlength))
-	text.insert(END, '%) and ')
-	if totalfamilieslength > 0: 
-		text.insert(END, str(bnc2familylength))
-		text.insert(END, ' recognisable families (')
-		text.insert(END, str(100 * bnc2familylength / totalfamilieslength))
-		text.insert(END, '%)')
-		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC2familylist)))), "CLR2")
-		text.insert(END, "\n\n")
-	else: 
-		text.insert(END, ' there are no recognisable families (')
-
-	text.insert(END, 'From BNC-COCA List 3 (third 1000 word families) there are  '),
-	text.insert(END, str(bnc3length))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * bnc3length / rawlength))
-	text.insert(END, '%),  ')
-	text.insert(END, str(bnc3setlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * bnc3setlength / rawsetlength))
-	text.insert(END, '%) and ')
-	if totalfamilieslength > 0: 
-		text.insert(END, str(bnc3familylength))
-		text.insert(END, ' recognisable families (')
-		text.insert(END, str(100 * bnc3familylength / totalfamilieslength))
-		text.insert(END, '%)')
-		text.insert(END, "\n")
-		text.insert(END, string.join(sorted(set((infoBNC3familylist)))), "CLR3")
-		text.insert(END, "\n\n")
-	else: 
-		text.insert(END, ' there are no recognisable families (')
-
-	text.insert(END, 'Tokens NOT in the first three BNC-COCA lists account for '),
-	text.insert(END, str(offlistlength))
-	text.insert(END, ' tokens (')
-	text.insert(END, str(100 * offlistlength / rawlength))
-	text.insert(END, '%) and ')
-	text.insert(END, str(offlistsetlength))
-	text.insert(END, ' types (',)
-	text.insert(END, str(100 * offlistsetlength / rawsetlength))
-	text.insert(END, '%):')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((infoofflist)))), "offlist")
-	text.insert(END, "\n\n")    
-
-
-	#set up missing lists
-	text.insert(END, 'From BNC-COCA List 1, the following ')
-	text.insert(END, str(len(set(BNC1missing))))
-	text.insert(END, ' families are missing.')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC1missing)))), "CLR1")
-	text.insert(END, "\n\n")    
-
-	text.insert(END, 'From BNC-COCA List 2, these ')
-	text.insert(END, str(len(set(BNC2missing))))
-	text.insert(END, ' families are missing:')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC2missing)))), "CLR2")
-	text.insert(END, "\n\n")    
-
-	text.insert(END, 'From BNC-COCA List 3, these ')
-	text.insert(END, str(len(set(BNC3missing))))
-	text.insert(END, ' families are missing:')
-	text.insert(END, "\n")
-	text.insert(END, string.join(sorted(set((BNC3missing)))), "CLR3")
-	text.insert(END, "\n\n")    
 
 def ShowHelp():
     text.delete(1.0, END)
