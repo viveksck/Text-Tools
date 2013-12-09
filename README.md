@@ -19,15 +19,14 @@ Various tools for working with text and corpora.
 
 1) text-grader.py
 ================
-Requires Python. Collocation and readability features require NLTK (http://nltk.org/)
+Requires Python.
 
 For text, pasted in or opened from a txt file, the script will 
 * give basic information on the vocab in the text 
 * highlight the vocabulary by colour using its frequency (British National Corpus lists; General Service List, Academic Word List)
 * list the words which are from each list, and which are MISSING from each list
 
-The initial aim was to allow easy editing of a text to make it graded - to remove low frequency words, or to deliberately suggest words of a
-certain level for inclusion. Existing programs either did not work on mac, or crashed, or analysed the text without allowing editing. 
+The initial aim was to allow easy editing of a text to make it graded - to remove low frequency words, or to deliberately suggest words of a certain level for inclusion. Existing programs either did not work on mac, or crashed, or analysed the text without allowing editing. 
 
 ISSUES
 * Slow on long texts
@@ -93,11 +92,12 @@ Google recently released new data, alphabetised and with POS. Work ongoing on an
 Simple alternative to Zotero, Mendeley, and other reference management software: If you have article PDFs and note TXT files with same name, program will traverse folders and find all hashtags in TXT files (e.g. #memory or #socialpsych), creating an html file tagcloud and index with links to the notes/PDFs. Checks every file one time for every tag, so best to break up projects once they get above 30 tags or so. Will break on unusual characters - use related tools in "Single Use" folder to clean filenames. Tools also available for producing TXT note files from PDF filenames, or TXT notes from a TXT file of references. 
 
 5) collocationreadability.py
-The old collocation and reability toosl from textGrader, moved out because they require NLTK and were making it hard to package the app for distribution. 
+===================
+The old collocation and reability toosl from TextGrader, moved out because they require NLTK and were making it hard to package the app for distribution. 
 
 6) Single use tools
 ===================
-Just some scraps I've needed in the past to pre= and post- process data.
+Just some scraps I've needed in the past to pre- and post- process data.
 * Filenamecleaner.py - cleans a folder of files from bad characters in their filenames (e.g. for Dropbox syncing, TextFileHashtTagger links)
 * NGRAM_linecountskipblankstabdelimited.py - counts the lines in file, without counting blank lines. 
 * NGRAM_topXcountY.py - ngramstripper has a built in lower bound on the frequency of words. If this is not used, the file is often to big to do it later by hand. Use this instead
