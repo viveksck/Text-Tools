@@ -126,10 +126,11 @@ for tag in sorted(tagdictionary.keys()):
 					cloudstring.append("<a href="+"\"file://")
 					cloudstring.append(""+file+"")
 					cloudstring.append("\">"+refline+"</a>")
-					cloudstring.append(" <a href="+"\"file://")
-					cloudstring.append(""+pdfpath+"")
-					cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
-					cloudstring.append("</p>\n")		
+					if not tag = "#book":
+						cloudstring.append(" <a href="+"\"file://")
+						cloudstring.append(""+pdfpath+"")
+						cloudstring.append("\"> <strong><font color=\"FF00CC\">FILE</font></strong></a>")
+						cloudstring.append("</p>\n")		
 					
 cloudstring.append(r"</body</html>")
 
